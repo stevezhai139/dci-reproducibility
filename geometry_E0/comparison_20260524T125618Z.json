@@ -1,0 +1,69 @@
+{
+  "analysis_timestamp_utc": "2026-05-24T12:56:18Z",
+  "run_dir": "out/20260524T124846Z",
+  "ref_dir": "out/20260522T145920Z",
+  "seed_deterministic_tolerance": 1e-09,
+  "raw_per_seed": {
+    "cells_in_run": 450,
+    "cells_in_ref": 450,
+    "cells_compared": 450,
+    "max_abs_diff": 0.0,
+    "worst_cell": null,
+    "numeric_mismatches_over_tol": 0,
+    "best_1d_dim_mismatches": 0,
+    "ok": true
+  },
+  "summary_means": {
+    "cells_compared": 9,
+    "max_abs_diff": 0.0,
+    "worst_cell": null,
+    "mismatches_over_tol": 0,
+    "ok": true
+  },
+  "run_json_headline": {
+    "seed_deterministic": {
+      "selector_accuracy_of_5D_gain_retained": {
+        "run": 0.974622892635314,
+        "ref": 0.974622892635314,
+        "abs_diff": 0.0,
+        "ok": true
+      },
+      "selector_frac_routed_to_1D": {
+        "run": 0.6311111111111111,
+        "ref": 0.6311111111111111,
+        "abs_diff": 0.0,
+        "ok": true
+      },
+      "always_1D_mean_auc": {
+        "run": 0.9101216931216931,
+        "ref": 0.9101216931216931,
+        "abs_diff": 0.0,
+        "ok": true
+      },
+      "always_5D_mean_auc": {
+        "run": 0.9697513227513228,
+        "ref": 0.9697513227513228,
+        "abs_diff": 0.0,
+        "ok": true
+      },
+      "DCI_selector_mean_auc": {
+        "run": 0.9682380952380952,
+        "ref": 0.9682380952380952,
+        "abs_diff": 0.0,
+        "ok": true
+      }
+    },
+    "machine_dependent_info_only": {
+      "cost_ratio_5d_over_1d": {
+        "run": 264.875075028923,
+        "ref": 269.6762448996912
+      },
+      "selector_cost_paid_vs_5D": {
+        "run": 0.37127197644387816,
+        "ref": 0.371229879714696
+      }
+    },
+    "ok": true
+  },
+  "verdict": "REPRODUCED"
+}

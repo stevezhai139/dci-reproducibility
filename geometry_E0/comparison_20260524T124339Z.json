@@ -1,0 +1,82 @@
+{
+  "analysis_timestamp_utc": "2026-05-24T12:43:39Z",
+  "run_dir": "/tmp/smoke_t2/20260524T124322Z",
+  "ref_dir": "out/20260522T145920Z",
+  "seed_deterministic_tolerance": 1e-09,
+  "raw_per_seed": {
+    "cells_in_run": 27,
+    "cells_in_ref": 450,
+    "cells_compared": 27,
+    "max_abs_diff": 6.661338147750939e-16,
+    "worst_cell": [
+      [
+        "job",
+        "volume_only",
+        "1"
+      ],
+      "dci"
+    ],
+    "numeric_mismatches_over_tol": 0,
+    "best_1d_dim_mismatches": 0,
+    "ok": false
+  },
+  "summary_means": {
+    "cells_compared": 9,
+    "max_abs_diff": 0.10453377107975359,
+    "worst_cell": [
+      [
+        "pgbench",
+        "mixed"
+      ],
+      "dci_mean"
+    ],
+    "mismatches_over_tol": 32,
+    "ok": false
+  },
+  "run_json_headline": {
+    "seed_deterministic": {
+      "selector_accuracy_of_5D_gain_retained": {
+        "run": 0.8808777429467085,
+        "ref": 0.974622892635314,
+        "abs_diff": 0.09374514968860548,
+        "ok": false
+      },
+      "selector_frac_routed_to_1D": {
+        "run": 0.6666666666666666,
+        "ref": 0.6311111111111111,
+        "abs_diff": 0.03555555555555556,
+        "ok": false
+      },
+      "always_1D_mean_auc": {
+        "run": 0.9102292768959436,
+        "ref": 0.9101216931216931,
+        "abs_diff": 0.00010758377425046373,
+        "ok": false
+      },
+      "always_5D_mean_auc": {
+        "run": 0.9664902998236331,
+        "ref": 0.9697513227513228,
+        "abs_diff": 0.003261022927689705,
+        "ok": false
+      },
+      "DCI_selector_mean_auc": {
+        "run": 0.9597883597883597,
+        "ref": 0.9682380952380952,
+        "abs_diff": 0.008449735449735485,
+        "ok": false
+      }
+    },
+    "machine_dependent_info_only": {
+      "cost_ratio_5d_over_1d": {
+        "run": 279.4749419005138,
+        "ref": 269.6762448996912
+      },
+      "selector_cost_paid_vs_5D": {
+        "run": 0.33573462501756385,
+        "ref": 0.371229879714696
+      }
+    },
+    "ok": false
+  },
+  "verdict": "DIVERGENCE"
+}

@@ -1,0 +1,21 @@
+# Paper 3D — Python dependencies for the signal-layer experiments
+# (cost_benefit.py, drift_harness.py, kernel_validation.py,
+#  dci_validation.py, compare_to_3c.py, and the vendored HSM kernel).
+#
+# The HSM kernel's S_P axis REQUIRES fastdtw + pywavelets — without them
+# the DWT/SAX/FastDTW path is absent and the 5-D cost is mis-measured
+# (Paper 3C methodology, threats to validity §12.3). Do not omit them.
+#
+# Reproducibility protocol: after `pip install -r requirements.txt`,
+# pin the exact resolved versions with
+#     pip freeze > environment-lock.txt
+# and commit environment-lock.txt. That file, together with the Python
+# version (`python3 --version`), is the official environment record for
+# the run and goes in the GitHub release.
+
+numpy
+scipy
+pandas
+matplotlib
+fastdtw
+pywavelets

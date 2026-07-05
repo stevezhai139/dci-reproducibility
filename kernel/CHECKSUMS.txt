@@ -1,0 +1,33 @@
+# Paper 3B-Cal vendored kernel — integrity checksums
+# Source snapshot:  v5.0.0-tkde-submission (Paper 3A TKDE submission, 2026-04-20)
+# Vendored on:      2026-04-23
+# Vendored by:      Arun Reungsilpkolkarn (ORCID 0009-0009-2077-0006)
+#
+# Format: <SHA256>  <filename>  <source_note>
+#
+# To verify no local drift against the v5.0.0 source state, run:
+#
+#     cd code/experiments/cal/vendored
+#     sha256sum hsm_v2_kernel.py workload_generator.py
+#
+# Both hashes MUST match the "EXPECTED" rows below. The hsm_similarity.py
+# hash differs from v5.0.0 source by exactly 1 line (the relative-import
+# rewrite documented in that file); its sha256 is tracked separately as
+# "hsm_similarity_vendored_sha256" for drift detection of the VENDORED
+# copy against its initial vendor state.
+
+# --- Byte-identical to v5.0.0-tkde-submission source ---
+e01a9d0ecf9af166348db2d46c102561bff3f6dee986cc23ee634a5a9ee949e9  hsm_v2_kernel.py          (same as v5.0.0:code/experiments/hsm_v2_kernel.py)
+7a9e558408a119d4560c5446171f95b67680619f97b5e637111bdd8685295a1b  workload_generator.py     (same as v5.0.0:code/experiments/workload_generator.py)
+
+# --- Modified by vendoring (relative-import rewrite only) ---
+# Original v5.0.0:code/experiments/hsm_similarity.py:
+131e695514d52ee9c9f959593fefcb816b885e8ae18564b866e33de18a9b8e4a  hsm_similarity.py.v5_0_0_source
+# Vendored copy (relative import applied):
+204891dc734e4a3602112f1b23ec71540c28a750d24a73a89cc61f2cf1947601  hsm_similarity.py
+
+# --- Integrity check expected (EXPECTED) ---
+# Running sha256sum on vendored/hsm_similarity.py MUST produce:
+#   204891dc734e4a3602112f1b23ec71540c28a750d24a73a89cc61f2cf1947601
+# If this differs, someone has edited the vendored copy beyond the
+# sanctioned 1-line import rewrite. Investigate before commit.

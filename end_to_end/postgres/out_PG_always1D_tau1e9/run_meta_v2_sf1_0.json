@@ -1,0 +1,123 @@
+{
+  "engine": "postgres",
+  "workload": "tpch",
+  "sf": 1.0,
+  "has_sf_axis": true,
+  "dbname": "tpch_sf1",
+  "git_sha": "unknown",
+  "started_at": "2026-07-02T20:35:56",
+  "ended_at": "2026-07-02T21:07:02",
+  "n_blocks": 10,
+  "n_blocks_target": 10,
+  "base_seed": 7100,
+  "block_seeds": [
+    7200,
+    7300,
+    7400,
+    7500,
+    7600,
+    7700,
+    7800,
+    7900,
+    8000,
+    8100
+  ],
+  "strategies": [
+    "dci_gated"
+  ],
+  "use_poisson": true,
+  "constants": {
+    "N_WINDOWS": 24,
+    "WIN_PER_PH": 6,
+    "QUERIES_PW": 20,
+    "THETA": 0.75,
+    "K_PERIODIC": 3,
+    "W0": {
+      "R": 0.25,
+      "V": 0.2,
+      "T": 0.2,
+      "A": 0.2,
+      "P": 0.15
+    },
+    "LAMBDA_MAP": {
+      "Reporting": 50.0,
+      "JoinHeavy": 30.0,
+      "Aggregation": 40.0,
+      "MultiJoin": 25.0
+    },
+    "DCI_TAU": 1000000000.0,
+    "DCI_ALPHA": 0.05,
+    "DCI_N_CAL": 64
+  },
+  "phases": [
+    {
+      "name": "Reporting",
+      "qs": [
+        "Q1",
+        "Q6",
+        "Q14"
+      ],
+      "w": [
+        4,
+        3,
+        3
+      ]
+    },
+    {
+      "name": "JoinHeavy",
+      "qs": [
+        "Q3",
+        "Q5",
+        "Q7",
+        "Q10"
+      ],
+      "w": [
+        3,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "Aggregation",
+      "qs": [
+        "Q1",
+        "Q4",
+        "Q11",
+        "Q12"
+      ],
+      "w": [
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "MultiJoin",
+      "qs": [
+        "Q5",
+        "Q7",
+        "Q17",
+        "Q18"
+      ],
+      "w": [
+        2,
+        3,
+        3,
+        2
+      ]
+    }
+  ],
+  "advisor_index": "ix_advisor_bench",
+  "advisor_ddl_create": "CREATE INDEX ix_advisor_bench ON lineitem(l_shipdate, l_discount)",
+  "file_shas": {
+    "pg_adaptation.py": "ad4b54750a66c046",
+    "pg_workloads.py": "f974095c25d65f93",
+    "tpch_queries.py": "f9bd7d6b27a85efe"
+  },
+  "command_line": "postgres/pg_adaptation.py --workload tpch --blocks 10 --sf 1.0",
+  "audit_fixes_applied": [
+    "BUG #4 (5-D breakdown persisted; was scalar-only pre 2026-04-09)"
+  ]
+}
