@@ -13,3 +13,4 @@ __pycache__/
 # (optional) exclude large pre-computed run outputs — uncomment if desired
 # */out/
 data/job/queries/.*
+data/job/queries/.*
