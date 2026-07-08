@@ -1,5 +1,9 @@
 # Paper 3C — reproducibility (the DCI-routed drift gate)
 
+**The paper:** [`paper.pdf`](paper.pdf) — *The Drift Complexity Index: Matching Detector
+Resolution to Workload Drift* (submitted to EDBT 2027). `REPRODUCE.md` maps every
+number, figure, and table in it to its script and official run.
+
 The **Drift Complexity Index (DCI)** and the DCI-routed selector: a cheap always-on drift detector
 that runs the 1-D matched filter when DCI is low and the 5-D Mahalanobis detector when it is high,
 gating an index advisor. This repository reproduces the **detection-layer** results of the paper —
