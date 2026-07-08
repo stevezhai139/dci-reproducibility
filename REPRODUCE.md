@@ -45,7 +45,8 @@ their absolute latencies are machine-specific.
 | §6.8 live, ordinary schedule (Table 5) | `end_to_end/postgres/pg_adaptation.py`, `end_to_end/mongo/mongo_adaptation.py` | `end_to_end/postgres/out_PG_{gated_tau1p5,always1D_tau1e9}/`, `end_to_end/mongo/out/MG_*/` |
 | §6.8 escalation fractions (S2) | `escalation_replay.py` | prints PG 0.1458/0.0682, MG 0.2083/0.1364 (deterministic replay of the logged runs) |
 | §6.8 firing-level sweep (offline) | `dci_resolution_e2e.py --seeds 50` | `dci_resolution_e2e_results.csv` (mixed recall 0.694/0.931/0.904; gated at 45.3% of multi-D cost) |
-| §8 whitened-DCI probe | `whitened_dci.py . 50` | `whitened_dci_results_v2.csv`, `whitened_dci_summary_v2.json` (raw = Table 2 exactly; DCI$_w$ ≤ DCI on all 9 cells) |
+| Whitened refinement §(whitened): DCI$_w$ probe | `whitened_dci.py . 50` | `whitened_dci_results_v2.csv`, `whitened_dci_summary_v2.json` (raw = Table 2 exactly; DCI$_w$ ≤ DCI on all 9 cells) |
+| Whitened refinement §(whitened): full sufficiency | `s1_whitened_sufficiency.py . 50` | `s1_whitened_sufficiency.csv`, `s1_whitened_sufficiency_summary.json` (whitened matched filter sufficient in all 9 cells under the map's δ rule; ridge-stable on $[10^{-8},10^{-6}]$) |
 | §6.8 live mixed drift (Table 6) | `part2_preflight.sh` → `RUN_PART2.sh` → `part2_analyze.py` (schedule pre-check: `part2_validate_offline.py`) | `end_to_end/postgres/out_PART2_PG_mixed_{tau0,tau1p5,tau1e9}/`, `end_to_end/mongo/out/PART2_MG_mixed_*/`, `part2_summary.csv` |
 
 Expected headline numbers for each artifact are embedded as `% Provenance`
