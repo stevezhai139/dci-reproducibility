@@ -39,6 +39,7 @@ their absolute latencies are machine-specific.
 | Fig. 1, Table 2 (regime map), Fig. 2 (cost–accuracy), per-cell tolerance, E0 detector costs | `geometry_E0/cost_benefit.py` (+ `delong.py`, `seed_analysis.py`) | `geometry_E0/out/20260705T135856Z/` (`cost_benefit_run.json`: 1-D 0.0087 ms, multi-D 2.3486 ms per window) |
 | Table 4 (ablation: PR vs alternatives) | `geometry_E0/ablation_complexity.py` | `geometry_E0/out/ablation/` |
 | Fig. 3 (τ robustness) | `eval_expansion/plot_tau.py`, `analyze_tau_bootstrap.py` | `eval_expansion/tau_sweep.csv`, `eval_expansion_results.json` |
+| §4 $O(D^2)$-vs-$O(D^3)$ scaling | `d_scaling_bench.py` | `d_scaling_bench.csv` (closed form = spectrum to $10^{-13}$; $3.5\times$ at $D{=}5$ → $105\times$ at $D{=}500$) |
 | Fig. 4 (principled frontier) | `eval_expansion/blind_spot_probe.py` → `plot_blindspot.py` | `fig_wellfounded.pdf` |
 | Table 3 (kernel-free representations) | `feature_agnostic/sweep_agnostic.py`, `sweep_alt.py` | `feature_agnostic/out/` per-cell CSVs (see its README) |
 | SkyServer trace (§6.2) | `feature_agnostic/sdss_adapter.py` → `sdss_routing_cost.py` | `feature_agnostic/out/20260705T135649Z/sdss_dci.csv` (100 blocks, 10 below τ, mean 1.850, selector 2.115 ms = 90.0%) |
