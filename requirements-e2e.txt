@@ -1,0 +1,7 @@
+# Paper 3C — end_to_end live runners (S5 Part 2; PG + MongoDB harnesses).
+# The offline pipeline needs only requirements.txt; these two are the extra
+# database drivers for end_to_end/postgres/pg_adaptation.py and
+# end_to_end/mongo/mongo_adaptation.py. Unpinned by convention — the run's
+# environment-lock records the exact resolved versions (REPRODUCE.md §1).
+psycopg2-binary
+pymongo

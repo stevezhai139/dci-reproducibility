@@ -173,3 +173,51 @@ WORKLOAD_CONFIGS: dict[str, dict] = {
         "warmup_qids":   ["1a", "6a", "13a"],
     },
 }
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  Paper 3C — S5 Part 2 (added 2026-07-07): "tpch_mixed" schedule variant
+# ══════════════════════════════════════════════════════════════════════
+# Live MIXED-drift schedule for the detector-resolution sweep
+# (PART2_BUILD_SPEC.md). The legacy TPC-H schedule moves ONLY template
+# structure between DISJOINT query sets, so every block is a single-cause
+# cell (and the onset deviation is so template-dominant that the block DCI
+# stays ~1.2). This variant reproduces the OFFLINE mixed cells of §6.2
+# (cost_benefit.build_trajectory) live:
+#
+#   • 6 phases × 4 windows (win_per_ph=4, N_WINDOWS still 24), onsets at
+#     windows 5, 9, 13, 17, 21 alternating template / volume / template /
+#     volume / template — the §6.2 rotation.
+#   • TEMPLATE moves are HALF-SWAPS (keep 3 of 5 active templates, swap 2),
+#     matching build_trajectory's n_swap = k//2 — NOT full phase swaps.
+#   • VOLUME moves toggle queries-per-window 20 ↔ 32 (the exact offline
+#     VOLUME_LEVELS pair of §6.2; S_V dip 0.375) with
+#     the template mix HELD, a pure S_V move.
+#
+# Offline pre-validation (part2_validate_offline.py) confirms this layout
+# puts the pooled onset DCI in the §6.2 mixed band and drives the gated
+# rolling DCI above τ=1.5 in-block. `qpw` = per-phase queries-per-window
+# override; `win_per_ph` = per-workload override of WIN_PER_PH (legacy
+# configs untouched: both default in the harness).
+WORKLOAD_CONFIGS["tpch_mixed"] = {
+    **WORKLOAD_CONFIGS["tpch"],
+    # Part 2 is defined on the SF=1 instance only (parity with the
+    # 2026-07-02 live tau runs); other SFs are intentionally unmapped.
+    "sf_db_map": {1.0: "tpch_sf1"},
+    "win_per_ph": 4,
+    "phases": [
+        # k=5 active templates; half-swap chain (swapped-in marked ←)
+        {"name": "MixBase",   "qs": ["Q1", "Q6", "Q14", "Q3", "Q12"],  "w": [3, 2, 2, 2, 1], "qpw": 20},
+        {"name": "MixShift1", "qs": ["Q1", "Q6", "Q3", "Q5", "Q10"],   "w": [3, 2, 2, 2, 1], "qpw": 20},  # ← Q5,Q10 (drop Q14,Q12)  TEMPLATE
+        {"name": "MixSurge1", "qs": ["Q1", "Q6", "Q3", "Q5", "Q10"],   "w": [3, 2, 2, 2, 1], "qpw": 32},  # same mix, 20→32           VOLUME
+        {"name": "MixShift2", "qs": ["Q3", "Q5", "Q10", "Q17", "Q18"], "w": [3, 2, 2, 2, 1], "qpw": 32},  # ← Q17,Q18 (drop Q1,Q6)    TEMPLATE
+        {"name": "MixCalm",   "qs": ["Q3", "Q5", "Q10", "Q17", "Q18"], "w": [3, 2, 2, 2, 1], "qpw": 20},  # same mix, 32→20           VOLUME
+        {"name": "MixShift3", "qs": ["Q10", "Q17", "Q18", "Q4", "Q7"], "w": [3, 2, 2, 2, 1], "qpw": 20},  # ← Q4,Q7 (drop Q3,Q5)      TEMPLATE
+    ],
+    # λ HELD CONSTANT across every boundary: the volume move is a
+    # query-COUNT move (S_V axis), not an arrival-rate move — the
+    # arrival-drift config was dropped for the honest reason recorded
+    # in §6.1 (S_P does not respond when templates are held).
+    "lambda_map": {"MixBase": 40.0, "MixShift1": 40.0, "MixSurge1": 40.0,
+                   "MixShift2": 40.0, "MixCalm": 40.0, "MixShift3": 40.0},
+}

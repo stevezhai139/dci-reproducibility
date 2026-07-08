@@ -1,0 +1,19 @@
+{
+  "analysis_timestamp_utc": "2026-07-05T13:56:59Z",
+  "run_id": "20260705T135649Z",
+  "script": "sdss_adapter.py",
+  "csv": "/Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/data/sdss/SkyLog_Workload.csv",
+  "window": 20,
+  "block": 50,
+  "max_rows": null,
+  "n_queries": 99969,
+  "n_malformed_dropped": 0,
+  "n_windows": 4998,
+  "n_feature_vectors": 4997,
+  "n_dci_blocks": 100,
+  "dci_mean": 1.8500237119767398,
+  "dci_sd": 0.2527848886690914,
+  "dci_min": 1.219108133399154,
+  "dci_max": 2.4053120430213,
+  "wall_seconds": 10.252
+}

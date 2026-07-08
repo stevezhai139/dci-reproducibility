@@ -87,15 +87,17 @@ def main() -> int:
     # ---- Fig 2: cost / accuracy Pareto ----------------------------------
     pol = runj["policies"]
     fig, ax = plt.subplots(figsize=(3.34, 2.35))
-    pts = [("always 1-D", pol["always_1D"], "#0072B2", (7, -2)),
-           ("always 5-D", pol["always_5D"], "#E69F00", (-10, 6)),
-           ("DCI selector", pol["DCI_selector"], "#009E73", (8, -10))]
-    for name, m, col, off in pts:
+    pts = [("always 1-D", pol["always_1D"], "#0072B2", (7, -2), "left"),
+           ("always multi-D", pol["always_5D"], "#E69F00", (-16, 12), "left"),
+           ("DCI selector", pol["DCI_selector"], "#009E73", (-10, -4), "right")]
+    for name, m, col, off, ha in pts:
         ax.scatter([m["mean_cost_ms"]], [m["mean_auc"]], s=80, color=col,
                    edgecolor="black", linewidths=0.6, zorder=3)
         ax.annotate(name, (m["mean_cost_ms"], m["mean_auc"]),
-                    textcoords="offset points", xytext=off, fontsize=6.5)
+                    textcoords="offset points", xytext=off, fontsize=6.5, ha=ha)
     ax.set_xscale("log")
+    ax.set_xlim(right=15)  # extend to ~10^1 so right frame clears the label
+    ax.margins(y=0.30)  # headroom so top labels clear the frame
     ax.set_xlabel("monitoring cost per window (ms, log scale)")
     ax.set_ylabel("mean detection AUC")
     fig.tight_layout(pad=0.25)

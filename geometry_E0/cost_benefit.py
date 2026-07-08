@@ -439,8 +439,7 @@ def main() -> int:
     print(f"[run ] id={run_id}  seeds={args.seeds}")
 
     job_dir = (Path(args.job_dir).expanduser().resolve() if args.job_dir
-               else (_HERE.parent.parent / "Paper 3B" / "HSM_gated_3B"
-                     / "code" / "data" / "job" / "queries"))
+               else (_HERE.parent / "data" / "job" / "queries"))  # vendored in-repo (self-contained)
     pools = {}
     try:
         pools["tpch"] = tpch_pool()

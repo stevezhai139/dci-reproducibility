@@ -67,6 +67,7 @@ import argparse
 import csv
 import hashlib
 import json
+import math
 import os
 import random
 import sys
@@ -152,6 +153,14 @@ PHASE_SCHEDULE = (
 )
 assert len(PHASE_SCHEDULE) == N_WINDOWS
 
+# S5 Part 2 (2026-07-07): per-window op-count schedule for the MIXED-drift
+# variant (--schedule mixed). None = legacy behaviour (QUERIES_PW everywhere).
+# When set (tuple of len N_WINDOWS), window w (1-based) draws
+# VOLUME_SCHEDULE[w-1] ops, and a count change across consecutive windows is
+# a drift-truth onset (a pure S_V volume move; see season_schedule.
+# make_mixed_schedule).
+VOLUME_SCHEDULE: tuple | None = None
+
 SOURCE_DB = "mydb_p3a"
 SOURCE_COLL = "combined_clean"
 
@@ -185,13 +194,19 @@ def generate_block_workload(block_seed: int) -> list[list[str]]:
     (edge) by convention.
     """
     rng = random.Random(block_seed)
+
+    def _count(idx0: int) -> int:
+        """Ops for schedule index idx0 (0-based). S5 Part 2 volume axis."""
+        return (VOLUME_SCHEDULE[idx0] if VOLUME_SCHEDULE is not None
+                else QUERIES_PW)
+
     windows: list[list[str]] = []
     # window 0 = init (always edge phase; matches Postgres ph0 = PHASES[0])
-    windows.append(generate_window(PHASE_SCHEDULE[0], QUERIES_PW, rng))
+    windows.append(generate_window(PHASE_SCHEDULE[0], _count(0), rng))
     # windows 1..N_WINDOWS = measured
     for w_idx in range(1, N_WINDOWS + 1):
         ph = PHASE_SCHEDULE[w_idx - 1]
-        windows.append(generate_window(ph, QUERIES_PW, rng))
+        windows.append(generate_window(ph, _count(w_idx - 1), rng))
     return windows  # length = N_WINDOWS + 1
 
 
@@ -590,10 +605,19 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
         # the scalar-score should_invoke(). This is the identical decision
         # branch as the PostgreSQL harness pg_adaptation.py.
         invoked = False
+        gate_dci, gate_regime = "", ""   # S5 Part 2: per-window gate diagnostics
         if strategy == "dci_gated":
             fire = bool(dci_gate.decide(
                 [breakdown["S_R"], breakdown["S_V"], breakdown["S_T"],
                  breakdown["S_A"], breakdown["S_P"]]))
+            # Persist the gate routing state (dci, 1-D/5-D regime) so the
+            # Part 2 analyzer computes detector monitoring cost from the log
+            # directly instead of replaying (escalation_replay.py-style).
+            _gl = dci_gate.last
+            if _gl is not None:
+                gate_dci = ("" if math.isnan(_gl["dci"])
+                            else round(float(_gl["dci"]), 4))
+                gate_regime = _gl["regime"]
         else:
             fire = should_invoke(strategy, w_1based, hsm_score)
         if fire:
@@ -610,6 +634,9 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
             drift_truth = False
         else:
             drift_truth = (PHASE_SCHEDULE[w_1based - 1] != PHASE_SCHEDULE[w_1based - 2])
+            if VOLUME_SCHEDULE is not None:      # S5 Part 2: volume onset
+                drift_truth = drift_truth or (
+                    VOLUME_SCHEDULE[w_1based - 1] != VOLUME_SCHEDULE[w_1based - 2])
 
         breakdown_rows.append({
             "block": block_idx,
@@ -625,6 +652,8 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
             "S_P": breakdown["S_P"],
             "HSM": breakdown["HSM"],
             "invoked": int(invoked),
+            "gate_dci": gate_dci,        # S5 Part 2 (blank: non-DCI strategy / warm-up NaN)
+            "gate_regime": gate_regime,  # S5 Part 2: "1-D" | "5-D"
             "n_queries": len(qids),
             "n_ok": n_ok,
             "n_failed": len(win_fails),
@@ -796,11 +825,14 @@ def main() -> int:
                          "mongo/adaptation/<subdir>/<ts>/. Default: no subdir "
                          "(matches Paper 3A 30-Apr run layout).")
     # ── Paper 3D Addendum 21: seasonality schedule + real ESR recommender ──
-    ap.add_argument("--schedule", choices=["legacy", "irregular", "regular"],
+    ap.add_argument("--schedule", choices=["legacy", "irregular", "regular",
+                                           "mixed"],
                     default="legacy",
                     help="legacy=4x6 fixed (default, validated); irregular=long "
                          "variable seasons (headline); regular=fixed-period "
-                         "seasons (sensitivity axis). Addendum 16/21.")
+                         "seasons (sensitivity axis). Addendum 16/21. "
+                         "mixed=S5 Part 2 alternating template/volume onsets "
+                         "(24 windows; season_schedule.make_mixed_schedule).")
     ap.add_argument("--n-windows", type=int, default=None,
                     help="windows per block for irregular/regular schedules "
                          "(default 120). legacy ignores this (stays 24).")
@@ -839,6 +871,7 @@ def main() -> int:
 
     # ── Addendum 21 wiring: set advisor + (optionally) rebuild the schedule ──
     global ADVISOR_MODE, SCHEDULE_MODE, PHASE_SCHEDULE, N_WINDOWS, BASELINE_MODE
+    global VOLUME_SCHEDULE
     ADVISOR_MODE = args.advisor
     SCHEDULE_MODE = args.schedule
     BASELINE_MODE = args.baseline
@@ -847,7 +880,21 @@ def main() -> int:
             "provision text from shape); $text will error for ALL strategies.")
     if args.advisor == "esr" and _esr is None:
         log("FATAL: --advisor esr but esr_recommender import failed"); return 5
-    if args.schedule != "legacy":
+    if args.schedule == "mixed":
+        # S5 Part 2: alternating template/volume onsets (deterministic —
+        # no season seed; identical across blocks/strategies/tau configs).
+        if _season is None:
+            log("FATAL: --schedule needs season_schedule import"); return 5
+        nw = args.n_windows or 24
+        phase_per_window, count_per_window, boundary_types = \
+            _season.make_mixed_schedule(n_windows=nw, base_count=QUERIES_PW)
+        PHASE_SCHEDULE = tuple(phase_per_window)
+        VOLUME_SCHEDULE = tuple(count_per_window)
+        N_WINDOWS = nw
+        log(f"  schedule      : mixed (S5 Part 2)  n_windows={nw}  "
+            f"onsets={ {k + 1: v for k, v in sorted(boundary_types.items())} } (1-based windows)")
+        log(f"  volume sched  : {VOLUME_SCHEDULE}")
+    elif args.schedule != "legacy":
         if _season is None:
             log("FATAL: --schedule needs season_schedule import"); return 5
         nw = args.n_windows or 120
@@ -895,9 +942,8 @@ def main() -> int:
                 f"win0={ws[0][:5]}… win1={ws[1][:5]}… "
                 f"len(windows)={len(ws)}")
             # Validate feature builder runs end-to-end with synthetic times
-            fake_ms = [10.0] * QUERIES_PW
-            f0 = make_window_features(ws[0], fake_ms)
-            f1 = make_window_features(ws[1], fake_ms)
+            f0 = make_window_features(ws[0], [10.0] * len(ws[0]))
+            f1 = make_window_features(ws[1], [10.0] * len(ws[1]))
             sim = compute_window_hsm(f0, f1)
             bd = compute_window_hsm_breakdown(f0, f1)
             log(f"    sim(w0,w1)={sim:.4f}  breakdown={bd}")
@@ -993,6 +1039,10 @@ def main() -> int:
                 "DCI_N_CAL": DCI_N_CAL,
             },
             "phase_schedule": PHASE_SCHEDULE,
+            "schedule_mode": SCHEDULE_MODE,            # S5 Part 2 provenance
+            "volume_schedule": VOLUME_SCHEDULE,        # None unless --schedule mixed
+            "advisor_mode": ADVISOR_MODE,
+            "baseline_mode": BASELINE_MODE,
             "source": f"{SOURCE_DB}.{SOURCE_COLL}",
             "started_at": started_at,
             "ended_at": ended_at,

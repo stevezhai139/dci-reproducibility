@@ -1,4 +1,4 @@
-# Paper 3D — Python dependencies for the signal-layer experiments
+# Paper 3C — Python dependencies for the signal-layer experiments
 # (cost_benefit.py, drift_harness.py, kernel_validation.py,
 #  dci_validation.py, compare_to_3c.py, and the vendored HSM kernel).
 #

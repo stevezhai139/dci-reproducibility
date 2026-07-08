@@ -1,16 +1,7 @@
-# local config — never commit real credentials
-config.local.sh
-
-# editing backups
-*.bak
-*.bak_*
-
-# python / OS cruft
+.venv/
 __pycache__/
 *.pyc
 .DS_Store
-
-# (optional) exclude large pre-computed run outputs — uncomment if desired
-# */out/
-data/job/queries/.*
-data/job/queries/.*
+*.bak_*
+config.local.sh
+comment.cut

@@ -91,7 +91,7 @@ sys.path.insert(0, os.path.join(_HERE, '..', '..', 'kernel'))   # canonical HSM 
 # remaining args (--sf, --blocks, --no-poisson) still flow through to
 # main()'s parser later.  Default = 'tpch' (the original Paper 3A workload).
 _pre_parser = argparse.ArgumentParser(add_help=False)
-_pre_parser.add_argument('--workload', choices=['tpch', 'job'], default='tpch')
+_pre_parser.add_argument('--workload', choices=['tpch', 'job', 'tpch_mixed'], default='tpch')
 _pre_args, _ = _pre_parser.parse_known_args()
 WORKLOAD = _pre_args.workload
 
@@ -133,7 +133,7 @@ HAS_SF_AXIS    = _WC['has_sf_axis']
 # Workload-independent constants.
 N_BLOCKS   = 10                    # RCB blocks
 N_WINDOWS  = 24                    # 4 phases × 6 windows per phase
-WIN_PER_PH = 6
+WIN_PER_PH = _WC.get('win_per_ph', 6)   # S5 Part 2: workload override (tpch_mixed: 4)
 QUERIES_PW = 20                    # queries per window
 THETA      = 0.75                  # HSM gating threshold (placeholder; T3.6 calibrates)
 K_PERIODIC = 3                     # periodic interval
@@ -423,7 +423,8 @@ def calibrate_dci_gate(dbname: str, n_cal: int = DCI_N_CAL,
     wts0 = np.array(ph0['w'], dtype=float); wts0 /= wts0.sum()
 
     def _steady_window() -> dict:
-        qn = list(np.random.choice(ph0['qs'], size=QUERIES_PW,
+        qn = list(np.random.choice(ph0['qs'],
+                                   size=ph0.get('qpw', QUERIES_PW),  # S5 Part 2: per-phase volume
                                    p=wts0, replace=True))
         ex = []
         for q in qn:
@@ -481,7 +482,8 @@ def run_block(dbname: str, strategy: str, block_num: int,
     # ── Window 0: initialisation (shared across all strategies) ──
     ph0 = PHASES[0]
     wts0 = np.array(ph0['w'], dtype=float); wts0 /= wts0.sum()
-    qnames_init = list(np.random.choice(ph0['qs'], size=QUERIES_PW, p=wts0, replace=True))
+    qnames_init = list(np.random.choice(ph0['qs'], size=ph0.get('qpw', QUERIES_PW),
+                                        p=wts0, replace=True))  # S5 Part 2: per-phase volume
     workload_fp.update(('|'.join(qnames_init) + '\n').encode())
     init_times = []
     for qname in qnames_init:
@@ -542,7 +544,8 @@ def run_block(dbname: str, strategy: str, block_num: int,
         ph = PHASES[ph_idx]
         wts = np.array(ph['w'], dtype=float)
         wts /= wts.sum()
-        qnames_arr = list(np.random.choice(ph['qs'], size=QUERIES_PW, p=wts, replace=True))
+        qnames_arr = list(np.random.choice(ph['qs'], size=ph.get('qpw', QUERIES_PW),
+                                           p=wts, replace=True))  # S5 Part 2: per-phase volume
         workload_fp.update(('|'.join(qnames_arr) + '\n').encode())
 
         # Phase-specific Poisson rate
@@ -587,10 +590,18 @@ def run_block(dbname: str, strategy: str, block_num: int,
         # vector, not the scalar score; every other strategy uses the
         # scalar-score should_invoke().
         invoked = False
+        gate_dci, gate_regime = '', ''   # S5 Part 2: per-window gate diagnostics
         if strategy == 'dci_gated':
             fire = bool(dci_gate.decide(
                 [breakdown['S_R'], breakdown['S_V'], breakdown['S_T'],
                  breakdown['S_A'], breakdown['S_P']]))
+            # Persist the gate's routing state (dci, 1-D/5-D regime) so the
+            # Part 2 analyzer can compute detector monitoring cost directly
+            # from the log instead of replaying (escalation_replay.py-style).
+            _gl = dci_gate.last
+            if _gl is not None:
+                gate_dci = ('' if math.isnan(_gl['dci']) else round(float(_gl['dci']), 4))
+                gate_regime = _gl['regime']
         else:
             fire = should_invoke(strategy, win, hsm_score)
         if fire:
@@ -626,6 +637,8 @@ def run_block(dbname: str, strategy: str, block_num: int,
             'S_P':                round(float(breakdown['S_P']), 6),
             'HSM':                round(float(breakdown['HSM']), 6),
             'invoked':            int(invoked),
+            'gate_dci':           gate_dci,      # S5 Part 2 (blank for non-DCI strategies / warm-up NaN)
+            'gate_regime':        gate_regime,   # S5 Part 2: '1-D' | '5-D'
             'n_queries':          len(qnames_arr),
             'n_ok':               win_n_ok,
             'exec_ms_window_sum': round(sum(exec_times), 3),
@@ -789,7 +802,8 @@ def write_run_meta(out_path: Path, sf: float, dbname: str,
             "DCI_ALPHA":   DCI_ALPHA,
             "DCI_N_CAL":   DCI_N_CAL,
         },
-        "phases":          [{"name": p['name'], "qs": p['qs'], "w": p['w']} for p in PHASES],
+        "phases":          [{"name": p['name'], "qs": p['qs'], "w": p['w'],
+                             **({"qpw": p['qpw']} if 'qpw' in p else {})} for p in PHASES],
         "advisor_index":   ADVISOR_INDEX,
         "advisor_ddl_create": ADVISOR_DDL_CR,
         "file_shas": {
@@ -812,7 +826,7 @@ def write_run_meta(out_path: Path, sf: float, dbname: str,
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--workload', choices=['tpch', 'job'], default='tpch',
+    parser.add_argument('--workload', choices=['tpch', 'job', 'tpch_mixed'], default='tpch',
                         help='Workload selector (tpch | job) — also pre-parsed '
                              'at module load to configure QUERIES/PHASES/ADVISOR')
     parser.add_argument('--sf', nargs='+', type=float,
