@@ -148,19 +148,22 @@ class DCIGateV3:
             return list(AXES)
         return list(CHEAP_AXES)
 
-    def decide(self, feature_vec) -> int:
+    def decide(self, feature_vec, fetch_sp=None) -> int:
+        """feature_vec may carry NaN at S_P on cheap windows; if the router
+        escalates, fetch_sp() is called (lazily, inside the timed path) to
+        extract it. Replay harnesses passing full vectors are unchanged."""
         if not self._fitted:
             raise RuntimeError("decide() before fit()")
         f = np.asarray(feature_vec, dtype=float).reshape(-1)
         if f.shape[0] != N_AXES:
             raise ValueError(f"need {N_AXES} entries")
         self._t += 1
-        d = f - self.mu0
-        dc = d[CHEAP_IDX] / self.sigma0[CHEAP_IDX]       # standardised cheap devs
+        d4 = f[CHEAP_IDX] - self.mu0[CHEAP_IDX]
+        dc = d4 / self.sigma0[CHEAP_IDX]                 # standardised cheap devs
         self._M4 += np.outer(dc, dc)
-        self._n += 1
-        dw = self._W4 @ d[CHEAP_IDX]                     # whitened cheap devs
+        dw = self._W4 @ d4                               # whitened cheap devs
         self._sw += float(dw @ dw)
+        self._n += 1
         E = np.clip(np.diag(self._M4) - self._n, 0.0, None)   # raw-axis excess
         tr_Ew = self._sw - 4.0 * self._n                      # whitened excess (any dir)
         sig_gate = self.k_sig * float(np.sqrt(8.0 * self._n))
@@ -171,6 +174,12 @@ class DCIGateV3:
         full = (has_signal and R4s < self.rho) or audit
         self._route = "full" if full else "cheap"
         if full:
+            if not np.isfinite(f[4]):
+                if fetch_sp is None:
+                    raise ValueError("full route needs S_P: pass it or provide fetch_sp")
+                f = f.copy()
+                f[4] = float(fetch_sp())
+            d = f - self.mu0
             z = self._whiten @ d
             stat, k, axis = float(z @ z), N_AXES, None
             thr = self.thr5
