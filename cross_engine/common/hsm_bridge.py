@@ -115,6 +115,27 @@ def compute_window_hsm(w_a: dict, w_b: dict) -> float:
     return float(compute_window_hsm_breakdown(w_a, w_b)["HSM"])
 
 
+def compute_window_hsm_cheap(w_a: dict, w_b: dict) -> Dict[str, float]:
+    """Four cheap similarities only (S_P excluded) — gate-v3 conditional path.
+
+    Mirrors postgres/pg_adaptation.py:compute_hsm_cheap; the per-axis calls
+    follow hsm_v2()'s own body (relational S_T path = freq vectors)."""
+    if not _AVAILABLE:
+        return {"S_R": 0.0, "S_V": 0.0, "S_T": 0.0, "S_A": 0.0}
+    return {"S_R": float(sr_v2(w_a["freq"], w_b["freq"])),
+            "S_V": float(sv_v2(w_a["n"], w_b["n"])),
+            "S_T": float(st_v2(w_a["freq"], w_b["freq"])),
+            "S_A": float(sa_v2(w_a["tables"], w_b["tables"],
+                               w_a["cols"], w_b["cols"]))}
+
+
+def compute_window_sp(w_a: dict, w_b: dict) -> float:
+    """S_P alone (the 94%-cost positional axis) — extracted lazily on escalation."""
+    if not _AVAILABLE:
+        return 0.0
+    return float(sp_v2(w_a["times"], w_b["times"], w_a["qset"], w_b["qset"]))
+
+
 # ── Self-check ────────────────────────────────────────────────────────
 
 def _self_check() -> None:

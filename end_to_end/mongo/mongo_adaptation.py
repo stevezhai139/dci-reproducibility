@@ -103,11 +103,15 @@ from hsm_bridge import (  # noqa: E402
     compute_window_hsm_breakdown,
     get_w0,
     is_available as hsm_available,
+    compute_window_hsm_cheap,
+    compute_window_sp,
 )
 # DCI gate — the engine-agnostic gate under test (Paper 3D RQ5). Built
 # once to T3.2_DCI_GATE_THEORY.md §11, unit-tested 5/5, reused by every
 # engine harness.
 from dci_gate import DCIGate  # noqa: E402  # Paper 3C: DCI-routed gate
+sys.path.insert(0, os.path.join(HERE, "..", ".."))   # dci_gate_v3.py (repo root; S6/s7 gate)
+from dci_gate_v3 import DCIGateV3  # noqa: E402  # S6/s7 gate: union cheap tier + lazy S_P
 sys.path.insert(0, HERE)                       # season_schedule.py / esr_recommender.py
 try:
     import season_schedule as _season          # Addendum 21 irregular long-season schedule
@@ -139,6 +143,14 @@ BASELINE_MODE = "full"     # "full"=text index in backbone (legacy) | "under"=ES
 DCI_TAU   = float(os.environ.get('DCI_TAU', 1.5))  # 3C: env-overridable (RawDCIGate)
 DCI_ALPHA = 0.05    # gate false-positive rate (RQ5 sweeps {0.01,0.05,0.10})
 DCI_N_CAL = 64      # steady windows in the calibration pass (m ~ 64)
+
+# ── Gate v3 (post S6/s7, decision A: measured conditional extraction) ──
+DCI_GATE_VERSION = os.environ.get('DCI_GATE', 'v1')   # 'v1' reproduces official Part 2; 'v3' = S6/s7 gate
+DCI_RHO   = float(os.environ.get('DCI_RHO', '0.35'))
+DCI_AUDIT = int(os.environ.get('DCI_AUDIT', '0')) or None
+DCI_FORCE = os.environ.get('DCI_FORCE') or None       # v3 arms: 'full' | 'cheap' | unset=gated
+if DCI_FORCE not in (None, 'full', 'cheap'):
+    raise SystemExit(f"DCI_FORCE must be full|cheap|unset, got {DCI_FORCE!r}")
 
 # ── Path P2/P3 override hooks (added 2026-05-05 for Paper 3B-Cal) ─────
 # When set via CLI, these REPLACE the defaults above for the hsm_gated
@@ -526,8 +538,14 @@ def calibrate_dci_gate(client, n_cal: int = DCI_N_CAL) -> DCIGate:
         b = compute_window_hsm_breakdown(prev, cur_f)
         feats.append([b["S_R"], b["S_V"], b["S_T"], b["S_A"], b["S_P"]])
         prev = cur_f
-    return DCIGate(tau=DCI_TAU, alpha=DCI_ALPHA).fit(
-        np.asarray(feats, dtype=float))
+    X = np.asarray(feats, dtype=float)
+    if DCI_GATE_VERSION == 'v3':
+        g = DCIGateV3(rho=DCI_RHO, alpha=DCI_ALPHA, audit_every=DCI_AUDIT,
+                      force=DCI_FORCE).fit(X)
+        print(f"    [cal] DCIGateV3 fitted: rho={DCI_RHO} force={DCI_FORCE} "
+              f"audit={DCI_AUDIT} m={X.shape[0]}")
+        return g
+    return DCIGate(tau=DCI_TAU, alpha=DCI_ALPHA).fit(X)
 
 
 def run_block(client, strategy: str, block_idx: int, block_seed: int,
@@ -595,7 +613,41 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
                                  "error_class": _cls, "count": _cnt})
 
         cur_features = make_window_features(qids, exec_ms)
-        breakdown = compute_window_hsm_breakdown(prev_features, cur_features)
+        # ── Detector path (Part 2 v3, decision A) ──
+        # v1: full 5-D breakdown every window, untimed (official Part 2).
+        # v3: MEASURED conditional path — cheap sims always; S_P lazily inside
+        # the timed section only on escalation. det_ms = live monitoring cost.
+        det_ms = ""; features_used = ""; sp_oob = ""
+        gate_R4s = ""; gate_audit = ""
+        fire_v3 = None
+        if strategy == "dci_gated" and DCI_GATE_VERSION == "v3":
+            _sp_box: dict = {}
+            def _fetch_sp():
+                v = compute_window_sp(prev_features, cur_features)
+                _sp_box["v"] = v
+                return v
+            _t0 = time.perf_counter()
+            cheap = compute_window_hsm_cheap(prev_features, cur_features)
+            fire_v3 = bool(dci_gate.decide(
+                [cheap["S_R"], cheap["S_V"], cheap["S_T"], cheap["S_A"],
+                 float("nan")], fetch_sp=_fetch_sp))
+            det_ms = round((time.perf_counter() - _t0) * 1000.0, 4)
+            _gl = dci_gate.last
+            features_used = "full" if "S_P" in _gl["features_used"] else "cheap"
+            if "v" in _sp_box:
+                sp_val = _sp_box["v"]; sp_oob = 0
+            else:
+                # OUT-OF-BAND: after the timed section, purely for log
+                # completeness (T2 pairs, analyzer, agreement). NOT in det_ms.
+                sp_val = compute_window_sp(prev_features, cur_features); sp_oob = 1
+            breakdown = dict(cheap)
+            breakdown["S_P"] = float(sp_val)
+            _w0 = get_w0()
+            breakdown["HSM"] = (_w0["R"]*breakdown["S_R"] + _w0["V"]*breakdown["S_V"]
+                                + _w0["T"]*breakdown["S_T"] + _w0["A"]*breakdown["S_A"]
+                                + _w0["P"]*breakdown["S_P"])
+        else:
+            breakdown = compute_window_hsm_breakdown(prev_features, cur_features)
         # Path P2/P3: re-weight HSM using W_OVERRIDE if --w_R/V/T/A/P set
         hsm_score = reweight_hsm(breakdown)
         hsm_scores.append(hsm_score)
@@ -607,17 +659,23 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
         invoked = False
         gate_dci, gate_regime = "", ""   # S5 Part 2: per-window gate diagnostics
         if strategy == "dci_gated":
-            fire = bool(dci_gate.decide(
-                [breakdown["S_R"], breakdown["S_V"], breakdown["S_T"],
-                 breakdown["S_A"], breakdown["S_P"]]))
-            # Persist the gate routing state (dci, 1-D/5-D regime) so the
-            # Part 2 analyzer computes detector monitoring cost from the log
-            # directly instead of replaying (escalation_replay.py-style).
-            _gl = dci_gate.last
-            if _gl is not None:
-                gate_dci = ("" if math.isnan(_gl["dci"])
-                            else round(float(_gl["dci"]), 4))
-                gate_regime = _gl["regime"]
+            if fire_v3 is not None:
+                fire = fire_v3               # v3: decided inside the timed path
+                _gl = dci_gate.last
+                gate_dci = ("" if math.isnan(_gl["dci4"])
+                            else round(float(_gl["dci4"]), 4))
+                gate_regime = _gl["regime"]  # 'cheap' | 'full'
+                gate_R4s = round(float(_gl["R4s"]), 4)
+                gate_audit = int(_gl["audit"])
+            else:
+                fire = bool(dci_gate.decide(
+                    [breakdown["S_R"], breakdown["S_V"], breakdown["S_T"],
+                     breakdown["S_A"], breakdown["S_P"]]))
+                _gl = dci_gate.last
+                if _gl is not None:
+                    gate_dci = ("" if math.isnan(_gl["dci"])
+                                else round(float(_gl["dci"]), 4))
+                    gate_regime = _gl["regime"]
         else:
             fire = should_invoke(strategy, w_1based, hsm_score)
         if fire:
@@ -654,6 +712,11 @@ def run_block(client, strategy: str, block_idx: int, block_seed: int,
             "invoked": int(invoked),
             "gate_dci": gate_dci,        # S5 Part 2 (blank: non-DCI strategy / warm-up NaN)
             "gate_regime": gate_regime,  # S5 Part 2: "1-D" | "5-D"
+            "gate_R4s": gate_R4s,          # v3 router alignment stat
+            "gate_audit": gate_audit,      # v3: forced-full audit window
+            "det_ms": det_ms,              # v3: MEASURED conditional detector-path ms
+            "features_used": features_used,  # v3: "cheap" | "full"
+            "sp_out_of_band": sp_oob,      # v3: S_P computed outside det_ms
             "n_queries": len(qids),
             "n_ok": n_ok,
             "n_failed": len(win_fails),
