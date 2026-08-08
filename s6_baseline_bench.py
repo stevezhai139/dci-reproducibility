@@ -19,6 +19,11 @@ Scoring conventions (both reported):
 Policies
   dci_v2_P{1,2,4,8}  DCIGateV2 (coordinate-axis cheap tier, probe cadence P)
   dci_v1             v1 gate (whitened matched filter; full features every window)
+  dci_v3             DCIGateV3: union-Bonferroni cheap tier always-on; escalate to
+                     full kernel while axis-share R4 < rho=0.35 (S_P extracted
+                     lazily on escalated windows -- charged via features_used)
+  dci_v3_a8          v3 + audit_every=8 (bounds exposure to S_P-only drift)
+  dci_v3_r50         v3 with rho=0.50 (router sensitivity)
   always_multiD      5-D Mahalanobis every window
   best_axis_oracle   single coordinate axis chosen POST HOC per run by AUC (upper envelope)
   union4_raw/_bonf   OR over cheap axes S_R,S_V,S_T,S_A at alpha / alpha/4 per axis
@@ -60,7 +65,7 @@ def auc_rank(scores, pos_mask):
 
 
 class Ctx:
-    def __init__(self, cal, gate_mod, v2_mod):
+    def __init__(self, cal, gate_mod, v2_mod, v3_mod=None):
         X = np.asarray(cal, float)
         self.m = m = X.shape[0]
         self.mu0 = X.mean(0)
@@ -70,7 +75,7 @@ class Ctx:
         self.W = V @ np.diag(np.clip(ev, 1e-12, None) ** -0.5) @ V.T
         self.c = {k: (m * (m - k)) / ((m + 1) * k * (m - 1)) for k in (1, 5)}
         self.thr = {k: float(fdist.ppf(1 - ALPHA, k, m - k)) / self.c[k] for k in (1, 5)}
-        self.cal, self.gate_mod, self.v2_mod = X, gate_mod, v2_mod
+        self.cal, self.gate_mod, self.v2_mod, self.v3_mod = X, gate_mod, v2_mod, v3_mod
         # mcusum h: calibrated on steady maha path
         Z = (X - self.mu0) @ self.W.T
         d5 = np.einsum("ij,ij->i", Z, Z)
@@ -94,7 +99,19 @@ def replay(policy, ctx, fv, pax, seed):
     n = len(fv); fires = np.zeros(n, int); scores = np.full(n, np.nan); feat = 0.0
     note = ""
     t0 = time.perf_counter()
-    if policy.startswith("dci_v"):
+    if policy.startswith("dci_v3"):
+        kw = {}
+        if policy == "dci_v3_a8":
+            kw["audit_every"] = 8
+            kw["audit_offset"] = int(np.random.default_rng([seed, 8]).integers(0, 8))
+        if policy == "dci_v3_r50":
+            kw["rho"] = 0.50
+        g = ctx.v3_mod.DCIGateV3(alpha=ALPHA, **kw).fit(ctx.cal)
+        for t in range(n):
+            fires[t] = g.decide(fv[t])
+            feat += sum(pax[a] for a in g.last["features_used"])  # lazy S_P model
+            scores[t] = ctx.score(float(g.last["statistic"]), int(g.last["k"]))
+    elif policy.startswith("dci_v"):
         if policy.startswith("dci_v2"):
             g = ctx.v2_mod.DCIGateV2(tau=1.5, alpha=ALPHA,
                                      probe_every=int(policy.split("P")[1])).fit(ctx.cal)
@@ -200,6 +217,7 @@ def main() -> int:
     cb = load(R / "geometry_E0" / "cost_benefit.py", "cost_benefit")
     gate_mod = load(R / "end_to_end" / "dci_gate.py", "dci_gate_v1x")
     v2_mod = load(R / "dci_gate_v2.py", "dci_gate_v2x")
+    v3_mod = load(R / "dci_gate_v3.py", "dci_gate_v3x")
     ov = json.load(open(R / "geometry_E0" / "out" / "20260705T135856Z" / "cost_benefit_run.json"))
     pax = {k: v * 1e3 for k, v in ov["overhead"]["per_dimension_overhead_s"].items()}
     full_ms = sum(pax.values())
@@ -210,7 +228,8 @@ def main() -> int:
         pools[wl] = (cb.tpch_pool() if wl == "tpch" else
                      cb.job_pool(R / "data" / "job" / "queries") if wl == "job" else
                      cb.pgbench_pool())
-    POL = ["dci_v2_P1", "dci_v2_P2", "dci_v2_P4", "dci_v2_P8", "dci_v1", "always_multiD",
+    POL = ["dci_v3", "dci_v3_a8", "dci_v3_r50",
+           "dci_v2_P1", "dci_v2_P2", "dci_v2_P4", "dci_v2_P8", "dci_v1", "always_multiD",
            "best_axis_oracle", "union4_raw", "union4_bonf", "every_k2", "every_k3",
            "every_k4", "adwin", "adwin_s", "mcusum", "sketch1"]
     rows = []
@@ -221,7 +240,7 @@ def main() -> int:
             w, didx = cb.build_trajectory(pool, "template_only", seed)
             f_, _ = cb.kernel_adjacent(w)
             feats.extend(list(f_[:max(0, min(didx) - 1)])); s += 1
-        ctx = Ctx(np.asarray(feats[:64]), gate_mod, v2_mod)
+        ctx = Ctx(np.asarray(feats[:64]), gate_mod, v2_mod, v3_mod)
         for cfg in args.configs.split(","):
             for sd in range(args.seeds):
                 seed = cb.stable_seed(wl, cfg, sd)
