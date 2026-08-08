@@ -209,7 +209,10 @@ def main() -> int:
                                           "auc": (round(float(auc), 4) if np.isfinite(auc) else None),
                                           "esc_pct": round(float(ep), 1),
                                           "feat_pct": round(float(fp), 2), "n": len(rs)}
-    json.dump({"alpha": ALPHA, "geometries": {k: list(v) for k, v in GEOMS.items()},
+    json.dump({"alpha": ALPHA,
+               "geometries": {k: {"u": [round(float(x), 6) for x in u],
+                                  "equicorr_r": float(r)}
+                              for k, (u, r) in GEOMS.items()},
                "deltas": DELTAS, "cells": summ},
               open(R / "s7_diffuse_summary.json", "w"), indent=1)
     print(f"[out] {out}")
