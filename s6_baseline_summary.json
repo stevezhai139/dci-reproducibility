@@ -117,6 +117,42 @@
    "feat_pct": 21.68,
    "n_runs": 150
   },
+  "mixed/dci_v3": {
+   "recall": 0.9322,
+   "recall_lag3": 0.9344,
+   "T": "389/450",
+   "V": "450/450",
+   "fa": 7.14,
+   "fa_lag3": 2.96,
+   "auc": 0.8733,
+   "delay": 0.0,
+   "feat_pct": 6.38,
+   "n_runs": 150
+  },
+  "mixed/dci_v3_a8": {
+   "recall": 0.9322,
+   "recall_lag3": 0.9344,
+   "T": "389/450",
+   "V": "450/450",
+   "fa": 7.15,
+   "fa_lag3": 2.96,
+   "auc": 0.882,
+   "delay": 0.0,
+   "feat_pct": 18.08,
+   "n_runs": 150
+  },
+  "mixed/dci_v3_r50": {
+   "recall": 0.9322,
+   "recall_lag3": 0.9344,
+   "T": "389/450",
+   "V": "450/450",
+   "fa": 7.14,
+   "fa_lag3": 2.96,
+   "auc": 0.8732,
+   "delay": 0.0,
+   "feat_pct": 27.23,
+   "n_runs": 150
+  },
   "mixed/every_k2": {
    "recall": 0.4633,
    "recall_lag3": 0.6056,
@@ -309,6 +345,42 @@
    "feat_pct": 21.09,
    "n_runs": 150
   },
+  "template_only/dci_v3": {
+   "recall": 0.8844,
+   "recall_lag3": 0.8867,
+   "T": "796/900",
+   "V": "0/0",
+   "fa": 1.52,
+   "fa_lag3": 0.77,
+   "auc": 0.9418,
+   "delay": 0.0,
+   "feat_pct": 5.01,
+   "n_runs": 150
+  },
+  "template_only/dci_v3_a8": {
+   "recall": 0.8844,
+   "recall_lag3": 0.8867,
+   "T": "796/900",
+   "V": "0/0",
+   "fa": 1.49,
+   "fa_lag3": 0.77,
+   "auc": 0.9418,
+   "delay": 0.0,
+   "feat_pct": 16.83,
+   "n_runs": 150
+  },
+  "template_only/dci_v3_r50": {
+   "recall": 0.8844,
+   "recall_lag3": 0.8867,
+   "T": "796/900",
+   "V": "0/0",
+   "fa": 1.53,
+   "fa_lag3": 0.77,
+   "auc": 0.9415,
+   "delay": 0.0,
+   "feat_pct": 17.09,
+   "n_runs": 150
+  },
   "template_only/every_k2": {
    "recall": 0.4456,
    "recall_lag3": 0.48,
@@ -499,6 +571,42 @@
    "auc": 0.4644,
    "delay": 0.73,
    "feat_pct": 22.02,
+   "n_runs": 150
+  },
+  "volume_only/dci_v3": {
+   "recall": 1.0,
+   "recall_lag3": 1.0,
+   "T": "0/0",
+   "V": "900/900",
+   "fa": 7.68,
+   "fa_lag3": 3.18,
+   "auc": 0.8628,
+   "delay": 0.0,
+   "feat_pct": 4.96,
+   "n_runs": 150
+  },
+  "volume_only/dci_v3_a8": {
+   "recall": 1.0,
+   "recall_lag3": 1.0,
+   "T": "0/0",
+   "V": "900/900",
+   "fa": 7.66,
+   "fa_lag3": 3.15,
+   "auc": 0.8742,
+   "delay": 0.0,
+   "feat_pct": 16.78,
+   "n_runs": 150
+  },
+  "volume_only/dci_v3_r50": {
+   "recall": 1.0,
+   "recall_lag3": 1.0,
+   "T": "0/0",
+   "V": "900/900",
+   "fa": 7.68,
+   "fa_lag3": 3.18,
+   "auc": 0.8654,
+   "delay": 0.0,
+   "feat_pct": 5.28,
    "n_runs": 150
   },
   "volume_only/every_k2": {
