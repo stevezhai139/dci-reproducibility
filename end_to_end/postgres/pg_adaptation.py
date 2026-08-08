@@ -150,6 +150,9 @@ DCI_N_CAL = 64      # steady windows in the calibration pass (m ~ 64)
 DCI_GATE_VERSION = os.environ.get('DCI_GATE', 'v1')   # 'v1' reproduces official Part 2; 'v3' = S6/s7 gate
 DCI_RHO   = float(os.environ.get('DCI_RHO', '0.35'))  # v3 arms: 0.0 always-cheap | 0.35 gated | 2.0 always-full
 DCI_AUDIT = int(os.environ.get('DCI_AUDIT', '0')) or None  # v3 audit cadence (0 = off)
+DCI_FORCE = os.environ.get('DCI_FORCE') or None       # v3 arms: 'full' | 'cheap' | unset=gated
+if DCI_FORCE not in (None, 'full', 'cheap'):
+    raise SystemExit(f"DCI_FORCE must be full|cheap|unset, got {DCI_FORCE!r}")
 
 RESULTS_DIR = Path(__file__).parent / 'out'
 RESULTS_DIR.mkdir(exist_ok=True)
@@ -474,8 +477,9 @@ def calibrate_dci_gate(dbname: str, n_cal: int = DCI_N_CAL,
     cur.close(); conn.close()
     X = np.asarray(feats, dtype=float)
     if DCI_GATE_VERSION == 'v3':
-        g = DCIGateV3(rho=DCI_RHO, alpha=DCI_ALPHA, audit_every=DCI_AUDIT).fit(X)
-        print(f"    [cal] DCIGateV3 fitted: rho={DCI_RHO} audit={DCI_AUDIT} m={X.shape[0]}")
+        g = DCIGateV3(rho=DCI_RHO, alpha=DCI_ALPHA, audit_every=DCI_AUDIT,
+                      force=DCI_FORCE).fit(X)
+        print(f"    [cal] DCIGateV3 fitted: rho={DCI_RHO} force={DCI_FORCE} audit={DCI_AUDIT} m={X.shape[0]}")
         return g
     return DCIGate(tau=DCI_TAU, alpha=DCI_ALPHA).fit(X)
 

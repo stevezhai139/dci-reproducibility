@@ -83,11 +83,14 @@ def _pr_closed_form(M: np.ndarray, n: int) -> float:
 class DCIGateV3:
     def __init__(self, rho: float = RHO_DEFAULT, alpha: float = 0.05,
                  min_windows: int = 3, audit_every: int | None = None,
-                 audit_offset: int = 0, k_sig: float = 3.0, ridge: float = RIDGE):
+                 audit_offset: int = 0, k_sig: float = 3.0,
+                 force: str | None = None, ridge: float = RIDGE):
         if not 0.0 < alpha < 1.0:
             raise ValueError("alpha in (0,1)")
         if not 0.0 < rho <= 1.0:
             raise ValueError("rho in (0,1]")
+        if force not in (None, 'full', 'cheap'):
+            raise ValueError("force in {None,'full','cheap'}")
         if audit_every is not None and audit_every < 2:
             raise ValueError("audit_every >= 2 or None")
         self.rho = float(rho)
@@ -96,6 +99,7 @@ class DCIGateV3:
         self.audit_every = audit_every
         self.audit_offset = int(audit_offset)
         self.k_sig = float(k_sig)
+        self.force = force   # benchmark arms: pin the route (router still logged)
         self.ridge = float(ridge)
         self._fitted = False
         self.last: dict | None = None
@@ -144,6 +148,8 @@ class DCIGateV3:
             return list(AXES)
         nxt = self._t + 1
         audit = self.audit_every is not None and ((nxt - self.audit_offset) % self.audit_every == 0)
+        if self.force is not None:
+            return list(AXES) if self.force == 'full' else list(CHEAP_AXES)
         if self._route == "full" or audit:
             return list(AXES)
         return list(CHEAP_AXES)
@@ -172,6 +178,8 @@ class DCIGateV3:
         dci4 = _pr_closed_form(self._M4, self._n)
         audit = self.audit_every is not None and ((self._t - self.audit_offset) % self.audit_every == 0)
         full = (has_signal and R4s < self.rho) or audit
+        if self.force is not None:
+            full = (self.force == 'full')   # arm pin: router stats above still logged
         self._route = "full" if full else "cheap"
         if full:
             if not np.isfinite(f[4]):
@@ -204,6 +212,7 @@ class DCIGateV3:
     def config(self) -> dict:
         c = {"rho": self.rho, "alpha": self.alpha, "k_sig": self.k_sig,
              "audit_offset": self.audit_offset,
+             "force": self.force,
              "min_windows": self.min_windows,
              "audit_every": self.audit_every, "ridge": self.ridge, "version": 3}
         if self._fitted:
