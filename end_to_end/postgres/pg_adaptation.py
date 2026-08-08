@@ -84,6 +84,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))     # code/end_to_end/postgre
 sys.path.insert(0, _HERE)                              # tpch_queries.py, job_queries.py, pg_workloads.py
 sys.path.insert(0, os.path.join(_HERE, '..'))          # dci_gate.py  (code/end_to_end/)
 sys.path.insert(0, os.path.join(_HERE, '..', '..', 'kernel'))   # canonical HSM kernel
+sys.path.insert(0, os.path.join(_HERE, '..', '..'))     # dci_gate_v3.py (repo root; S6/s7 gate)
 
 # ── Workload selector (T3.4b — multi-workload support) ────────────────
 # Pre-parse --workload so the rest of the module can load the right
@@ -145,6 +146,11 @@ DCI_TAU   = float(os.environ.get('DCI_TAU', 1.5))  # 3C: env-overridable (RawDCI
 DCI_ALPHA = 0.05    # gate false-positive rate (RQ5 sweeps {0.01,0.05,0.10})
 DCI_N_CAL = 64      # steady windows in the calibration pass (m ~ 64)
 
+# ── Gate v3 (post S6/s7, decision A: measured conditional extraction) ──
+DCI_GATE_VERSION = os.environ.get('DCI_GATE', 'v1')   # 'v1' reproduces official Part 2; 'v3' = S6/s7 gate
+DCI_RHO   = float(os.environ.get('DCI_RHO', '0.35'))  # v3 arms: 0.0 always-cheap | 0.35 gated | 2.0 always-full
+DCI_AUDIT = int(os.environ.get('DCI_AUDIT', '0')) or None  # v3 audit cadence (0 = off)
+
 RESULTS_DIR = Path(__file__).parent / 'out'
 RESULTS_DIR.mkdir(exist_ok=True)
 
@@ -159,6 +165,7 @@ from hsm_v2_kernel import hsm_v2, sr_v2, st_v2, sv_v2, sa_v2, sp_v2, W0
 
 # DCI gate -- the engine-agnostic gate under test (Paper 3D RQ5).
 from dci_gate import DCIGate  # Paper 3C: DCI-routed gate (routes on the raw participation ratio)
+from dci_gate_v3 import DCIGateV3  # S6/s7 gate: union-Bonferroni cheap tier + lazy S_P escalation
 
 
 def ts() -> str:
@@ -292,6 +299,24 @@ def compute_hsm_breakdown(w_a: dict, w_b: dict) -> dict:
 def compute_hsm(w_a: dict, w_b: dict) -> float:
     """Compute HSM scalar between two window feature dicts (back-compat shim)."""
     return compute_hsm_breakdown(w_a, w_b)['HSM']
+
+
+def compute_hsm_cheap(w_a: dict, w_b: dict) -> dict:
+    """Four cheap similarities only (S_P excluded) — gate-v3 conditional path.
+
+    Per-axis entry points come straight from the canonical kernel; the
+    mapping mirrors hsm_v2()'s own body (S_T relational path = freq vectors).
+    """
+    return {'S_R': float(sr_v2(w_a['freq'], w_b['freq'])),
+            'S_V': float(sv_v2(w_a['n'], w_b['n'])),
+            'S_T': float(st_v2(w_a['freq'], w_b['freq'])),
+            'S_A': float(sa_v2(w_a['tables'], w_b['tables'],
+                               w_a['cols'], w_b['cols']))}
+
+
+def compute_sp(w_a: dict, w_b: dict) -> float:
+    """S_P alone (the 94%-cost positional axis) — extracted lazily on escalation."""
+    return float(sp_v2(w_a['times'], w_b['times'], w_a['qset'], w_b['qset']))
 
 
 # ══════════════════════════════════════════════════════════════
@@ -447,8 +472,12 @@ def calibrate_dci_gate(dbname: str, n_cal: int = DCI_N_CAL,
         feats.append([b['S_R'], b['S_V'], b['S_T'], b['S_A'], b['S_P']])
         prev = cur_f
     cur.close(); conn.close()
-    return DCIGate(tau=DCI_TAU, alpha=DCI_ALPHA).fit(
-        np.asarray(feats, dtype=float))
+    X = np.asarray(feats, dtype=float)
+    if DCI_GATE_VERSION == 'v3':
+        g = DCIGateV3(rho=DCI_RHO, alpha=DCI_ALPHA, audit_every=DCI_AUDIT).fit(X)
+        print(f"    [cal] DCIGateV3 fitted: rho={DCI_RHO} audit={DCI_AUDIT} m={X.shape[0]}")
+        return g
+    return DCIGate(tau=DCI_TAU, alpha=DCI_ALPHA).fit(X)
 
 
 def run_block(dbname: str, strategy: str, block_num: int,
@@ -580,8 +609,48 @@ def run_block(dbname: str, strategy: str, block_num: int,
         # Build window features
         cur_features = make_window_features(qnames_arr, exec_times)
 
-        # Compute full 5-D HSM breakdown (BUG #4 fix — was scalar-only before)
-        breakdown = compute_hsm_breakdown(prev_features, cur_features)
+        # ── Detector path ──
+        # v1 (official Part 2): full 5-D breakdown every window, untimed.
+        # v3 (S6/s7, decision A): MEASURED conditional path — cheap sims
+        # always; S_P extracted lazily inside the timed section only when the
+        # router escalates. det_ms is the paper's live monitoring cost.
+        det_ms = ''; features_used = ''; sp_oob = ''
+        gate_R4s = ''; gate_audit = ''
+        gate_dci, gate_regime = '', ''
+        fire_v3 = None
+        if strategy == 'dci_gated' and DCI_GATE_VERSION == 'v3':
+            _sp_box: dict = {}
+            def _fetch_sp():
+                v = compute_sp(prev_features, cur_features)
+                _sp_box['v'] = v
+                return v
+            _t0 = time.perf_counter()
+            cheap = compute_hsm_cheap(prev_features, cur_features)
+            fire_v3 = bool(dci_gate.decide(
+                [cheap['S_R'], cheap['S_V'], cheap['S_T'], cheap['S_A'],
+                 float('nan')], fetch_sp=_fetch_sp))
+            det_ms = round((time.perf_counter() - _t0) * 1000.0, 4)
+            _gl = dci_gate.last
+            features_used = 'full' if 'S_P' in _gl['features_used'] else 'cheap'
+            if 'v' in _sp_box:
+                sp_val = _sp_box['v']; sp_oob = 0
+            else:
+                # OUT-OF-BAND: extracted after the timed section, purely so the
+                # log keeps the full 5-D row (T2 witness pairs, analyzer,
+                # agreement vs the always-full arm). NOT part of det_ms.
+                sp_val = compute_sp(prev_features, cur_features); sp_oob = 1
+            breakdown = dict(cheap)
+            breakdown['S_P'] = float(sp_val)
+            breakdown['HSM'] = (W0['R']*breakdown['S_R'] + W0['V']*breakdown['S_V']
+                                + W0['T']*breakdown['S_T'] + W0['A']*breakdown['S_A']
+                                + W0['P']*breakdown['S_P'])
+            gate_dci = ('' if math.isnan(_gl['dci4']) else round(float(_gl['dci4']), 4))
+            gate_regime = _gl['regime']              # 'cheap' | 'full'
+            gate_R4s = round(float(_gl['R4s']), 4)
+            gate_audit = int(_gl['audit'])
+        else:
+            # Compute full 5-D HSM breakdown (BUG #4 fix — was scalar-only before)
+            breakdown = compute_hsm_breakdown(prev_features, cur_features)
         hsm_score = breakdown['HSM']
         hsm_scores.append(hsm_score)
 
@@ -590,18 +659,17 @@ def run_block(dbname: str, strategy: str, block_num: int,
         # vector, not the scalar score; every other strategy uses the
         # scalar-score should_invoke().
         invoked = False
-        gate_dci, gate_regime = '', ''   # S5 Part 2: per-window gate diagnostics
         if strategy == 'dci_gated':
-            fire = bool(dci_gate.decide(
-                [breakdown['S_R'], breakdown['S_V'], breakdown['S_T'],
-                 breakdown['S_A'], breakdown['S_P']]))
-            # Persist the gate's routing state (dci, 1-D/5-D regime) so the
-            # Part 2 analyzer can compute detector monitoring cost directly
-            # from the log instead of replaying (escalation_replay.py-style).
-            _gl = dci_gate.last
-            if _gl is not None:
-                gate_dci = ('' if math.isnan(_gl['dci']) else round(float(_gl['dci']), 4))
-                gate_regime = _gl['regime']
+            if fire_v3 is not None:
+                fire = fire_v3                       # v3: decided inside the timed path
+            else:
+                fire = bool(dci_gate.decide(
+                    [breakdown['S_R'], breakdown['S_V'], breakdown['S_T'],
+                     breakdown['S_A'], breakdown['S_P']]))
+                _gl = dci_gate.last
+                if _gl is not None:
+                    gate_dci = ('' if math.isnan(_gl['dci']) else round(float(_gl['dci']), 4))
+                    gate_regime = _gl['regime']
         else:
             fire = should_invoke(strategy, win, hsm_score)
         if fire:
@@ -639,6 +707,11 @@ def run_block(dbname: str, strategy: str, block_num: int,
             'invoked':            int(invoked),
             'gate_dci':           gate_dci,      # S5 Part 2 (blank for non-DCI strategies / warm-up NaN)
             'gate_regime':        gate_regime,   # S5 Part 2: '1-D' | '5-D'
+            'gate_R4s':           gate_R4s,      # v3 router alignment stat
+            'gate_audit':         gate_audit,    # v3: forced-full audit window
+            'det_ms':             det_ms,        # v3: MEASURED conditional detector-path ms
+            'features_used':      features_used, # v3: 'cheap' | 'full'
+            'sp_out_of_band':     sp_oob,        # v3: S_P computed outside det_ms (log completeness)
             'n_queries':          len(qnames_arr),
             'n_ok':               win_n_ok,
             'exec_ms_window_sum': round(sum(exec_times), 3),
