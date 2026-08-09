@@ -1,0 +1,175 @@
+{
+  "engine": "postgres",
+  "workload": "tpch_mixed",
+  "sf": 1.0,
+  "has_sf_axis": true,
+  "dbname": "tpch_sf1",
+  "git_sha": "21cdae4ed508c82125247ff7be12fa68c88cf584-dirty",
+  "started_at": "2026-08-09T06:41:27",
+  "ended_at": "2026-08-09T07:22:52",
+  "n_blocks": 10,
+  "n_blocks_target": 10,
+  "base_seed": 7100,
+  "block_seeds": [
+    7200,
+    7300,
+    7400,
+    7500,
+    7600,
+    7700,
+    7800,
+    7900,
+    8000,
+    8100
+  ],
+  "strategies": [
+    "dci_gated"
+  ],
+  "use_poisson": true,
+  "constants": {
+    "N_WINDOWS": 24,
+    "WIN_PER_PH": 4,
+    "QUERIES_PW": 20,
+    "THETA": 0.75,
+    "K_PERIODIC": 3,
+    "W0": {
+      "R": 0.25,
+      "V": 0.2,
+      "T": 0.2,
+      "A": 0.2,
+      "P": 0.15
+    },
+    "LAMBDA_MAP": {
+      "MixBase": 40.0,
+      "MixShift1": 40.0,
+      "MixSurge1": 40.0,
+      "MixShift2": 40.0,
+      "MixCalm": 40.0,
+      "MixShift3": 40.0
+    },
+    "DCI_TAU": 1.5,
+    "DCI_ALPHA": 0.05,
+    "DCI_N_CAL": 64
+  },
+  "phases": [
+    {
+      "name": "MixBase",
+      "qs": [
+        "Q1",
+        "Q6",
+        "Q14",
+        "Q3",
+        "Q12"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 20
+    },
+    {
+      "name": "MixShift1",
+      "qs": [
+        "Q1",
+        "Q6",
+        "Q3",
+        "Q5",
+        "Q10"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 20
+    },
+    {
+      "name": "MixSurge1",
+      "qs": [
+        "Q1",
+        "Q6",
+        "Q3",
+        "Q5",
+        "Q10"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 32
+    },
+    {
+      "name": "MixShift2",
+      "qs": [
+        "Q3",
+        "Q5",
+        "Q10",
+        "Q17",
+        "Q18"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 32
+    },
+    {
+      "name": "MixCalm",
+      "qs": [
+        "Q3",
+        "Q5",
+        "Q10",
+        "Q17",
+        "Q18"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 20
+    },
+    {
+      "name": "MixShift3",
+      "qs": [
+        "Q10",
+        "Q17",
+        "Q18",
+        "Q4",
+        "Q7"
+      ],
+      "w": [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "qpw": 20
+    }
+  ],
+  "advisor_index": "ix_advisor_bench",
+  "advisor_ddl_create": "CREATE INDEX ix_advisor_bench ON lineitem(l_shipdate, l_discount)",
+  "file_shas": {
+    "pg_adaptation.py": "a345e9de1a6fbd9b",
+    "pg_workloads.py": "cf5d1d60f68019f6",
+    "tpch_queries.py": "f9bd7d6b27a85efe"
+  },
+  "command_line": "postgres/pg_adaptation.py --workload tpch_mixed --sf 1.0 --blocks 10",
+  "audit_fixes_applied": [
+    "BUG #4 (5-D breakdown persisted; was scalar-only pre 2026-04-09)"
+  ]
+}

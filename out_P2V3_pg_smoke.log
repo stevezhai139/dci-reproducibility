@@ -1,0 +1,193 @@
+═══ Part 2 v3 live sweep — blocks=1 engines=[pg] ═══
+2026-08-08T15:36:06Z
+── PG  DCI_GATE=v3 force=[full] → postgres/out_PART2V3_PG_mixed_afull  (15:36:06Z)
+======================================================================
+  Adaptation Strategy Comparison — RCB Design (Paper A13)
+  Strategies: ['dci_gated']
+  Blocks: 1, Windows/block: 24, Queries/window: 20
+  θ = 0.75,  K = 3,  Poisson = True
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  SF = 1.0  (db: tpch_sf1)
+──────────────────────────────────────────────────────────────────────
+  ✓ Database tpch_sf1 exists (5,995,299 lineitem rows)
+  Warming up...
+  [2026-08-08T15:36:09Z] Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=full audit=None m=64
+    DCI gate fitted: m=64 tau=1.5 alpha=0.05
+
+  [2026-08-08T15:41:34Z] === Block 01/1 START - order = ['dci_gated'] ===
+    [2026-08-08T15:41:34Z] -- dci_gated   START - 24 win x 20 q expected
+    [2026-08-08T15:41:46Z] B01 dci_gated   win=01/24 q= 20/480 win_qps= 3.74 cum_qps= 3.73 adv=0 ΔT=  5.3s
+    [2026-08-08T15:41:50Z] B01 dci_gated   win=02/24 q= 40/480 win_qps= 5.39 cum_qps= 4.41 adv=0 ΔT=  3.7s
+    [2026-08-08T15:41:56Z] B01 dci_gated   win=03/24 q= 60/480 win_qps= 3.62 cum_qps= 4.11 adv=0 ΔT=  5.5s
+    [2026-08-08T15:42:00Z] B01 dci_gated   win=04/24 q= 80/480 win_qps= 4.31 cum_qps= 4.16 adv=0 ΔT=  4.6s
+    [2026-08-08T15:42:06Z] B01 dci_gated   win=05/24 q=100/480 win_qps= 3.47 cum_qps= 3.97 adv=1 ΔT=  5.8s
+    [2026-08-08T15:42:11Z] B01 dci_gated   win=06/24 q=120/480 win_qps= 4.19 cum_qps= 4.00 adv=1 ΔT=  4.8s
+    [2026-08-08T15:42:16Z] B01 dci_gated   win=07/24 q=140/480 win_qps= 4.19 cum_qps= 4.03 adv=1 ΔT=  4.8s
+    [2026-08-08T15:42:21Z] B01 dci_gated   win=08/24 q=160/480 win_qps= 4.14 cum_qps= 4.04 adv=1 ΔT=  4.8s
+    [2026-08-08T15:42:28Z] B01 dci_gated   win=09/24 q=192/480 win_qps= 4.33 cum_qps= 4.07 adv=2 ΔT=  7.4s
+    [2026-08-08T15:42:36Z] B01 dci_gated   win=10/24 q=224/480 win_qps= 3.89 cum_qps= 4.04 adv=2 ΔT=  8.2s
+    [2026-08-08T15:42:44Z] B01 dci_gated   win=11/24 q=256/480 win_qps= 3.99 cum_qps= 4.04 adv=2 ΔT=  8.0s
+    [2026-08-08T15:42:53Z] B01 dci_gated   win=12/24 q=288/480 win_qps= 3.68 cum_qps= 3.99 adv=2 ΔT=  8.7s
+    [2026-08-08T15:43:03Z] B01 dci_gated   win=13/24 q=320/480 win_qps= 3.43 cum_qps= 3.92 adv=3 ΔT=  9.3s
+    [2026-08-08T15:43:17Z] B01 dci_gated   win=14/24 q=352/480 win_qps= 2.19 cum_qps= 3.66 adv=3 ΔT= 14.6s
+    [2026-08-08T15:43:26Z] B01 dci_gated   win=15/24 q=384/480 win_qps= 3.59 cum_qps= 3.65 adv=3 ΔT=  8.9s
+    [2026-08-08T15:43:41Z] B01 dci_gated   win=16/24 q=416/480 win_qps= 2.21 cum_qps= 3.47 adv=3 ΔT= 14.5s
+    [2026-08-08T15:43:52Z] B01 dci_gated   win=17/24 q=436/480 win_qps= 1.85 cum_qps= 3.33 adv=4 ΔT= 10.8s
+    [2026-08-08T15:44:04Z] B01 dci_gated   win=18/24 q=456/480 win_qps= 1.64 cum_qps= 3.19 adv=4 ΔT= 12.2s
+    [2026-08-08T15:44:13Z] B01 dci_gated   win=19/24 q=476/480 win_qps= 2.25 cum_qps= 3.13 adv=4 ΔT=  8.9s
+    [2026-08-08T15:44:25Z] B01 dci_gated   win=20/24 q=496/480 win_qps= 1.62 cum_qps= 3.02 adv=4 ΔT= 12.3s
+    [2026-08-08T15:44:37Z] B01 dci_gated   win=21/24 q=516/480 win_qps= 1.69 cum_qps= 2.93 adv=5 ΔT= 11.9s
+    [2026-08-08T15:44:53Z] B01 dci_gated   win=22/24 q=536/480 win_qps= 1.23 cum_qps= 2.78 adv=5 ΔT= 16.2s
+    [2026-08-08T15:45:00Z] B01 dci_gated   win=23/24 q=556/480 win_qps= 3.21 cum_qps= 2.80 adv=5 ΔT=  6.2s
+    [2026-08-08T15:45:13Z] B01 dci_gated   win=24/24 q=576/480 win_qps= 1.45 cum_qps= 2.71 adv=5 ΔT= 13.8s
+    [2026-08-08T15:45:13Z] -- dci_gated   end:  wall-QPS=  2.710  advisor= 5  T_A=   876.7ms  fp=d3baceb07787d20a
+
+  ============================================================
+  SF=1.0 Summary (mean ± SD across 1 blocks):
+  ============================================================
+  Strategy             wall-QPS   Advisor     T_A(ms)
+  --------------------------------------------------
+  dci_gated         2.710±  nan     5.0       876.7
+  ✓ Per-SF block-metrics saved: adaptation_comparison_v2_sf1_0_p2v3_afull.csv
+  ✓ Per-SF breakdown saved:     breakdown_per_window_v2_sf1_0_p2v3_afull.csv  (24 rows = 1 blocks × 4 strats × 24 wins)
+  ✓ Per-SF run_meta saved:      run_meta_v2_sf1_0_p2v3_afull.json
+
+All block-metrics saved: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/adaptation_comparison_v2.csv
+All breakdowns saved:    /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/breakdown_per_window_v2.csv  (24 rows)
+
+======================================================================
+  LaTeX Table (paper Table throughput):
+======================================================================
+  1.0 & $0.00\!\pm\!0.00$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\times$ \\
+── PG afull done → postgres/out_PART2V3_PG_mixed_afull
+── PG  DCI_GATE=v3 force=[] → postgres/out_PART2V3_PG_mixed_gated  (15:45:14Z)
+======================================================================
+  Adaptation Strategy Comparison — RCB Design (Paper A13)
+  Strategies: ['dci_gated']
+  Blocks: 1, Windows/block: 24, Queries/window: 20
+  θ = 0.75,  K = 3,  Poisson = True
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  SF = 1.0  (db: tpch_sf1)
+──────────────────────────────────────────────────────────────────────
+  ✓ Database tpch_sf1 exists (5,995,299 lineitem rows)
+  Warming up...
+  [2026-08-08T15:45:16Z] Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=None audit=None m=64
+    DCI gate fitted: m=64 tau=1.5 alpha=0.05
+
+  [2026-08-08T15:51:28Z] === Block 01/1 START - order = ['dci_gated'] ===
+    [2026-08-08T15:51:28Z] -- dci_gated   START - 24 win x 20 q expected
+    [2026-08-08T15:51:41Z] B01 dci_gated   win=01/24 q= 20/480 win_qps= 3.78 cum_qps= 3.77 adv=0 ΔT=  5.3s
+    [2026-08-08T15:51:44Z] B01 dci_gated   win=02/24 q= 40/480 win_qps= 5.75 cum_qps= 4.55 adv=0 ΔT=  3.5s
+    [2026-08-08T15:51:50Z] B01 dci_gated   win=03/24 q= 60/480 win_qps= 3.65 cum_qps= 4.21 adv=0 ΔT=  5.5s
+    [2026-08-08T15:51:54Z] B01 dci_gated   win=04/24 q= 80/480 win_qps= 4.34 cum_qps= 4.24 adv=0 ΔT=  4.6s
+    [2026-08-08T15:52:00Z] B01 dci_gated   win=05/24 q=100/480 win_qps= 3.47 cum_qps= 4.03 adv=1 ΔT=  5.8s
+    [2026-08-08T15:52:05Z] B01 dci_gated   win=06/24 q=120/480 win_qps= 4.25 cum_qps= 4.06 adv=1 ΔT=  4.7s
+    [2026-08-08T15:52:10Z] B01 dci_gated   win=07/24 q=140/480 win_qps= 4.31 cum_qps= 4.10 adv=1 ΔT=  4.6s
+    [2026-08-08T15:52:14Z] B01 dci_gated   win=08/24 q=160/480 win_qps= 4.30 cum_qps= 4.12 adv=1 ΔT=  4.7s
+    [2026-08-08T15:52:21Z] B01 dci_gated   win=09/24 q=192/480 win_qps= 4.55 cum_qps= 4.17 adv=2 ΔT=  7.0s
+    [2026-08-08T15:52:29Z] B01 dci_gated   win=10/24 q=224/480 win_qps= 4.05 cum_qps= 4.15 adv=2 ΔT=  7.9s
+    [2026-08-08T15:52:37Z] B01 dci_gated   win=11/24 q=256/480 win_qps= 4.07 cum_qps= 4.14 adv=2 ΔT=  7.9s
+    [2026-08-08T15:52:46Z] B01 dci_gated   win=12/24 q=288/480 win_qps= 3.72 cum_qps= 4.09 adv=2 ΔT=  8.6s
+    [2026-08-08T15:52:55Z] B01 dci_gated   win=13/24 q=320/480 win_qps= 3.48 cum_qps= 4.01 adv=3 ΔT=  9.2s
+    [2026-08-08T15:53:10Z] B01 dci_gated   win=14/24 q=352/480 win_qps= 2.22 cum_qps= 3.73 adv=3 ΔT= 14.4s
+    [2026-08-08T15:53:18Z] B01 dci_gated   win=15/24 q=384/480 win_qps= 3.65 cum_qps= 3.73 adv=3 ΔT=  8.8s
+    [2026-08-08T15:53:33Z] B01 dci_gated   win=16/24 q=416/480 win_qps= 2.22 cum_qps= 3.54 adv=3 ΔT= 14.4s
+    [2026-08-08T15:53:43Z] B01 dci_gated   win=17/24 q=436/480 win_qps= 1.97 cum_qps= 3.41 adv=4 ΔT= 10.2s
+    [2026-08-08T15:53:55Z] B01 dci_gated   win=18/24 q=456/480 win_qps= 1.71 cum_qps= 3.27 adv=4 ΔT= 11.7s
+    [2026-08-08T15:54:03Z] B01 dci_gated   win=19/24 q=476/480 win_qps= 2.32 cum_qps= 3.21 adv=4 ΔT=  8.6s
+    [2026-08-08T15:54:15Z] B01 dci_gated   win=20/24 q=496/480 win_qps= 1.72 cum_qps= 3.11 adv=4 ΔT= 11.6s
+    [2026-08-08T15:54:27Z] B01 dci_gated   win=21/24 q=516/480 win_qps= 1.74 cum_qps= 3.01 adv=5 ΔT= 11.5s
+    [2026-08-08T15:54:42Z] B01 dci_gated   win=22/24 q=536/480 win_qps= 1.32 cum_qps= 2.87 adv=5 ΔT= 15.1s
+    [2026-08-08T15:54:47Z] B01 dci_gated   win=23/24 q=556/480 win_qps= 3.57 cum_qps= 2.89 adv=5 ΔT=  5.6s
+    [2026-08-08T15:55:01Z] B01 dci_gated   win=24/24 q=576/480 win_qps= 1.50 cum_qps= 2.80 adv=5 ΔT= 13.3s
+    [2026-08-08T15:55:01Z] -- dci_gated   end:  wall-QPS=  2.804  advisor= 5  T_A=   846.5ms  fp=d3baceb07787d20a
+
+  ============================================================
+  SF=1.0 Summary (mean ± SD across 1 blocks):
+  ============================================================
+  Strategy             wall-QPS   Advisor     T_A(ms)
+  --------------------------------------------------
+  dci_gated         2.804±  nan     5.0       846.5
+  ✓ Per-SF block-metrics saved: adaptation_comparison_v2_sf1_0_p2v3_gated.csv
+  ✓ Per-SF breakdown saved:     breakdown_per_window_v2_sf1_0_p2v3_gated.csv  (24 rows = 1 blocks × 4 strats × 24 wins)
+  ✓ Per-SF run_meta saved:      run_meta_v2_sf1_0_p2v3_gated.json
+
+All block-metrics saved: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/adaptation_comparison_v2.csv
+All breakdowns saved:    /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/breakdown_per_window_v2.csv  (24 rows)
+
+======================================================================
+  LaTeX Table (paper Table throughput):
+======================================================================
+  1.0 & $0.00\!\pm\!0.00$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\times$ \\
+── PG gated done → postgres/out_PART2V3_PG_mixed_gated
+── PG  DCI_GATE=v3 force=[cheap] → postgres/out_PART2V3_PG_mixed_acheap  (15:55:01Z)
+======================================================================
+  Adaptation Strategy Comparison — RCB Design (Paper A13)
+  Strategies: ['dci_gated']
+  Blocks: 1, Windows/block: 24, Queries/window: 20
+  θ = 0.75,  K = 3,  Poisson = True
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  SF = 1.0  (db: tpch_sf1)
+──────────────────────────────────────────────────────────────────────
+  ✓ Database tpch_sf1 exists (5,995,299 lineitem rows)
+  Warming up...
+  [2026-08-08T15:55:03Z] Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=cheap audit=None m=64
+    DCI gate fitted: m=64 tau=1.5 alpha=0.05
+
+  [2026-08-08T16:00:31Z] === Block 01/1 START - order = ['dci_gated'] ===
+    [2026-08-08T16:00:31Z] -- dci_gated   START - 24 win x 20 q expected
+    [2026-08-08T16:00:43Z] B01 dci_gated   win=01/24 q= 20/480 win_qps= 3.69 cum_qps= 3.68 adv=0 ΔT=  5.4s
+    [2026-08-08T16:00:47Z] B01 dci_gated   win=02/24 q= 40/480 win_qps= 5.70 cum_qps= 4.47 adv=0 ΔT=  3.5s
+    [2026-08-08T16:00:52Z] B01 dci_gated   win=03/24 q= 60/480 win_qps= 3.66 cum_qps= 4.16 adv=0 ΔT=  5.5s
+    [2026-08-08T16:00:57Z] B01 dci_gated   win=04/24 q= 80/480 win_qps= 4.30 cum_qps= 4.19 adv=0 ΔT=  4.7s
+    [2026-08-08T16:01:03Z] B01 dci_gated   win=05/24 q=100/480 win_qps= 3.53 cum_qps= 4.02 adv=1 ΔT=  5.7s
+    [2026-08-08T16:01:07Z] B01 dci_gated   win=06/24 q=120/480 win_qps= 4.24 cum_qps= 4.05 adv=1 ΔT=  4.7s
+    [2026-08-08T16:01:12Z] B01 dci_gated   win=07/24 q=140/480 win_qps= 4.27 cum_qps= 4.08 adv=1 ΔT=  4.7s
+    [2026-08-08T16:01:17Z] B01 dci_gated   win=08/24 q=160/480 win_qps= 4.23 cum_qps= 4.10 adv=1 ΔT=  4.7s
+    [2026-08-08T16:01:24Z] B01 dci_gated   win=09/24 q=192/480 win_qps= 4.54 cum_qps= 4.15 adv=2 ΔT=  7.1s
+    [2026-08-08T16:01:32Z] B01 dci_gated   win=10/24 q=224/480 win_qps= 4.04 cum_qps= 4.13 adv=2 ΔT=  7.9s
+    [2026-08-08T16:01:40Z] B01 dci_gated   win=11/24 q=256/480 win_qps= 4.04 cum_qps= 4.12 adv=2 ΔT=  7.9s
+    [2026-08-08T16:01:48Z] B01 dci_gated   win=12/24 q=288/480 win_qps= 3.70 cum_qps= 4.07 adv=2 ΔT=  8.6s
+    [2026-08-08T16:01:58Z] B01 dci_gated   win=13/24 q=320/480 win_qps= 3.47 cum_qps= 3.99 adv=3 ΔT=  9.2s
+    [2026-08-08T16:02:12Z] B01 dci_gated   win=14/24 q=352/480 win_qps= 2.21 cum_qps= 3.72 adv=3 ΔT= 14.5s
+    [2026-08-08T16:02:21Z] B01 dci_gated   win=15/24 q=384/480 win_qps= 3.59 cum_qps= 3.71 adv=3 ΔT=  8.9s
+    [2026-08-08T16:02:36Z] B01 dci_gated   win=16/24 q=416/480 win_qps= 2.21 cum_qps= 3.53 adv=3 ΔT= 14.5s
+    [2026-08-08T16:02:46Z] B01 dci_gated   win=17/24 q=436/480 win_qps= 1.98 cum_qps= 3.40 adv=4 ΔT= 10.1s
+    [2026-08-08T16:02:58Z] B01 dci_gated   win=18/24 q=456/480 win_qps= 1.69 cum_qps= 3.25 adv=4 ΔT= 11.8s
+    [2026-08-08T16:03:06Z] B01 dci_gated   win=19/24 q=476/480 win_qps= 2.31 cum_qps= 3.20 adv=4 ΔT=  8.7s
+    [2026-08-08T16:03:18Z] B01 dci_gated   win=20/24 q=496/480 win_qps= 1.75 cum_qps= 3.10 adv=4 ΔT= 11.4s
+    [2026-08-08T16:03:29Z] B01 dci_gated   win=21/24 q=516/480 win_qps= 1.75 cum_qps= 3.00 adv=5 ΔT= 11.4s
+    [2026-08-08T16:03:45Z] B01 dci_gated   win=22/24 q=536/480 win_qps= 1.31 cum_qps= 2.86 adv=5 ΔT= 15.3s
+    [2026-08-08T16:03:50Z] B01 dci_gated   win=23/24 q=556/480 win_qps= 3.54 cum_qps= 2.88 adv=5 ΔT=  5.6s
+    [2026-08-08T16:04:04Z] B01 dci_gated   win=24/24 q=576/480 win_qps= 1.51 cum_qps= 2.80 adv=5 ΔT= 13.2s
+    [2026-08-08T16:04:04Z] -- dci_gated   end:  wall-QPS=  2.796  advisor= 5  T_A=   743.0ms  fp=d3baceb07787d20a
+
+  ============================================================
+  SF=1.0 Summary (mean ± SD across 1 blocks):
+  ============================================================
+  Strategy             wall-QPS   Advisor     T_A(ms)
+  --------------------------------------------------
+  dci_gated         2.796±  nan     5.0       743.0
+  ✓ Per-SF block-metrics saved: adaptation_comparison_v2_sf1_0_p2v3_acheap.csv
+  ✓ Per-SF breakdown saved:     breakdown_per_window_v2_sf1_0_p2v3_acheap.csv  (24 rows = 1 blocks × 4 strats × 24 wins)
+  ✓ Per-SF run_meta saved:      run_meta_v2_sf1_0_p2v3_acheap.json
+
+All block-metrics saved: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/adaptation_comparison_v2.csv
+All breakdowns saved:    /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/postgres/out/breakdown_per_window_v2.csv  (24 rows)
+
+======================================================================
+  LaTeX Table (paper Table throughput):
+======================================================================
+  1.0 & $0.00\!\pm\!0.00$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\!\pm\!0.000$ & $0.000\times$ \\
+── PG acheap done → postgres/out_PART2V3_PG_mixed_acheap
+2026-08-08T16:04:04Z
+═══ Part 2 v3 sweep complete. Next: python3 part2_analyze.py . ═══
