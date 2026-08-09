@@ -89,3 +89,46 @@ Official run directories are exactly those named in §3; any other
 `out/<run-id>/` may be deleted for a clean checkout. Development history
 comments inside harness files reference the research program's internal
 task names; they do not affect any result.
+
+---
+
+## S6/S7 + Part 2 v3 (post external-review additions, 2026-08-09)
+
+### Gate v3 (the paper's monitoring layer)
+`dci_gate_v3.py` — union-Bonferroni cheap tier over the four cheap axes;
+two-scalar router (whitened-excess presence gate + raw-axis alignment share R
+vs rho=0.35); lazy S_P extraction on escalation; optional audit cadence.
+`force={full,cheap}` pins the route for benchmark arms.
+
+### S6 — policy bench (paper Table 3)
+```bash
+python3 s6_baseline_bench.py . --seeds 50
+```
+Requires `requirements-baselines.txt` (river==0.25.0) on top of
+requirements-e2e.txt. Outputs `s6_baseline_results.csv`,
+`s6_baseline_summary.json`. 16 policies on the nine regime-map cells; strict +
+lag-3 scoring; graded AUC; per-axis modeled feature cost.
+The paired union-vs-full sign test in Sec. 6.3 is computed from
+`s6_baseline_results.csv` (always_multiD vs union4_bonf, matched on
+workload/config/seed).
+
+### S7 — adversarial geometry (paper Table 4)
+```bash
+python3 s7_diffuse_validation.py . --seeds 50
+```
+Feature-space geometries (axis-aligned, diffuse, correlated contrast r=0.8,
+S_P-only) x delta sweep. Outputs `s7_diffuse_results.csv`,
+`s7_diffuse_summary.json`.
+
+### Part 2 v3 — live three-arm study (paper Table 5)
+```bash
+PART2_ENGINES=pg ./RUN_PART2_V3.sh     # PostgreSQL arms
+PART2_ENGINES=mg ./RUN_PART2_V3.sh     # MongoDB arms (mongod on mongodb_data)
+python3 part2v3_analyze.py .           # -> part2v3_summary.csv
+```
+Arms via DCI_FORCE {full, unset(gated), cheap}; DCI_GATE=v3. det_ms in the
+per-window CSVs is the MEASURED conditional detector path (cheap axes always;
+S_P lazily inside the timed path on escalation); S_P is additionally computed
+out-of-band (flagged sp_out_of_band) purely for log completeness.
+Official outputs: end_to_end/postgres/out_PART2V3_PG_mixed_{afull,gated,acheap}/,
+end_to_end/mongo/out/PART2V3_MG_mixed_*/ (runs 20260809_*).
