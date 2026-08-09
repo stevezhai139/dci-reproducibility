@@ -1,0 +1,160 @@
+═══ Part 2 v3 live sweep — blocks=1 engines=[mg] ═══
+2026-08-09T03:12:33Z
+── MG  DCI_GATE=v3 force=[full] → mongo/out/PART2V3_MG_mixed_afull/  (03:12:33Z)
+[2026-08-09T03:12:34Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T03:12:34Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T03:12:34Z]   advisor mode  : esr
+[2026-08-09T03:12:34Z]   baseline      : full
+[2026-08-09T03:12:34Z] mongo_adaptation.py dry_run=False blocks=1
+[2026-08-09T03:12:34Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T03:12:34Z]   strategies    : ['dci_gated']
+[2026-08-09T03:12:34Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T03:12:34Z]   QUERIES_PW    : 20
+[2026-08-09T03:12:34Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T03:12:34Z]   K_PERIODIC    : 3
+[2026-08-09T03:12:34Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T03:12:34Z]   seed_offset   : 0  (seeds preview: [9000] ...)
+[2026-08-09T03:12:34Z]   hsm_v2 avail  : True
+[2026-08-09T03:12:34Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T03:12:34Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T03:12:34Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=full audit=None m=64
+[2026-08-09T03:17:31Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T03:17:31Z] === Block 00/1 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T03:17:31Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:17:50Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=47.20 cum_qps=46.83 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:17:51Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=52.53 cum_qps=49.38 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:17:51Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.35 cum_qps=44.04 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T03:17:52Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=64.00 cum_qps=47.70 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:18:13Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.82 cum_qps= 4.39 adv=1 fail= 0 ΔT=  7.1s
+[2026-08-09T03:18:20Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.13 cum_qps= 3.96 adv=2 fail= 0 ΔT=  3.9s
+[2026-08-09T03:18:22Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.37 cum_qps= 4.32 adv=2 fail= 0 ΔT=  2.1s
+[2026-08-09T03:18:24Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.80 cum_qps= 4.67 adv=3 fail= 0 ΔT=  1.9s
+[2026-08-09T03:18:30Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.89 cum_qps= 5.24 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T03:18:33Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=13.01 cum_qps= 5.90 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T03:18:36Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.37 cum_qps= 6.59 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T03:18:39Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.21 cum_qps= 7.14 adv=4 fail= 0 ΔT=  3.2s
+[2026-08-09T03:19:11Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.24 cum_qps= 4.94 adv=5 fail= 0 ΔT= 21.4s
+[2026-08-09T03:19:12Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=34.15 cum_qps= 5.43 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T03:19:13Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=60.21 cum_qps= 5.96 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T03:19:14Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.89 cum_qps= 6.44 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T03:19:15Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.71 cum_qps= 6.62 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T03:19:16Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=39.26 cum_qps= 6.81 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:19:16Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=63.52 cum_qps= 7.02 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:19:16Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=40.61 cum_qps= 7.21 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:19:17Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=39.93 cum_qps= 7.40 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:19:17Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.66 cum_qps= 7.58 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:19:18Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=66.33 cum_qps= 7.79 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:19:18Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=66.56 cum_qps= 7.99 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:19:18Z]   -- dci_gated   end:  wall-QPS=  7.985  advisor= 7  T_A= 27931.2ms  fp=8e83543d95452873
+[2026-08-09T03:19:18Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_101234/block_metrics.csv
+[2026-08-09T03:19:18Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_101234/breakdown_per_window.csv
+[2026-08-09T03:19:18Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_101234/run_meta.json
+[2026-08-09T03:19:18Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_101234
+── MG afull done
+── MG  DCI_GATE=v3 force=[] → mongo/out/PART2V3_MG_mixed_gated/  (03:19:18Z)
+[2026-08-09T03:19:19Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T03:19:19Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T03:19:19Z]   advisor mode  : esr
+[2026-08-09T03:19:19Z]   baseline      : full
+[2026-08-09T03:19:19Z] mongo_adaptation.py dry_run=False blocks=1
+[2026-08-09T03:19:19Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T03:19:19Z]   strategies    : ['dci_gated']
+[2026-08-09T03:19:19Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T03:19:19Z]   QUERIES_PW    : 20
+[2026-08-09T03:19:19Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T03:19:19Z]   K_PERIODIC    : 3
+[2026-08-09T03:19:19Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T03:19:19Z]   seed_offset   : 0  (seeds preview: [9000] ...)
+[2026-08-09T03:19:19Z]   hsm_v2 avail  : True
+[2026-08-09T03:19:19Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T03:19:19Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T03:19:19Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=None audit=None m=64
+[2026-08-09T03:24:16Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T03:24:16Z] === Block 00/1 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T03:24:16Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:24:26Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=48.19 cum_qps=47.89 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:24:26Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=53.28 cum_qps=50.31 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:24:27Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.78 cum_qps=44.75 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:24:27Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=65.27 cum_qps=48.50 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:24:44Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.84 cum_qps= 5.20 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T03:24:52Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.30 cum_qps= 4.56 adv=2 fail= 0 ΔT=  3.8s
+[2026-08-09T03:24:54Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.81 cum_qps= 4.93 adv=2 fail= 0 ΔT=  2.0s
+[2026-08-09T03:24:55Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.77 cum_qps= 5.29 adv=3 fail= 0 ΔT=  1.9s
+[2026-08-09T03:25:01Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.93 cum_qps= 5.84 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T03:25:05Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=13.04 cum_qps= 6.51 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T03:25:07Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.39 cum_qps= 7.23 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T03:25:10Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.28 cum_qps= 7.79 adv=4 fail= 0 ΔT=  3.1s
+[2026-08-09T03:25:41Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.32 cum_qps= 5.28 adv=5 fail= 0 ΔT= 20.7s
+[2026-08-09T03:25:42Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=33.53 cum_qps= 5.80 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T03:25:43Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=59.84 cum_qps= 6.36 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T03:25:45Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.57 cum_qps= 6.86 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T03:25:45Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.62 cum_qps= 7.04 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T03:25:46Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=38.86 cum_qps= 7.25 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:25:46Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=64.00 cum_qps= 7.47 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:25:47Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=40.05 cum_qps= 7.67 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:25:47Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=39.98 cum_qps= 7.86 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:25:48Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.30 cum_qps= 8.06 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:25:48Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=66.70 cum_qps= 8.27 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:25:48Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=67.92 cum_qps= 8.48 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:25:48Z]   -- dci_gated   end:  wall-QPS=  8.485  advisor= 7  T_A= 23748.3ms  fp=8e83543d95452873
+[2026-08-09T03:25:48Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_101919/block_metrics.csv
+[2026-08-09T03:25:48Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_101919/breakdown_per_window.csv
+[2026-08-09T03:25:48Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_101919/run_meta.json
+[2026-08-09T03:25:48Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_101919
+── MG gated done
+── MG  DCI_GATE=v3 force=[cheap] → mongo/out/PART2V3_MG_mixed_acheap/  (03:25:48Z)
+[2026-08-09T03:25:49Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T03:25:49Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T03:25:49Z]   advisor mode  : esr
+[2026-08-09T03:25:49Z]   baseline      : full
+[2026-08-09T03:25:49Z] mongo_adaptation.py dry_run=False blocks=1
+[2026-08-09T03:25:49Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T03:25:49Z]   strategies    : ['dci_gated']
+[2026-08-09T03:25:49Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T03:25:49Z]   QUERIES_PW    : 20
+[2026-08-09T03:25:49Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T03:25:49Z]   K_PERIODIC    : 3
+[2026-08-09T03:25:49Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T03:25:49Z]   seed_offset   : 0  (seeds preview: [9000] ...)
+[2026-08-09T03:25:49Z]   hsm_v2 avail  : True
+[2026-08-09T03:25:49Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T03:25:49Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T03:25:49Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=cheap audit=None m=64
+[2026-08-09T03:30:48Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T03:30:48Z] === Block 00/1 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T03:30:48Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:30:57Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=47.90 cum_qps=47.63 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:30:58Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=53.44 cum_qps=50.24 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:30:58Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.88 cum_qps=44.75 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:30:59Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=64.44 cum_qps=48.40 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:31:16Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.84 cum_qps= 5.19 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T03:31:23Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.34 cum_qps= 4.55 adv=2 fail= 0 ΔT=  3.7s
+[2026-08-09T03:31:25Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.91 cum_qps= 4.94 adv=2 fail= 0 ΔT=  2.0s
+[2026-08-09T03:31:27Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.78 cum_qps= 5.29 adv=3 fail= 0 ΔT=  1.9s
+[2026-08-09T03:31:32Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.89 cum_qps= 5.84 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T03:31:36Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=13.00 cum_qps= 6.51 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T03:31:39Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.36 cum_qps= 7.22 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T03:31:42Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.34 cum_qps= 7.78 adv=4 fail= 0 ΔT=  3.1s
+[2026-08-09T03:32:13Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.32 cum_qps= 5.28 adv=5 fail= 0 ΔT= 20.7s
+[2026-08-09T03:32:14Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=34.87 cum_qps= 5.80 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T03:32:15Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=60.43 cum_qps= 6.36 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T03:32:16Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.55 cum_qps= 6.86 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T03:32:17Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.53 cum_qps= 7.05 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T03:32:17Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=38.82 cum_qps= 7.25 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:32:18Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=63.53 cum_qps= 7.47 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:32:18Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=39.64 cum_qps= 7.67 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:32:19Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=39.32 cum_qps= 7.86 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:32:19Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.64 cum_qps= 8.06 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:32:20Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=66.30 cum_qps= 8.27 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:32:20Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=66.68 cum_qps= 8.49 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:32:20Z]   -- dci_gated   end:  wall-QPS=  8.486  advisor= 7  T_A= 23772.0ms  fp=8e83543d95452873
+[2026-08-09T03:32:20Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_102549/block_metrics.csv
+[2026-08-09T03:32:20Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_102549/breakdown_per_window.csv
+[2026-08-09T03:32:20Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_102549/run_meta.json
+[2026-08-09T03:32:20Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_102549
+── MG acheap done
+2026-08-09T03:32:20Z
+═══ Part 2 v3 sweep complete. Next: python3 part2_analyze.py . ═══

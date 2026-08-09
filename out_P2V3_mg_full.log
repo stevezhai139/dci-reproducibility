@@ -1,0 +1,889 @@
+═══ Part 2 v3 live sweep — blocks=10 engines=[mg] ═══
+2026-08-09T03:33:49Z
+── MG  DCI_GATE=v3 force=[full] → mongo/out/PART2V3_MG_mixed_afull/  (03:33:49Z)
+[2026-08-09T03:33:49Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T03:33:49Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T03:33:49Z]   advisor mode  : esr
+[2026-08-09T03:33:49Z]   baseline      : full
+[2026-08-09T03:33:49Z] mongo_adaptation.py dry_run=False blocks=10
+[2026-08-09T03:33:49Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T03:33:49Z]   strategies    : ['dci_gated']
+[2026-08-09T03:33:49Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T03:33:49Z]   QUERIES_PW    : 20
+[2026-08-09T03:33:49Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T03:33:49Z]   K_PERIODIC    : 3
+[2026-08-09T03:33:49Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T03:33:49Z]   seed_offset   : 0  (seeds preview: [9000, 9100, 9200] ...)
+[2026-08-09T03:33:49Z]   hsm_v2 avail  : True
+[2026-08-09T03:33:49Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T03:33:49Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T03:33:49Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=full audit=None m=64
+[2026-08-09T03:38:50Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T03:38:50Z] === Block 00/10 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T03:38:50Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:38:59Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=48.00 cum_qps=47.75 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:39:00Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=52.69 cum_qps=49.97 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:39:00Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.96 cum_qps=44.65 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:39:01Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=64.63 cum_qps=48.33 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:39:18Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.84 cum_qps= 5.15 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T03:39:25Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.27 cum_qps= 4.52 adv=2 fail= 0 ΔT=  3.8s
+[2026-08-09T03:39:27Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.96 cum_qps= 4.90 adv=2 fail= 0 ΔT=  2.0s
+[2026-08-09T03:39:29Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.84 cum_qps= 5.26 adv=3 fail= 0 ΔT=  1.8s
+[2026-08-09T03:39:35Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.87 cum_qps= 5.81 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T03:39:38Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=13.05 cum_qps= 6.48 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T03:39:41Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.42 cum_qps= 7.20 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T03:39:44Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.28 cum_qps= 7.75 adv=4 fail= 0 ΔT=  3.1s
+[2026-08-09T03:40:15Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.32 cum_qps= 5.26 adv=5 fail= 0 ΔT= 20.7s
+[2026-08-09T03:40:16Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=34.56 cum_qps= 5.79 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T03:40:17Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=59.83 cum_qps= 6.34 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T03:40:18Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.51 cum_qps= 6.85 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T03:40:19Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.39 cum_qps= 7.03 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T03:40:20Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=39.12 cum_qps= 7.23 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:40:20Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=63.68 cum_qps= 7.45 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:40:20Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=40.53 cum_qps= 7.65 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:40:21Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=39.87 cum_qps= 7.84 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:40:21Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.47 cum_qps= 8.04 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:40:22Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=66.44 cum_qps= 8.25 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:40:22Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=67.17 cum_qps= 8.46 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:40:22Z]   -- dci_gated   end:  wall-QPS=  8.465  advisor= 7  T_A= 23934.0ms  fp=8e83543d95452873
+[2026-08-09T03:40:22Z] === Block 01/10 START - seed=9100 - strategies=['dci_gated'] ===
+[2026-08-09T03:40:22Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:40:30Z]   B01 dci_gated   win=01/24 q= 20/480 win_qps=71.99 cum_qps=71.49 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:40:31Z]   B01 dci_gated   win=02/24 q= 40/480 win_qps=53.58 cum_qps=61.07 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:40:31Z]   B01 dci_gated   win=03/24 q= 60/480 win_qps=204.62 cum_qps=79.50 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T03:40:31Z]   B01 dci_gated   win=04/24 q= 80/480 win_qps=91.77 cum_qps=82.07 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:40:52Z]   B01 dci_gated   win=05/24 q=100/480 win_qps= 2.89 cum_qps= 4.59 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T03:40:54Z]   B01 dci_gated   win=06/24 q=120/480 win_qps= 7.87 cum_qps= 4.93 adv=1 fail= 0 ΔT=  2.5s
+[2026-08-09T03:40:55Z]   B01 dci_gated   win=07/24 q=140/480 win_qps=26.65 cum_qps= 5.58 adv=2 fail= 0 ΔT=  0.8s
+[2026-08-09T03:40:57Z]   B01 dci_gated   win=08/24 q=160/480 win_qps=14.67 cum_qps= 6.05 adv=2 fail= 0 ΔT=  1.4s
+[2026-08-09T03:40:59Z]   B01 dci_gated   win=09/24 q=208/480 win_qps=18.24 cum_qps= 7.15 adv=3 fail= 0 ΔT=  2.6s
+[2026-08-09T03:41:01Z]   B01 dci_gated   win=10/24 q=256/480 win_qps=21.65 cum_qps= 8.18 adv=3 fail= 0 ΔT=  2.2s
+[2026-08-09T03:41:03Z]   B01 dci_gated   win=11/24 q=304/480 win_qps=24.61 cum_qps= 9.14 adv=3 fail= 0 ΔT=  2.0s
+[2026-08-09T03:41:06Z]   B01 dci_gated   win=12/24 q=352/480 win_qps=16.46 cum_qps= 9.73 adv=3 fail= 0 ΔT=  2.9s
+[2026-08-09T03:41:38Z]   B01 dci_gated   win=13/24 q=400/480 win_qps= 2.16 cum_qps= 5.86 adv=4 fail= 0 ΔT= 22.2s
+[2026-08-09T03:41:40Z]   B01 dci_gated   win=14/24 q=448/480 win_qps=39.52 cum_qps= 6.45 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T03:41:41Z]   B01 dci_gated   win=15/24 q=496/480 win_qps=38.95 cum_qps= 7.01 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T03:41:42Z]   B01 dci_gated   win=16/24 q=544/480 win_qps=54.24 cum_qps= 7.60 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T03:41:42Z]   B01 dci_gated   win=17/24 q=564/480 win_qps=46.47 cum_qps= 7.83 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:41:43Z]   B01 dci_gated   win=18/24 q=584/480 win_qps=33.14 cum_qps= 8.04 adv=6 fail= 0 ΔT=  0.6s
+[2026-08-09T03:41:43Z]   B01 dci_gated   win=19/24 q=604/480 win_qps=46.61 cum_qps= 8.26 adv=7 fail= 0 ΔT=  0.4s
+[2026-08-09T03:41:44Z]   B01 dci_gated   win=20/24 q=624/480 win_qps=42.43 cum_qps= 8.48 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T03:41:44Z]   B01 dci_gated   win=21/24 q=644/480 win_qps=40.77 cum_qps= 8.70 adv=8 fail= 0 ΔT=  0.5s
+[2026-08-09T03:41:45Z]   B01 dci_gated   win=22/24 q=664/480 win_qps=49.79 cum_qps= 8.92 adv=8 fail= 0 ΔT=  0.4s
+[2026-08-09T03:41:45Z]   B01 dci_gated   win=23/24 q=684/480 win_qps=37.83 cum_qps= 9.12 adv=8 fail= 0 ΔT=  0.5s
+[2026-08-09T03:41:46Z]   B01 dci_gated   win=24/24 q=704/480 win_qps=33.79 cum_qps= 9.32 adv=8 fail= 0 ΔT=  0.6s
+[2026-08-09T03:41:46Z]   -- dci_gated   end:  wall-QPS=  9.315  advisor= 8  T_A= 23734.4ms  fp=cb43e05d25034573
+[2026-08-09T03:41:46Z] === Block 02/10 START - seed=9200 - strategies=['dci_gated'] ===
+[2026-08-09T03:41:46Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:41:55Z]   B02 dci_gated   win=01/24 q= 20/480 win_qps=38.44 cum_qps=38.28 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:41:55Z]   B02 dci_gated   win=02/24 q= 40/480 win_qps=45.40 cum_qps=41.45 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:41:55Z]   B02 dci_gated   win=03/24 q= 60/480 win_qps=76.87 cum_qps=48.88 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:41:56Z]   B02 dci_gated   win=04/24 q= 80/480 win_qps=52.28 cum_qps=49.63 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:42:17Z]   B02 dci_gated   win=05/24 q=100/480 win_qps= 2.85 cum_qps= 4.46 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T03:42:21Z]   B02 dci_gated   win=06/24 q=120/480 win_qps= 5.03 cum_qps= 4.55 adv=1 fail= 0 ΔT=  4.0s
+[2026-08-09T03:42:22Z]   B02 dci_gated   win=07/24 q=140/480 win_qps=16.01 cum_qps= 5.07 adv=2 fail= 0 ΔT=  1.2s
+[2026-08-09T03:42:23Z]   B02 dci_gated   win=08/24 q=160/480 win_qps=19.64 cum_qps= 5.58 adv=2 fail= 0 ΔT=  1.0s
+[2026-08-09T03:42:25Z]   B02 dci_gated   win=09/24 q=208/480 win_qps=21.37 cum_qps= 6.73 adv=3 fail= 0 ΔT=  2.2s
+[2026-08-09T03:42:28Z]   B02 dci_gated   win=10/24 q=256/480 win_qps=20.46 cum_qps= 7.70 adv=3 fail= 0 ΔT=  2.3s
+[2026-08-09T03:42:31Z]   B02 dci_gated   win=11/24 q=304/480 win_qps=15.23 cum_qps= 8.35 adv=3 fail= 0 ΔT=  3.2s
+[2026-08-09T03:42:35Z]   B02 dci_gated   win=12/24 q=352/480 win_qps=12.46 cum_qps= 8.74 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T03:43:07Z]   B02 dci_gated   win=13/24 q=400/480 win_qps= 2.09 cum_qps= 5.47 adv=4 fail= 0 ΔT= 23.0s
+[2026-08-09T03:43:08Z]   B02 dci_gated   win=14/24 q=448/480 win_qps=46.59 cum_qps= 6.04 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T03:43:09Z]   B02 dci_gated   win=15/24 q=496/480 win_qps=54.87 cum_qps= 6.61 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T03:43:10Z]   B02 dci_gated   win=16/24 q=544/480 win_qps=51.91 cum_qps= 7.16 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T03:43:11Z]   B02 dci_gated   win=17/24 q=564/480 win_qps=27.88 cum_qps= 7.36 adv=5 fail= 0 ΔT=  0.7s
+[2026-08-09T03:43:11Z]   B02 dci_gated   win=18/24 q=584/480 win_qps=45.43 cum_qps= 7.57 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:43:12Z]   B02 dci_gated   win=19/24 q=604/480 win_qps=45.67 cum_qps= 7.79 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:43:12Z]   B02 dci_gated   win=20/24 q=624/480 win_qps=41.17 cum_qps= 8.00 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T03:43:13Z]   B02 dci_gated   win=21/24 q=644/480 win_qps=67.67 cum_qps= 8.22 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:43:13Z]   B02 dci_gated   win=22/24 q=664/480 win_qps=46.30 cum_qps= 8.43 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:43:13Z]   B02 dci_gated   win=23/24 q=684/480 win_qps=104.44 cum_qps= 8.66 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:43:14Z]   B02 dci_gated   win=24/24 q=704/480 win_qps=52.10 cum_qps= 8.87 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:43:14Z]   -- dci_gated   end:  wall-QPS=  8.871  advisor= 6  T_A= 23615.0ms  fp=61e96f9d09d3465e
+[2026-08-09T03:43:14Z] === Block 03/10 START - seed=9300 - strategies=['dci_gated'] ===
+[2026-08-09T03:43:14Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:43:22Z]   B03 dci_gated   win=01/24 q= 20/480 win_qps=46.14 cum_qps=45.91 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:43:23Z]   B03 dci_gated   win=02/24 q= 40/480 win_qps=38.15 cum_qps=41.58 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:43:23Z]   B03 dci_gated   win=03/24 q= 60/480 win_qps=60.15 cum_qps=46.26 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:43:23Z]   B03 dci_gated   win=04/24 q= 80/480 win_qps=133.10 cum_qps=55.19 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:43:43Z]   B03 dci_gated   win=05/24 q=100/480 win_qps= 3.54 cum_qps= 4.78 adv=1 fail= 0 ΔT=  5.6s
+[2026-08-09T03:43:46Z]   B03 dci_gated   win=06/24 q=120/480 win_qps= 6.19 cum_qps= 4.97 adv=1 fail= 0 ΔT=  3.2s
+[2026-08-09T03:43:47Z]   B03 dci_gated   win=07/24 q=140/480 win_qps=23.44 cum_qps= 5.60 adv=1 fail= 0 ΔT=  0.9s
+[2026-08-09T03:43:49Z]   B03 dci_gated   win=08/24 q=160/480 win_qps= 9.69 cum_qps= 5.91 adv=1 fail= 0 ΔT=  2.1s
+[2026-08-09T03:43:54Z]   B03 dci_gated   win=09/24 q=208/480 win_qps= 9.90 cum_qps= 6.51 adv=2 fail= 0 ΔT=  4.8s
+[2026-08-09T03:43:56Z]   B03 dci_gated   win=10/24 q=256/480 win_qps=20.68 cum_qps= 7.47 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T03:43:59Z]   B03 dci_gated   win=11/24 q=304/480 win_qps=20.48 cum_qps= 8.31 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T03:44:03Z]   B03 dci_gated   win=12/24 q=352/480 win_qps=12.37 cum_qps= 8.69 adv=2 fail= 0 ΔT=  3.9s
+[2026-08-09T03:44:35Z]   B03 dci_gated   win=13/24 q=400/480 win_qps= 2.15 cum_qps= 5.50 adv=3 fail= 0 ΔT= 22.4s
+[2026-08-09T03:44:36Z]   B03 dci_gated   win=14/24 q=448/480 win_qps=32.74 cum_qps= 6.04 adv=3 fail= 0 ΔT=  1.5s
+[2026-08-09T03:44:38Z]   B03 dci_gated   win=15/24 q=496/480 win_qps=35.97 cum_qps= 6.57 adv=3 fail= 0 ΔT=  1.3s
+[2026-08-09T03:44:39Z]   B03 dci_gated   win=16/24 q=544/480 win_qps=47.55 cum_qps= 7.11 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T03:44:39Z]   B03 dci_gated   win=17/24 q=564/480 win_qps=40.92 cum_qps= 7.32 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T03:44:39Z]   B03 dci_gated   win=18/24 q=584/480 win_qps=46.68 cum_qps= 7.54 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T03:44:40Z]   B03 dci_gated   win=19/24 q=604/480 win_qps=93.50 cum_qps= 7.77 adv=4 fail= 0 ΔT=  0.2s
+[2026-08-09T03:44:40Z]   B03 dci_gated   win=20/24 q=624/480 win_qps=37.51 cum_qps= 7.98 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T03:44:41Z]   B03 dci_gated   win=21/24 q=644/480 win_qps=58.07 cum_qps= 8.20 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:44:41Z]   B03 dci_gated   win=22/24 q=664/480 win_qps=58.25 cum_qps= 8.41 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:44:41Z]   B03 dci_gated   win=23/24 q=684/480 win_qps=38.03 cum_qps= 8.61 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:44:42Z]   B03 dci_gated   win=24/24 q=704/480 win_qps=45.56 cum_qps= 8.81 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:44:42Z]   -- dci_gated   end:  wall-QPS=  8.813  advisor= 6  T_A= 23699.0ms  fp=0f0cb4410459a41a
+[2026-08-09T03:44:42Z] === Block 04/10 START - seed=9400 - strategies=['dci_gated'] ===
+[2026-08-09T03:44:42Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:44:51Z]   B04 dci_gated   win=01/24 q= 20/480 win_qps=34.52 cum_qps=34.39 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T03:44:51Z]   B04 dci_gated   win=02/24 q= 40/480 win_qps=57.32 cum_qps=42.89 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:44:51Z]   B04 dci_gated   win=03/24 q= 60/480 win_qps=48.69 cum_qps=44.59 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:44:52Z]   B04 dci_gated   win=04/24 q= 80/480 win_qps=45.25 cum_qps=44.71 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:45:13Z]   B04 dci_gated   win=05/24 q=100/480 win_qps= 2.89 cum_qps= 4.38 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T03:45:16Z]   B04 dci_gated   win=06/24 q=120/480 win_qps= 5.74 cum_qps= 4.56 adv=1 fail= 0 ΔT=  3.5s
+[2026-08-09T03:45:18Z]   B04 dci_gated   win=07/24 q=140/480 win_qps=11.00 cum_qps= 4.98 adv=1 fail= 0 ΔT=  1.8s
+[2026-08-09T03:45:21Z]   B04 dci_gated   win=08/24 q=160/480 win_qps= 6.82 cum_qps= 5.15 adv=1 fail= 0 ΔT=  2.9s
+[2026-08-09T03:45:25Z]   B04 dci_gated   win=09/24 q=208/480 win_qps=13.43 cum_qps= 6.00 adv=2 fail= 0 ΔT=  3.6s
+[2026-08-09T03:45:27Z]   B04 dci_gated   win=10/24 q=256/480 win_qps=19.95 cum_qps= 6.91 adv=2 fail= 0 ΔT=  2.4s
+[2026-08-09T03:45:32Z]   B04 dci_gated   win=11/24 q=304/480 win_qps= 9.14 cum_qps= 7.19 adv=2 fail= 0 ΔT=  5.3s
+[2026-08-09T03:45:36Z]   B04 dci_gated   win=12/24 q=352/480 win_qps=15.18 cum_qps= 7.74 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T03:46:08Z]   B04 dci_gated   win=13/24 q=400/480 win_qps= 2.12 cum_qps= 5.13 adv=3 fail= 0 ΔT= 22.7s
+[2026-08-09T03:46:09Z]   B04 dci_gated   win=14/24 q=448/480 win_qps=46.36 cum_qps= 5.66 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T03:46:11Z]   B04 dci_gated   win=15/24 q=496/480 win_qps=31.95 cum_qps= 6.15 adv=4 fail= 0 ΔT=  1.5s
+[2026-08-09T03:46:12Z]   B04 dci_gated   win=16/24 q=544/480 win_qps=38.03 cum_qps= 6.65 adv=4 fail= 0 ΔT=  1.3s
+[2026-08-09T03:46:12Z]   B04 dci_gated   win=17/24 q=564/480 win_qps=39.57 cum_qps= 6.85 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T03:46:13Z]   B04 dci_gated   win=18/24 q=584/480 win_qps=28.39 cum_qps= 7.03 adv=5 fail= 0 ΔT=  0.7s
+[2026-08-09T03:46:13Z]   B04 dci_gated   win=19/24 q=604/480 win_qps=59.11 cum_qps= 7.24 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:46:14Z]   B04 dci_gated   win=20/24 q=624/480 win_qps=53.63 cum_qps= 7.45 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:46:14Z]   B04 dci_gated   win=21/24 q=644/480 win_qps=43.27 cum_qps= 7.64 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:46:15Z]   B04 dci_gated   win=22/24 q=664/480 win_qps=93.27 cum_qps= 7.86 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:46:15Z]   B04 dci_gated   win=23/24 q=684/480 win_qps=54.63 cum_qps= 8.06 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:46:15Z]   B04 dci_gated   win=24/24 q=704/480 win_qps=88.61 cum_qps= 8.28 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:46:15Z]   -- dci_gated   end:  wall-QPS=  8.276  advisor= 6  T_A= 24044.4ms  fp=6a6b7f934018b359
+[2026-08-09T03:46:15Z] === Block 05/10 START - seed=9500 - strategies=['dci_gated'] ===
+[2026-08-09T03:46:15Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:46:23Z]   B05 dci_gated   win=01/24 q= 20/480 win_qps=101.81 cum_qps=100.75 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:46:24Z]   B05 dci_gated   win=02/24 q= 40/480 win_qps=33.32 cum_qps=49.94 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T03:46:24Z]   B05 dci_gated   win=03/24 q= 60/480 win_qps=136.47 cum_qps=63.18 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T03:46:25Z]   B05 dci_gated   win=04/24 q= 80/480 win_qps=50.70 cum_qps=59.43 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:46:39Z]   B05 dci_gated   win=05/24 q=100/480 win_qps= 3.95 cum_qps= 6.19 adv=1 fail= 0 ΔT=  5.1s
+[2026-08-09T03:46:50Z]   B05 dci_gated   win=06/24 q=120/480 win_qps= 2.92 cum_qps= 4.43 adv=2 fail= 0 ΔT=  6.8s
+[2026-08-09T03:46:52Z]   B05 dci_gated   win=07/24 q=140/480 win_qps=10.31 cum_qps= 4.82 adv=2 fail= 0 ΔT=  1.9s
+[2026-08-09T03:46:56Z]   B05 dci_gated   win=08/24 q=160/480 win_qps= 4.97 cum_qps= 4.84 adv=2 fail= 0 ΔT=  4.0s
+[2026-08-09T03:47:01Z]   B05 dci_gated   win=09/24 q=208/480 win_qps=10.97 cum_qps= 5.56 adv=3 fail= 0 ΔT=  4.4s
+[2026-08-09T03:47:07Z]   B05 dci_gated   win=10/24 q=256/480 win_qps= 7.98 cum_qps= 5.89 adv=3 fail= 0 ΔT=  6.0s
+[2026-08-09T03:47:11Z]   B05 dci_gated   win=11/24 q=304/480 win_qps=11.72 cum_qps= 6.39 adv=3 fail= 0 ΔT=  4.1s
+[2026-08-09T03:47:13Z]   B05 dci_gated   win=12/24 q=352/480 win_qps=20.94 cum_qps= 7.06 adv=3 fail= 0 ΔT=  2.3s
+[2026-08-09T03:47:43Z]   B05 dci_gated   win=13/24 q=400/480 win_qps= 2.40 cum_qps= 5.02 adv=4 fail= 0 ΔT= 20.0s
+[2026-08-09T03:47:44Z]   B05 dci_gated   win=14/24 q=448/480 win_qps=34.22 cum_qps= 5.52 adv=4 fail= 0 ΔT=  1.4s
+[2026-08-09T03:47:45Z]   B05 dci_gated   win=15/24 q=496/480 win_qps=50.88 cum_qps= 6.04 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T03:47:46Z]   B05 dci_gated   win=16/24 q=544/480 win_qps=50.53 cum_qps= 6.55 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T03:47:47Z]   B05 dci_gated   win=17/24 q=564/480 win_qps=53.42 cum_qps= 6.76 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:47:47Z]   B05 dci_gated   win=18/24 q=584/480 win_qps=38.54 cum_qps= 6.96 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:47:48Z]   B05 dci_gated   win=19/24 q=604/480 win_qps=45.20 cum_qps= 7.16 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:47:48Z]   B05 dci_gated   win=20/24 q=624/480 win_qps=39.76 cum_qps= 7.35 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:47:49Z]   B05 dci_gated   win=21/24 q=644/480 win_qps=54.19 cum_qps= 7.55 adv=7 fail= 0 ΔT=  0.4s
+[2026-08-09T03:47:49Z]   B05 dci_gated   win=22/24 q=664/480 win_qps=52.99 cum_qps= 7.75 adv=7 fail= 0 ΔT=  0.4s
+[2026-08-09T03:47:49Z]   B05 dci_gated   win=23/24 q=684/480 win_qps=86.55 cum_qps= 7.96 adv=7 fail= 0 ΔT=  0.2s
+[2026-08-09T03:47:49Z]   B05 dci_gated   win=24/24 q=704/480 win_qps=67.46 cum_qps= 8.17 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T03:47:49Z]   -- dci_gated   end:  wall-QPS=  8.168  advisor= 7  T_A= 23717.9ms  fp=2ace369518f64075
+[2026-08-09T03:47:49Z] === Block 06/10 START - seed=9600 - strategies=['dci_gated'] ===
+[2026-08-09T03:47:49Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:47:58Z]   B06 dci_gated   win=01/24 q= 20/480 win_qps=59.22 cum_qps=58.84 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:47:59Z]   B06 dci_gated   win=02/24 q= 40/480 win_qps=58.87 cum_qps=58.68 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:47:59Z]   B06 dci_gated   win=03/24 q= 60/480 win_qps=64.32 cum_qps=60.32 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:47:59Z]   B06 dci_gated   win=04/24 q= 80/480 win_qps=113.83 cum_qps=68.23 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:48:20Z]   B06 dci_gated   win=05/24 q=100/480 win_qps= 2.80 cum_qps= 4.51 adv=1 fail= 0 ΔT=  7.1s
+[2026-08-09T03:48:23Z]   B06 dci_gated   win=06/24 q=120/480 win_qps= 7.28 cum_qps= 4.82 adv=1 fail= 0 ΔT=  2.7s
+[2026-08-09T03:48:25Z]   B06 dci_gated   win=07/24 q=140/480 win_qps=11.91 cum_qps= 5.27 adv=1 fail= 0 ΔT=  1.7s
+[2026-08-09T03:48:25Z]   B06 dci_gated   win=08/24 q=160/480 win_qps=29.00 cum_qps= 5.87 adv=1 fail= 0 ΔT=  0.7s
+[2026-08-09T03:48:29Z]   B06 dci_gated   win=09/24 q=208/480 win_qps=14.89 cum_qps= 6.82 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T03:48:32Z]   B06 dci_gated   win=10/24 q=256/480 win_qps=13.64 cum_qps= 7.52 adv=2 fail= 0 ΔT=  3.5s
+[2026-08-09T03:48:39Z]   B06 dci_gated   win=11/24 q=304/480 win_qps= 6.99 cum_qps= 7.43 adv=2 fail= 0 ΔT=  6.9s
+[2026-08-09T03:48:42Z]   B06 dci_gated   win=12/24 q=352/480 win_qps=18.09 cum_qps= 8.08 adv=2 fail= 0 ΔT=  2.7s
+[2026-08-09T03:49:14Z]   B06 dci_gated   win=13/24 q=400/480 win_qps= 2.16 cum_qps= 5.28 adv=3 fail= 0 ΔT= 22.2s
+[2026-08-09T03:49:15Z]   B06 dci_gated   win=14/24 q=448/480 win_qps=46.16 cum_qps= 5.83 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T03:49:16Z]   B06 dci_gated   win=15/24 q=496/480 win_qps=53.26 cum_qps= 6.38 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T03:49:17Z]   B06 dci_gated   win=16/24 q=544/480 win_qps=47.90 cum_qps= 6.91 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T03:49:17Z]   B06 dci_gated   win=17/24 q=564/480 win_qps=37.01 cum_qps= 7.11 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T03:49:18Z]   B06 dci_gated   win=18/24 q=584/480 win_qps=59.16 cum_qps= 7.33 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:18Z]   B06 dci_gated   win=19/24 q=604/480 win_qps=63.00 cum_qps= 7.55 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:18Z]   B06 dci_gated   win=20/24 q=624/480 win_qps=64.57 cum_qps= 7.77 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:19Z]   B06 dci_gated   win=21/24 q=644/480 win_qps=102.43 cum_qps= 8.00 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:49:19Z]   B06 dci_gated   win=22/24 q=664/480 win_qps=73.33 cum_qps= 8.22 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:19Z]   B06 dci_gated   win=23/24 q=684/480 win_qps=58.48 cum_qps= 8.43 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:20Z]   B06 dci_gated   win=24/24 q=704/480 win_qps=35.38 cum_qps= 8.62 adv=6 fail= 0 ΔT=  0.6s
+[2026-08-09T03:49:20Z]   -- dci_gated   end:  wall-QPS=  8.620  advisor= 6  T_A= 23906.2ms  fp=caae606e1d6d8e30
+[2026-08-09T03:49:20Z] === Block 07/10 START - seed=9700 - strategies=['dci_gated'] ===
+[2026-08-09T03:49:20Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:49:28Z]   B07 dci_gated   win=01/24 q= 20/480 win_qps=71.46 cum_qps=70.94 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:49:29Z]   B07 dci_gated   win=02/24 q= 40/480 win_qps=34.66 cum_qps=46.45 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T03:49:29Z]   B07 dci_gated   win=03/24 q= 60/480 win_qps=96.36 cum_qps=56.03 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:49:30Z]   B07 dci_gated   win=04/24 q= 80/480 win_qps=30.35 cum_qps=46.19 adv=0 fail= 0 ΔT=  0.7s
+[2026-08-09T03:49:50Z]   B07 dci_gated   win=05/24 q=100/480 win_qps= 3.03 cum_qps= 4.52 adv=1 fail= 0 ΔT=  6.6s
+[2026-08-09T03:49:53Z]   B07 dci_gated   win=06/24 q=120/480 win_qps= 7.27 cum_qps= 4.82 adv=1 fail= 0 ΔT=  2.8s
+[2026-08-09T03:49:56Z]   B07 dci_gated   win=07/24 q=140/480 win_qps= 5.90 cum_qps= 4.95 adv=1 fail= 0 ΔT=  3.4s
+[2026-08-09T03:49:57Z]   B07 dci_gated   win=08/24 q=160/480 win_qps=21.25 cum_qps= 5.48 adv=2 fail= 0 ΔT=  0.9s
+[2026-08-09T03:50:01Z]   B07 dci_gated   win=09/24 q=208/480 win_qps=14.38 cum_qps= 6.39 adv=3 fail= 0 ΔT=  3.3s
+[2026-08-09T03:50:04Z]   B07 dci_gated   win=10/24 q=256/480 win_qps=12.33 cum_qps= 7.02 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T03:50:10Z]   B07 dci_gated   win=11/24 q=304/480 win_qps= 9.12 cum_qps= 7.29 adv=3 fail= 0 ΔT=  5.3s
+[2026-08-09T03:50:13Z]   B07 dci_gated   win=12/24 q=352/480 win_qps=13.71 cum_qps= 7.78 adv=3 fail= 0 ΔT=  3.5s
+[2026-08-09T03:50:44Z]   B07 dci_gated   win=13/24 q=400/480 win_qps= 2.29 cum_qps= 5.26 adv=4 fail= 0 ΔT= 20.9s
+[2026-08-09T03:50:45Z]   B07 dci_gated   win=14/24 q=448/480 win_qps=57.61 cum_qps= 5.82 adv=4 fail= 0 ΔT=  0.8s
+[2026-08-09T03:50:46Z]   B07 dci_gated   win=15/24 q=496/480 win_qps=40.81 cum_qps= 6.35 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T03:50:47Z]   B07 dci_gated   win=16/24 q=544/480 win_qps=47.76 cum_qps= 6.88 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T03:50:47Z]   B07 dci_gated   win=17/24 q=564/480 win_qps=78.47 cum_qps= 7.10 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:50:48Z]   B07 dci_gated   win=18/24 q=584/480 win_qps=59.52 cum_qps= 7.33 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T03:50:48Z]   B07 dci_gated   win=19/24 q=604/480 win_qps=34.34 cum_qps= 7.52 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T03:50:49Z]   B07 dci_gated   win=20/24 q=624/480 win_qps=47.48 cum_qps= 7.73 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:50:49Z]   B07 dci_gated   win=21/24 q=644/480 win_qps=51.13 cum_qps= 7.94 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:50:49Z]   B07 dci_gated   win=22/24 q=664/480 win_qps=98.72 cum_qps= 8.16 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:50:50Z]   B07 dci_gated   win=23/24 q=684/480 win_qps=37.61 cum_qps= 8.36 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:50:50Z]   B07 dci_gated   win=24/24 q=704/480 win_qps=40.14 cum_qps= 8.55 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:50:50Z]   -- dci_gated   end:  wall-QPS=  8.548  advisor= 6  T_A= 23737.8ms  fp=dd48bb76d62bbad7
+[2026-08-09T03:50:50Z] === Block 08/10 START - seed=9800 - strategies=['dci_gated'] ===
+[2026-08-09T03:50:50Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:50:58Z]   B08 dci_gated   win=01/24 q= 20/480 win_qps=53.90 cum_qps=53.59 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:50:59Z]   B08 dci_gated   win=02/24 q= 40/480 win_qps=39.40 cum_qps=45.30 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:50:59Z]   B08 dci_gated   win=03/24 q= 60/480 win_qps=76.84 cum_qps=52.39 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:51:00Z]   B08 dci_gated   win=04/24 q= 80/480 win_qps=32.29 cum_qps=45.28 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T03:51:20Z]   B08 dci_gated   win=05/24 q=100/480 win_qps= 3.25 cum_qps= 4.59 adv=1 fail= 0 ΔT=  6.1s
+[2026-08-09T03:51:25Z]   B08 dci_gated   win=06/24 q=120/480 win_qps= 3.84 cum_qps= 4.45 adv=2 fail= 0 ΔT=  5.2s
+[2026-08-09T03:51:26Z]   B08 dci_gated   win=07/24 q=140/480 win_qps=16.97 cum_qps= 4.97 adv=2 fail= 0 ΔT=  1.2s
+[2026-08-09T03:51:28Z]   B08 dci_gated   win=08/24 q=160/480 win_qps=12.81 cum_qps= 5.38 adv=2 fail= 0 ΔT=  1.6s
+[2026-08-09T03:51:32Z]   B08 dci_gated   win=09/24 q=208/480 win_qps=10.17 cum_qps= 6.04 adv=3 fail= 0 ΔT=  4.7s
+[2026-08-09T03:51:35Z]   B08 dci_gated   win=10/24 q=256/480 win_qps=19.86 cum_qps= 6.94 adv=3 fail= 0 ΔT=  2.4s
+[2026-08-09T03:51:38Z]   B08 dci_gated   win=11/24 q=304/480 win_qps=15.25 cum_qps= 7.60 adv=3 fail= 0 ΔT=  3.1s
+[2026-08-09T03:51:41Z]   B08 dci_gated   win=12/24 q=352/480 win_qps=13.86 cum_qps= 8.09 adv=3 fail= 0 ΔT=  3.5s
+[2026-08-09T03:52:14Z]   B08 dci_gated   win=13/24 q=400/480 win_qps= 2.08 cum_qps= 5.24 adv=4 fail= 0 ΔT= 23.0s
+[2026-08-09T03:52:16Z]   B08 dci_gated   win=14/24 q=448/480 win_qps=39.26 cum_qps= 5.77 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T03:52:17Z]   B08 dci_gated   win=15/24 q=496/480 win_qps=44.97 cum_qps= 6.30 adv=4 fail= 0 ΔT=  1.1s
+[2026-08-09T03:52:17Z]   B08 dci_gated   win=16/24 q=544/480 win_qps=59.19 cum_qps= 6.84 adv=4 fail= 0 ΔT=  0.8s
+[2026-08-09T03:52:18Z]   B08 dci_gated   win=17/24 q=564/480 win_qps=55.52 cum_qps= 7.06 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:18Z]   B08 dci_gated   win=18/24 q=584/480 win_qps=43.92 cum_qps= 7.27 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T03:52:19Z]   B08 dci_gated   win=19/24 q=604/480 win_qps=56.45 cum_qps= 7.49 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:19Z]   B08 dci_gated   win=20/24 q=624/480 win_qps=50.02 cum_qps= 7.70 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:19Z]   B08 dci_gated   win=21/24 q=644/480 win_qps=53.32 cum_qps= 7.91 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:20Z]   B08 dci_gated   win=22/24 q=664/480 win_qps=43.82 cum_qps= 8.11 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T03:52:20Z]   B08 dci_gated   win=23/24 q=684/480 win_qps=86.86 cum_qps= 8.33 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:52:20Z]   B08 dci_gated   win=24/24 q=704/480 win_qps=78.89 cum_qps= 8.54 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:52:20Z]   -- dci_gated   end:  wall-QPS=  8.543  advisor= 6  T_A= 23724.8ms  fp=bd4d7ce81f08b9b4
+[2026-08-09T03:52:20Z] === Block 09/10 START - seed=9900 - strategies=['dci_gated'] ===
+[2026-08-09T03:52:20Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:52:28Z]   B09 dci_gated   win=01/24 q= 20/480 win_qps=80.28 cum_qps=79.62 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:52:28Z]   B09 dci_gated   win=02/24 q= 40/480 win_qps=48.13 cum_qps=59.83 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:29Z]   B09 dci_gated   win=03/24 q= 60/480 win_qps=88.56 cum_qps=66.92 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T03:52:29Z]   B09 dci_gated   win=04/24 q= 80/480 win_qps=46.98 cum_qps=60.40 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:52:50Z]   B09 dci_gated   win=05/24 q=100/480 win_qps= 2.95 cum_qps= 4.56 adv=1 fail= 0 ΔT=  6.8s
+[2026-08-09T03:52:54Z]   B09 dci_gated   win=06/24 q=120/480 win_qps= 4.92 cum_qps= 4.62 adv=1 fail= 0 ΔT=  4.1s
+[2026-08-09T03:52:56Z]   B09 dci_gated   win=07/24 q=140/480 win_qps= 8.25 cum_qps= 4.93 adv=1 fail= 0 ΔT=  2.4s
+[2026-08-09T03:52:58Z]   B09 dci_gated   win=08/24 q=160/480 win_qps= 8.76 cum_qps= 5.21 adv=1 fail= 0 ΔT=  2.3s
+[2026-08-09T03:53:02Z]   B09 dci_gated   win=09/24 q=208/480 win_qps=11.70 cum_qps= 5.98 adv=2 fail= 0 ΔT=  4.1s
+[2026-08-09T03:53:08Z]   B09 dci_gated   win=10/24 q=256/480 win_qps= 8.44 cum_qps= 6.32 adv=2 fail= 0 ΔT=  5.7s
+[2026-08-09T03:53:11Z]   B09 dci_gated   win=11/24 q=304/480 win_qps=16.32 cum_qps= 7.00 adv=2 fail= 0 ΔT=  2.9s
+[2026-08-09T03:53:16Z]   B09 dci_gated   win=12/24 q=352/480 win_qps=10.69 cum_qps= 7.35 adv=2 fail= 0 ΔT=  4.5s
+[2026-08-09T03:53:50Z]   B09 dci_gated   win=13/24 q=400/480 win_qps= 1.97 cum_qps= 4.87 adv=3 fail= 0 ΔT= 24.3s
+[2026-08-09T03:53:51Z]   B09 dci_gated   win=14/24 q=448/480 win_qps=39.58 cum_qps= 5.38 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T03:53:52Z]   B09 dci_gated   win=15/24 q=496/480 win_qps=34.90 cum_qps= 5.86 adv=3 fail= 0 ΔT=  1.4s
+[2026-08-09T03:53:54Z]   B09 dci_gated   win=16/24 q=544/480 win_qps=40.80 cum_qps= 6.33 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T03:53:54Z]   B09 dci_gated   win=17/24 q=564/480 win_qps=45.93 cum_qps= 6.53 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T03:53:54Z]   B09 dci_gated   win=18/24 q=584/480 win_qps=64.92 cum_qps= 6.74 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T03:53:55Z]   B09 dci_gated   win=19/24 q=604/480 win_qps=40.60 cum_qps= 6.93 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T03:53:55Z]   B09 dci_gated   win=20/24 q=624/480 win_qps=40.28 cum_qps= 7.12 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T03:53:55Z]   B09 dci_gated   win=21/24 q=644/480 win_qps=190.83 cum_qps= 7.34 adv=6 fail= 0 ΔT=  0.1s
+[2026-08-09T03:53:56Z]   B09 dci_gated   win=22/24 q=664/480 win_qps=66.82 cum_qps= 7.54 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T03:53:56Z]   B09 dci_gated   win=23/24 q=684/480 win_qps=54.53 cum_qps= 7.74 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T03:53:56Z]   B09 dci_gated   win=24/24 q=704/480 win_qps=83.67 cum_qps= 7.94 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T03:53:56Z]   -- dci_gated   end:  wall-QPS=  7.941  advisor= 6  T_A= 23673.7ms  fp=d0a4100aa61d0ff0
+[2026-08-09T03:53:56Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_103349/block_metrics.csv
+[2026-08-09T03:53:56Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_103349/breakdown_per_window.csv
+[2026-08-09T03:53:56Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_103349/run_meta.json
+[2026-08-09T03:53:56Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_afull/20260809_103349
+── MG afull done
+── MG  DCI_GATE=v3 force=[] → mongo/out/PART2V3_MG_mixed_gated/  (03:53:57Z)
+[2026-08-09T03:53:57Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T03:53:57Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T03:53:57Z]   advisor mode  : esr
+[2026-08-09T03:53:57Z]   baseline      : full
+[2026-08-09T03:53:57Z] mongo_adaptation.py dry_run=False blocks=10
+[2026-08-09T03:53:57Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T03:53:57Z]   strategies    : ['dci_gated']
+[2026-08-09T03:53:57Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T03:53:57Z]   QUERIES_PW    : 20
+[2026-08-09T03:53:57Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T03:53:57Z]   K_PERIODIC    : 3
+[2026-08-09T03:53:57Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T03:53:57Z]   seed_offset   : 0  (seeds preview: [9000, 9100, 9200] ...)
+[2026-08-09T03:53:57Z]   hsm_v2 avail  : True
+[2026-08-09T03:53:57Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T03:53:57Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T03:53:57Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=None audit=None m=64
+[2026-08-09T03:58:58Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T03:58:58Z] === Block 00/10 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T03:58:58Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T03:59:07Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=48.13 cum_qps=47.84 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:59:07Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=53.56 cum_qps=50.42 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T03:59:08Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.68 cum_qps=44.75 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T03:59:08Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=64.56 cum_qps=48.40 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T03:59:26Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.75 cum_qps= 5.12 adv=1 fail= 0 ΔT=  7.3s
+[2026-08-09T03:59:33Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.22 cum_qps= 4.49 adv=2 fail= 0 ΔT=  3.8s
+[2026-08-09T03:59:35Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.73 cum_qps= 4.87 adv=2 fail= 0 ΔT=  2.1s
+[2026-08-09T03:59:37Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.84 cum_qps= 5.23 adv=3 fail= 0 ΔT=  1.8s
+[2026-08-09T03:59:43Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.87 cum_qps= 5.77 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T03:59:46Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=12.97 cum_qps= 6.44 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T03:59:49Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.33 cum_qps= 7.15 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T03:59:52Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.24 cum_qps= 7.71 adv=4 fail= 0 ΔT=  3.1s
+[2026-08-09T04:00:23Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.31 cum_qps= 5.24 adv=5 fail= 0 ΔT= 20.8s
+[2026-08-09T04:00:24Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=34.58 cum_qps= 5.76 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T04:00:25Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=59.23 cum_qps= 6.32 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T04:00:26Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.86 cum_qps= 6.82 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T04:00:27Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.72 cum_qps= 7.00 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T04:00:28Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=39.47 cum_qps= 7.20 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:00:28Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=64.25 cum_qps= 7.42 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:00:28Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=40.33 cum_qps= 7.62 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:00:29Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=40.06 cum_qps= 7.82 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T04:00:29Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.88 cum_qps= 8.02 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T04:00:30Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=67.20 cum_qps= 8.23 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T04:00:30Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=67.81 cum_qps= 8.44 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T04:00:30Z]   -- dci_gated   end:  wall-QPS=  8.437  advisor= 7  T_A= 23812.9ms  fp=8e83543d95452873
+[2026-08-09T04:00:30Z] === Block 01/10 START - seed=9100 - strategies=['dci_gated'] ===
+[2026-08-09T04:00:30Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:00:38Z]   B01 dci_gated   win=01/24 q= 20/480 win_qps=71.84 cum_qps=71.32 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:00:39Z]   B01 dci_gated   win=02/24 q= 40/480 win_qps=54.30 cum_qps=61.47 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:00:39Z]   B01 dci_gated   win=03/24 q= 60/480 win_qps=206.04 cum_qps=80.04 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T04:00:39Z]   B01 dci_gated   win=04/24 q= 80/480 win_qps=92.68 cum_qps=82.68 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:01:00Z]   B01 dci_gated   win=05/24 q=100/480 win_qps= 2.89 cum_qps= 4.49 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:01:03Z]   B01 dci_gated   win=06/24 q=120/480 win_qps= 7.80 cum_qps= 4.83 adv=1 fail= 0 ΔT=  2.6s
+[2026-08-09T04:01:04Z]   B01 dci_gated   win=07/24 q=140/480 win_qps=26.68 cum_qps= 5.47 adv=1 fail= 0 ΔT=  0.7s
+[2026-08-09T04:01:05Z]   B01 dci_gated   win=08/24 q=160/480 win_qps=14.68 cum_qps= 5.93 adv=1 fail= 0 ΔT=  1.4s
+[2026-08-09T04:01:08Z]   B01 dci_gated   win=09/24 q=208/480 win_qps=18.21 cum_qps= 7.03 adv=2 fail= 0 ΔT=  2.6s
+[2026-08-09T04:01:10Z]   B01 dci_gated   win=10/24 q=256/480 win_qps=21.61 cum_qps= 8.04 adv=2 fail= 0 ΔT=  2.2s
+[2026-08-09T04:01:12Z]   B01 dci_gated   win=11/24 q=304/480 win_qps=24.69 cum_qps= 9.00 adv=2 fail= 0 ΔT=  1.9s
+[2026-08-09T04:01:15Z]   B01 dci_gated   win=12/24 q=352/480 win_qps=16.43 cum_qps= 9.59 adv=2 fail= 0 ΔT=  2.9s
+[2026-08-09T04:01:47Z]   B01 dci_gated   win=13/24 q=400/480 win_qps= 2.16 cum_qps= 5.81 adv=3 fail= 0 ΔT= 22.2s
+[2026-08-09T04:01:48Z]   B01 dci_gated   win=14/24 q=448/480 win_qps=38.60 cum_qps= 6.39 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:01:49Z]   B01 dci_gated   win=15/24 q=496/480 win_qps=38.86 cum_qps= 6.95 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:01:50Z]   B01 dci_gated   win=16/24 q=544/480 win_qps=54.12 cum_qps= 7.53 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:01:51Z]   B01 dci_gated   win=17/24 q=564/480 win_qps=46.51 cum_qps= 7.76 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:01:51Z]   B01 dci_gated   win=18/24 q=584/480 win_qps=33.45 cum_qps= 7.97 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:01:52Z]   B01 dci_gated   win=19/24 q=604/480 win_qps=46.21 cum_qps= 8.19 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:01:52Z]   B01 dci_gated   win=20/24 q=624/480 win_qps=42.26 cum_qps= 8.41 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:01:53Z]   B01 dci_gated   win=21/24 q=644/480 win_qps=40.31 cum_qps= 8.62 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:01:53Z]   B01 dci_gated   win=22/24 q=664/480 win_qps=50.14 cum_qps= 8.84 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:01:54Z]   B01 dci_gated   win=23/24 q=684/480 win_qps=37.89 cum_qps= 9.04 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:01:54Z]   B01 dci_gated   win=24/24 q=704/480 win_qps=33.97 cum_qps= 9.24 adv=6 fail= 0 ΔT=  0.6s
+[2026-08-09T04:01:54Z]   -- dci_gated   end:  wall-QPS=  9.236  advisor= 6  T_A= 24329.1ms  fp=cb43e05d25034573
+[2026-08-09T04:01:54Z] === Block 02/10 START - seed=9200 - strategies=['dci_gated'] ===
+[2026-08-09T04:01:54Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:02:04Z]   B02 dci_gated   win=01/24 q= 20/480 win_qps=37.49 cum_qps=37.34 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:02:04Z]   B02 dci_gated   win=02/24 q= 40/480 win_qps=45.32 cum_qps=40.85 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:02:04Z]   B02 dci_gated   win=03/24 q= 60/480 win_qps=74.36 cum_qps=47.99 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:02:05Z]   B02 dci_gated   win=04/24 q= 80/480 win_qps=51.91 cum_qps=48.85 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:02:25Z]   B02 dci_gated   win=05/24 q=100/480 win_qps= 2.86 cum_qps= 4.44 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T04:02:30Z]   B02 dci_gated   win=06/24 q=120/480 win_qps= 4.83 cum_qps= 4.50 adv=1 fail= 0 ΔT=  4.1s
+[2026-08-09T04:02:31Z]   B02 dci_gated   win=07/24 q=140/480 win_qps=15.97 cum_qps= 5.02 adv=2 fail= 0 ΔT=  1.3s
+[2026-08-09T04:02:32Z]   B02 dci_gated   win=08/24 q=160/480 win_qps=19.55 cum_qps= 5.53 adv=2 fail= 0 ΔT=  1.0s
+[2026-08-09T04:02:34Z]   B02 dci_gated   win=09/24 q=208/480 win_qps=21.34 cum_qps= 6.67 adv=3 fail= 0 ΔT=  2.2s
+[2026-08-09T04:02:37Z]   B02 dci_gated   win=10/24 q=256/480 win_qps=20.43 cum_qps= 7.63 adv=3 fail= 0 ΔT=  2.3s
+[2026-08-09T04:02:40Z]   B02 dci_gated   win=11/24 q=304/480 win_qps=15.21 cum_qps= 8.29 adv=3 fail= 0 ΔT=  3.2s
+[2026-08-09T04:02:44Z]   B02 dci_gated   win=12/24 q=352/480 win_qps=12.44 cum_qps= 8.68 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T04:03:17Z]   B02 dci_gated   win=13/24 q=400/480 win_qps= 2.06 cum_qps= 5.42 adv=4 fail= 0 ΔT= 23.3s
+[2026-08-09T04:03:18Z]   B02 dci_gated   win=14/24 q=448/480 win_qps=47.18 cum_qps= 5.99 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T04:03:19Z]   B02 dci_gated   win=15/24 q=496/480 win_qps=55.58 cum_qps= 6.55 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T04:03:20Z]   B02 dci_gated   win=16/24 q=544/480 win_qps=52.32 cum_qps= 7.10 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T04:03:20Z]   B02 dci_gated   win=17/24 q=564/480 win_qps=28.28 cum_qps= 7.29 adv=5 fail= 0 ΔT=  0.7s
+[2026-08-09T04:03:21Z]   B02 dci_gated   win=18/24 q=584/480 win_qps=45.48 cum_qps= 7.51 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:03:21Z]   B02 dci_gated   win=19/24 q=604/480 win_qps=45.88 cum_qps= 7.72 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:03:22Z]   B02 dci_gated   win=20/24 q=624/480 win_qps=40.96 cum_qps= 7.93 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:03:22Z]   B02 dci_gated   win=21/24 q=644/480 win_qps=67.57 cum_qps= 8.15 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:03:22Z]   B02 dci_gated   win=22/24 q=664/480 win_qps=45.76 cum_qps= 8.36 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:03:23Z]   B02 dci_gated   win=23/24 q=684/480 win_qps=104.00 cum_qps= 8.59 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:03:23Z]   B02 dci_gated   win=24/24 q=704/480 win_qps=51.88 cum_qps= 8.80 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:03:23Z]   -- dci_gated   end:  wall-QPS=  8.797  advisor= 6  T_A= 23782.5ms  fp=61e96f9d09d3465e
+[2026-08-09T04:03:23Z] === Block 03/10 START - seed=9300 - strategies=['dci_gated'] ===
+[2026-08-09T04:03:23Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:03:32Z]   B03 dci_gated   win=01/24 q= 20/480 win_qps=46.90 cum_qps=46.66 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:03:32Z]   B03 dci_gated   win=02/24 q= 40/480 win_qps=38.88 cum_qps=42.32 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:03:33Z]   B03 dci_gated   win=03/24 q= 60/480 win_qps=61.39 cum_qps=47.13 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:03:33Z]   B03 dci_gated   win=04/24 q= 80/480 win_qps=136.51 cum_qps=56.27 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T04:03:52Z]   B03 dci_gated   win=05/24 q=100/480 win_qps= 3.53 cum_qps= 4.75 adv=1 fail= 0 ΔT=  5.7s
+[2026-08-09T04:03:56Z]   B03 dci_gated   win=06/24 q=120/480 win_qps= 6.18 cum_qps= 4.94 adv=1 fail= 0 ΔT=  3.2s
+[2026-08-09T04:03:57Z]   B03 dci_gated   win=07/24 q=140/480 win_qps=23.41 cum_qps= 5.57 adv=1 fail= 0 ΔT=  0.9s
+[2026-08-09T04:03:59Z]   B03 dci_gated   win=08/24 q=160/480 win_qps= 9.96 cum_qps= 5.89 adv=1 fail= 0 ΔT=  2.0s
+[2026-08-09T04:04:03Z]   B03 dci_gated   win=09/24 q=208/480 win_qps= 9.89 cum_qps= 6.50 adv=2 fail= 0 ΔT=  4.9s
+[2026-08-09T04:04:06Z]   B03 dci_gated   win=10/24 q=256/480 win_qps=20.73 cum_qps= 7.46 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:04:08Z]   B03 dci_gated   win=11/24 q=304/480 win_qps=20.46 cum_qps= 8.29 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:04:12Z]   B03 dci_gated   win=12/24 q=352/480 win_qps=12.35 cum_qps= 8.68 adv=2 fail= 0 ΔT=  3.9s
+[2026-08-09T04:04:44Z]   B03 dci_gated   win=13/24 q=400/480 win_qps= 2.14 cum_qps= 5.49 adv=3 fail= 0 ΔT= 22.4s
+[2026-08-09T04:04:46Z]   B03 dci_gated   win=14/24 q=448/480 win_qps=31.85 cum_qps= 6.02 adv=3 fail= 0 ΔT=  1.5s
+[2026-08-09T04:04:47Z]   B03 dci_gated   win=15/24 q=496/480 win_qps=36.52 cum_qps= 6.55 adv=3 fail= 0 ΔT=  1.3s
+[2026-08-09T04:04:48Z]   B03 dci_gated   win=16/24 q=544/480 win_qps=47.92 cum_qps= 7.09 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:04:49Z]   B03 dci_gated   win=17/24 q=564/480 win_qps=41.16 cum_qps= 7.31 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:04:49Z]   B03 dci_gated   win=18/24 q=584/480 win_qps=47.03 cum_qps= 7.52 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:04:49Z]   B03 dci_gated   win=19/24 q=604/480 win_qps=95.94 cum_qps= 7.76 adv=4 fail= 0 ΔT=  0.2s
+[2026-08-09T04:04:50Z]   B03 dci_gated   win=20/24 q=624/480 win_qps=37.90 cum_qps= 7.96 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:04:50Z]   B03 dci_gated   win=21/24 q=644/480 win_qps=58.44 cum_qps= 8.18 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:04:50Z]   B03 dci_gated   win=22/24 q=664/480 win_qps=58.42 cum_qps= 8.40 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:04:51Z]   B03 dci_gated   win=23/24 q=684/480 win_qps=38.10 cum_qps= 8.60 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:04:51Z]   B03 dci_gated   win=24/24 q=704/480 win_qps=45.55 cum_qps= 8.80 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:04:51Z]   -- dci_gated   end:  wall-QPS=  8.798  advisor= 5  T_A= 23850.6ms  fp=0f0cb4410459a41a
+[2026-08-09T04:04:51Z] === Block 04/10 START - seed=9400 - strategies=['dci_gated'] ===
+[2026-08-09T04:04:51Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:05:00Z]   B04 dci_gated   win=01/24 q= 20/480 win_qps=34.96 cum_qps=34.81 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:05:01Z]   B04 dci_gated   win=02/24 q= 40/480 win_qps=58.17 cum_qps=43.46 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:05:01Z]   B04 dci_gated   win=03/24 q= 60/480 win_qps=49.86 cum_qps=45.33 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:05:02Z]   B04 dci_gated   win=04/24 q= 80/480 win_qps=45.82 cum_qps=45.40 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:05:22Z]   B04 dci_gated   win=05/24 q=100/480 win_qps= 2.90 cum_qps= 4.43 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:05:26Z]   B04 dci_gated   win=06/24 q=120/480 win_qps= 5.74 cum_qps= 4.61 adv=1 fail= 0 ΔT=  3.5s
+[2026-08-09T04:05:28Z]   B04 dci_gated   win=07/24 q=140/480 win_qps=10.91 cum_qps= 5.02 adv=1 fail= 0 ΔT=  1.8s
+[2026-08-09T04:05:31Z]   B04 dci_gated   win=08/24 q=160/480 win_qps= 6.78 cum_qps= 5.19 adv=1 fail= 0 ΔT=  3.0s
+[2026-08-09T04:05:34Z]   B04 dci_gated   win=09/24 q=208/480 win_qps=13.33 cum_qps= 6.04 adv=2 fail= 0 ΔT=  3.6s
+[2026-08-09T04:05:37Z]   B04 dci_gated   win=10/24 q=256/480 win_qps=19.90 cum_qps= 6.94 adv=2 fail= 0 ΔT=  2.4s
+[2026-08-09T04:05:42Z]   B04 dci_gated   win=11/24 q=304/480 win_qps= 9.08 cum_qps= 7.21 adv=2 fail= 0 ΔT=  5.3s
+[2026-08-09T04:05:45Z]   B04 dci_gated   win=12/24 q=352/480 win_qps=15.01 cum_qps= 7.76 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T04:06:18Z]   B04 dci_gated   win=13/24 q=400/480 win_qps= 2.11 cum_qps= 5.13 adv=3 fail= 0 ΔT= 22.8s
+[2026-08-09T04:06:19Z]   B04 dci_gated   win=14/24 q=448/480 win_qps=46.01 cum_qps= 5.66 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:06:20Z]   B04 dci_gated   win=15/24 q=496/480 win_qps=32.01 cum_qps= 6.15 adv=3 fail= 0 ΔT=  1.5s
+[2026-08-09T04:06:22Z]   B04 dci_gated   win=16/24 q=544/480 win_qps=38.04 cum_qps= 6.65 adv=3 fail= 0 ΔT=  1.3s
+[2026-08-09T04:06:22Z]   B04 dci_gated   win=17/24 q=564/480 win_qps=39.80 cum_qps= 6.85 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:06:23Z]   B04 dci_gated   win=18/24 q=584/480 win_qps=28.60 cum_qps= 7.03 adv=4 fail= 0 ΔT=  0.7s
+[2026-08-09T04:06:23Z]   B04 dci_gated   win=19/24 q=604/480 win_qps=58.83 cum_qps= 7.24 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:06:24Z]   B04 dci_gated   win=20/24 q=624/480 win_qps=54.05 cum_qps= 7.45 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:06:24Z]   B04 dci_gated   win=21/24 q=644/480 win_qps=43.49 cum_qps= 7.64 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:06:24Z]   B04 dci_gated   win=22/24 q=664/480 win_qps=93.28 cum_qps= 7.86 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:06:25Z]   B04 dci_gated   win=23/24 q=684/480 win_qps=55.28 cum_qps= 8.06 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:06:25Z]   B04 dci_gated   win=24/24 q=704/480 win_qps=89.25 cum_qps= 8.28 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:06:25Z]   -- dci_gated   end:  wall-QPS=  8.277  advisor= 5  T_A= 23819.4ms  fp=6a6b7f934018b359
+[2026-08-09T04:06:25Z] === Block 05/10 START - seed=9500 - strategies=['dci_gated'] ===
+[2026-08-09T04:06:25Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:06:33Z]   B05 dci_gated   win=01/24 q= 20/480 win_qps=100.28 cum_qps=99.21 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:06:34Z]   B05 dci_gated   win=02/24 q= 40/480 win_qps=33.22 cum_qps=49.63 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:06:34Z]   B05 dci_gated   win=03/24 q= 60/480 win_qps=132.75 cum_qps=62.59 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:06:35Z]   B05 dci_gated   win=04/24 q= 80/480 win_qps=50.51 cum_qps=58.97 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:06:49Z]   B05 dci_gated   win=05/24 q=100/480 win_qps= 3.96 cum_qps= 6.15 adv=1 fail= 0 ΔT=  5.1s
+[2026-08-09T04:06:56Z]   B05 dci_gated   win=06/24 q=120/480 win_qps= 2.93 cum_qps= 5.20 adv=1 fail= 0 ΔT=  6.8s
+[2026-08-09T04:06:59Z]   B05 dci_gated   win=07/24 q=140/480 win_qps= 7.56 cum_qps= 5.44 adv=1 fail= 0 ΔT=  2.6s
+[2026-08-09T04:07:06Z]   B05 dci_gated   win=08/24 q=160/480 win_qps= 2.91 cum_qps= 4.91 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:07:20Z]   B05 dci_gated   win=09/24 q=208/480 win_qps= 4.84 cum_qps= 4.47 adv=2 fail= 0 ΔT=  9.9s
+[2026-08-09T04:07:27Z]   B05 dci_gated   win=10/24 q=256/480 win_qps= 6.98 cum_qps= 4.79 adv=2 fail= 0 ΔT=  6.9s
+[2026-08-09T04:07:31Z]   B05 dci_gated   win=11/24 q=304/480 win_qps=11.70 cum_qps= 5.28 adv=2 fail= 0 ΔT=  4.1s
+[2026-08-09T04:07:33Z]   B05 dci_gated   win=12/24 q=352/480 win_qps=20.89 cum_qps= 5.88 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:08:03Z]   B05 dci_gated   win=13/24 q=400/480 win_qps= 2.40 cum_qps= 4.46 adv=3 fail= 0 ΔT= 20.0s
+[2026-08-09T04:08:04Z]   B05 dci_gated   win=14/24 q=448/480 win_qps=33.94 cum_qps= 4.91 adv=3 fail= 0 ΔT=  1.4s
+[2026-08-09T04:08:05Z]   B05 dci_gated   win=15/24 q=496/480 win_qps=50.71 cum_qps= 5.38 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:08:06Z]   B05 dci_gated   win=16/24 q=544/480 win_qps=50.58 cum_qps= 5.84 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:08:07Z]   B05 dci_gated   win=17/24 q=564/480 win_qps=53.55 cum_qps= 6.03 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:08:07Z]   B05 dci_gated   win=18/24 q=584/480 win_qps=38.59 cum_qps= 6.21 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:08:08Z]   B05 dci_gated   win=19/24 q=604/480 win_qps=45.57 cum_qps= 6.40 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:08:08Z]   B05 dci_gated   win=20/24 q=624/480 win_qps=40.18 cum_qps= 6.57 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:08:08Z]   B05 dci_gated   win=21/24 q=644/480 win_qps=54.92 cum_qps= 6.76 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:08:09Z]   B05 dci_gated   win=22/24 q=664/480 win_qps=52.94 cum_qps= 6.94 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:08:09Z]   B05 dci_gated   win=23/24 q=684/480 win_qps=87.65 cum_qps= 7.13 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:08:09Z]   B05 dci_gated   win=24/24 q=704/480 win_qps=67.79 cum_qps= 7.32 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:08:09Z]   -- dci_gated   end:  wall-QPS=  7.318  advisor= 5  T_A= 23783.9ms  fp=2ace369518f64075
+[2026-08-09T04:08:09Z] === Block 06/10 START - seed=9600 - strategies=['dci_gated'] ===
+[2026-08-09T04:08:09Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:08:18Z]   B06 dci_gated   win=01/24 q= 20/480 win_qps=59.44 cum_qps=59.07 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:08:19Z]   B06 dci_gated   win=02/24 q= 40/480 win_qps=58.74 cum_qps=58.72 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:08:19Z]   B06 dci_gated   win=03/24 q= 60/480 win_qps=64.49 cum_qps=60.39 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:08:19Z]   B06 dci_gated   win=04/24 q= 80/480 win_qps=114.46 cum_qps=68.37 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:08:40Z]   B06 dci_gated   win=05/24 q=100/480 win_qps= 2.80 cum_qps= 4.50 adv=1 fail= 0 ΔT=  7.2s
+[2026-08-09T04:08:43Z]   B06 dci_gated   win=06/24 q=120/480 win_qps= 7.35 cum_qps= 4.81 adv=1 fail= 0 ΔT=  2.7s
+[2026-08-09T04:08:45Z]   B06 dci_gated   win=07/24 q=140/480 win_qps=11.89 cum_qps= 5.26 adv=1 fail= 0 ΔT=  1.7s
+[2026-08-09T04:08:45Z]   B06 dci_gated   win=08/24 q=160/480 win_qps=29.01 cum_qps= 5.86 adv=1 fail= 0 ΔT=  0.7s
+[2026-08-09T04:08:49Z]   B06 dci_gated   win=09/24 q=208/480 win_qps=14.86 cum_qps= 6.81 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T04:08:52Z]   B06 dci_gated   win=10/24 q=256/480 win_qps=13.70 cum_qps= 7.52 adv=2 fail= 0 ΔT=  3.5s
+[2026-08-09T04:08:59Z]   B06 dci_gated   win=11/24 q=304/480 win_qps= 6.99 cum_qps= 7.43 adv=2 fail= 0 ΔT=  6.9s
+[2026-08-09T04:09:02Z]   B06 dci_gated   win=12/24 q=352/480 win_qps=18.00 cum_qps= 8.07 adv=2 fail= 0 ΔT=  2.7s
+[2026-08-09T04:09:34Z]   B06 dci_gated   win=13/24 q=400/480 win_qps= 2.14 cum_qps= 5.27 adv=3 fail= 0 ΔT= 22.4s
+[2026-08-09T04:09:35Z]   B06 dci_gated   win=14/24 q=448/480 win_qps=45.87 cum_qps= 5.82 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:09:36Z]   B06 dci_gated   win=15/24 q=496/480 win_qps=53.14 cum_qps= 6.37 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:09:37Z]   B06 dci_gated   win=16/24 q=544/480 win_qps=48.10 cum_qps= 6.90 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:09:37Z]   B06 dci_gated   win=17/24 q=564/480 win_qps=37.33 cum_qps= 7.10 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:09:38Z]   B06 dci_gated   win=18/24 q=584/480 win_qps=59.41 cum_qps= 7.32 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:38Z]   B06 dci_gated   win=19/24 q=604/480 win_qps=62.81 cum_qps= 7.54 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:38Z]   B06 dci_gated   win=20/24 q=624/480 win_qps=64.88 cum_qps= 7.76 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:39Z]   B06 dci_gated   win=21/24 q=644/480 win_qps=102.14 cum_qps= 7.99 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:09:39Z]   B06 dci_gated   win=22/24 q=664/480 win_qps=73.43 cum_qps= 8.21 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:39Z]   B06 dci_gated   win=23/24 q=684/480 win_qps=57.93 cum_qps= 8.42 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:40Z]   B06 dci_gated   win=24/24 q=704/480 win_qps=35.35 cum_qps= 8.61 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:09:40Z]   -- dci_gated   end:  wall-QPS=  8.609  advisor= 5  T_A= 23778.7ms  fp=caae606e1d6d8e30
+[2026-08-09T04:09:40Z] === Block 07/10 START - seed=9700 - strategies=['dci_gated'] ===
+[2026-08-09T04:09:40Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:09:48Z]   B07 dci_gated   win=01/24 q= 20/480 win_qps=72.14 cum_qps=71.60 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:09:49Z]   B07 dci_gated   win=02/24 q= 40/480 win_qps=34.89 cum_qps=46.80 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:09:49Z]   B07 dci_gated   win=03/24 q= 60/480 win_qps=95.66 cum_qps=56.29 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:09:50Z]   B07 dci_gated   win=04/24 q= 80/480 win_qps=30.64 cum_qps=46.49 adv=0 fail= 0 ΔT=  0.7s
+[2026-08-09T04:10:10Z]   B07 dci_gated   win=05/24 q=100/480 win_qps= 3.03 cum_qps= 4.51 adv=1 fail= 0 ΔT=  6.6s
+[2026-08-09T04:10:13Z]   B07 dci_gated   win=06/24 q=120/480 win_qps= 7.17 cum_qps= 4.80 adv=1 fail= 0 ΔT=  2.8s
+[2026-08-09T04:10:17Z]   B07 dci_gated   win=07/24 q=140/480 win_qps= 5.83 cum_qps= 4.93 adv=1 fail= 0 ΔT=  3.4s
+[2026-08-09T04:10:17Z]   B07 dci_gated   win=08/24 q=160/480 win_qps=20.97 cum_qps= 5.45 adv=2 fail= 0 ΔT=  1.0s
+[2026-08-09T04:10:21Z]   B07 dci_gated   win=09/24 q=208/480 win_qps=14.42 cum_qps= 6.36 adv=3 fail= 0 ΔT=  3.3s
+[2026-08-09T04:10:25Z]   B07 dci_gated   win=10/24 q=256/480 win_qps=12.31 cum_qps= 6.99 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T04:10:30Z]   B07 dci_gated   win=11/24 q=304/480 win_qps= 9.12 cum_qps= 7.26 adv=3 fail= 0 ΔT=  5.3s
+[2026-08-09T04:10:33Z]   B07 dci_gated   win=12/24 q=352/480 win_qps=13.71 cum_qps= 7.76 adv=3 fail= 0 ΔT=  3.5s
+[2026-08-09T04:11:04Z]   B07 dci_gated   win=13/24 q=400/480 win_qps= 2.31 cum_qps= 5.26 adv=4 fail= 0 ΔT= 20.8s
+[2026-08-09T04:11:05Z]   B07 dci_gated   win=14/24 q=448/480 win_qps=62.24 cum_qps= 5.83 adv=4 fail= 0 ΔT=  0.8s
+[2026-08-09T04:11:06Z]   B07 dci_gated   win=15/24 q=496/480 win_qps=40.85 cum_qps= 6.36 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T04:11:07Z]   B07 dci_gated   win=16/24 q=544/480 win_qps=47.89 cum_qps= 6.88 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T04:11:07Z]   B07 dci_gated   win=17/24 q=564/480 win_qps=80.42 cum_qps= 7.11 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:11:08Z]   B07 dci_gated   win=18/24 q=584/480 win_qps=60.13 cum_qps= 7.34 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:11:08Z]   B07 dci_gated   win=19/24 q=604/480 win_qps=34.42 cum_qps= 7.53 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:11:09Z]   B07 dci_gated   win=20/24 q=624/480 win_qps=47.54 cum_qps= 7.74 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:11:09Z]   B07 dci_gated   win=21/24 q=644/480 win_qps=51.15 cum_qps= 7.95 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:11:09Z]   B07 dci_gated   win=22/24 q=664/480 win_qps=99.40 cum_qps= 8.18 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:11:10Z]   B07 dci_gated   win=23/24 q=684/480 win_qps=38.06 cum_qps= 8.37 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:11:10Z]   B07 dci_gated   win=24/24 q=704/480 win_qps=40.62 cum_qps= 8.56 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:11:10Z]   -- dci_gated   end:  wall-QPS=  8.561  advisor= 6  T_A= 23781.3ms  fp=dd48bb76d62bbad7
+[2026-08-09T04:11:10Z] === Block 08/10 START - seed=9800 - strategies=['dci_gated'] ===
+[2026-08-09T04:11:10Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:11:18Z]   B08 dci_gated   win=01/24 q= 20/480 win_qps=54.04 cum_qps=53.74 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:11:19Z]   B08 dci_gated   win=02/24 q= 40/480 win_qps=39.61 cum_qps=45.50 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:11:19Z]   B08 dci_gated   win=03/24 q= 60/480 win_qps=84.26 cum_qps=53.64 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:11:19Z]   B08 dci_gated   win=04/24 q= 80/480 win_qps=32.35 cum_qps=46.01 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:11:39Z]   B08 dci_gated   win=05/24 q=100/480 win_qps= 3.26 cum_qps= 4.60 adv=1 fail= 0 ΔT=  6.1s
+[2026-08-09T04:11:45Z]   B08 dci_gated   win=06/24 q=120/480 win_qps= 3.86 cum_qps= 4.46 adv=1 fail= 0 ΔT=  5.2s
+[2026-08-09T04:11:46Z]   B08 dci_gated   win=07/24 q=140/480 win_qps=17.11 cum_qps= 4.99 adv=1 fail= 0 ΔT=  1.2s
+[2026-08-09T04:11:47Z]   B08 dci_gated   win=08/24 q=160/480 win_qps=12.81 cum_qps= 5.40 adv=1 fail= 0 ΔT=  1.6s
+[2026-08-09T04:11:52Z]   B08 dci_gated   win=09/24 q=208/480 win_qps=10.06 cum_qps= 6.04 adv=2 fail= 0 ΔT=  4.8s
+[2026-08-09T04:11:55Z]   B08 dci_gated   win=10/24 q=256/480 win_qps=19.84 cum_qps= 6.95 adv=2 fail= 0 ΔT=  2.4s
+[2026-08-09T04:11:58Z]   B08 dci_gated   win=11/24 q=304/480 win_qps=15.23 cum_qps= 7.60 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T04:12:01Z]   B08 dci_gated   win=12/24 q=352/480 win_qps=13.89 cum_qps= 8.10 adv=2 fail= 0 ΔT=  3.5s
+[2026-08-09T04:12:34Z]   B08 dci_gated   win=13/24 q=400/480 win_qps= 2.08 cum_qps= 5.23 adv=3 fail= 0 ΔT= 23.1s
+[2026-08-09T04:12:35Z]   B08 dci_gated   win=14/24 q=448/480 win_qps=39.25 cum_qps= 5.77 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:12:36Z]   B08 dci_gated   win=15/24 q=496/480 win_qps=44.83 cum_qps= 6.30 adv=3 fail= 0 ΔT=  1.1s
+[2026-08-09T04:12:37Z]   B08 dci_gated   win=16/24 q=544/480 win_qps=59.30 cum_qps= 6.84 adv=3 fail= 0 ΔT=  0.8s
+[2026-08-09T04:12:38Z]   B08 dci_gated   win=17/24 q=564/480 win_qps=55.78 cum_qps= 7.06 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:12:38Z]   B08 dci_gated   win=18/24 q=584/480 win_qps=43.76 cum_qps= 7.26 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:12:38Z]   B08 dci_gated   win=19/24 q=604/480 win_qps=56.89 cum_qps= 7.48 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:12:39Z]   B08 dci_gated   win=20/24 q=624/480 win_qps=50.50 cum_qps= 7.69 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:12:39Z]   B08 dci_gated   win=21/24 q=644/480 win_qps=53.49 cum_qps= 7.90 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:12:40Z]   B08 dci_gated   win=22/24 q=664/480 win_qps=44.30 cum_qps= 8.10 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:12:40Z]   B08 dci_gated   win=23/24 q=684/480 win_qps=87.34 cum_qps= 8.32 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:12:40Z]   B08 dci_gated   win=24/24 q=704/480 win_qps=79.26 cum_qps= 8.54 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:12:40Z]   -- dci_gated   end:  wall-QPS=  8.537  advisor= 5  T_A= 23757.9ms  fp=bd4d7ce81f08b9b4
+[2026-08-09T04:12:40Z] === Block 09/10 START - seed=9900 - strategies=['dci_gated'] ===
+[2026-08-09T04:12:40Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:12:48Z]   B09 dci_gated   win=01/24 q= 20/480 win_qps=79.88 cum_qps=79.24 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:12:48Z]   B09 dci_gated   win=02/24 q= 40/480 win_qps=48.50 cum_qps=59.98 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:12:48Z]   B09 dci_gated   win=03/24 q= 60/480 win_qps=89.11 cum_qps=67.15 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:12:49Z]   B09 dci_gated   win=04/24 q= 80/480 win_qps=47.12 cum_qps=60.60 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:13:10Z]   B09 dci_gated   win=05/24 q=100/480 win_qps= 2.95 cum_qps= 4.53 adv=1 fail= 0 ΔT=  6.8s
+[2026-08-09T04:13:14Z]   B09 dci_gated   win=06/24 q=120/480 win_qps= 4.89 cum_qps= 4.58 adv=1 fail= 0 ΔT=  4.1s
+[2026-08-09T04:13:16Z]   B09 dci_gated   win=07/24 q=140/480 win_qps= 8.22 cum_qps= 4.89 adv=1 fail= 0 ΔT=  2.4s
+[2026-08-09T04:13:18Z]   B09 dci_gated   win=08/24 q=160/480 win_qps= 8.79 cum_qps= 5.18 adv=1 fail= 0 ΔT=  2.3s
+[2026-08-09T04:13:22Z]   B09 dci_gated   win=09/24 q=208/480 win_qps=11.68 cum_qps= 5.94 adv=2 fail= 0 ΔT=  4.1s
+[2026-08-09T04:13:28Z]   B09 dci_gated   win=10/24 q=256/480 win_qps= 8.37 cum_qps= 6.28 adv=2 fail= 0 ΔT=  5.7s
+[2026-08-09T04:13:31Z]   B09 dci_gated   win=11/24 q=304/480 win_qps=16.27 cum_qps= 6.96 adv=2 fail= 0 ΔT=  3.0s
+[2026-08-09T04:13:36Z]   B09 dci_gated   win=12/24 q=352/480 win_qps=10.67 cum_qps= 7.30 adv=2 fail= 0 ΔT=  4.5s
+[2026-08-09T04:14:10Z]   B09 dci_gated   win=13/24 q=400/480 win_qps= 1.96 cum_qps= 4.85 adv=3 fail= 0 ΔT= 24.4s
+[2026-08-09T04:14:11Z]   B09 dci_gated   win=14/24 q=448/480 win_qps=39.26 cum_qps= 5.35 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:14:13Z]   B09 dci_gated   win=15/24 q=496/480 win_qps=35.25 cum_qps= 5.83 adv=3 fail= 0 ΔT=  1.4s
+[2026-08-09T04:14:14Z]   B09 dci_gated   win=16/24 q=544/480 win_qps=41.08 cum_qps= 6.31 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:14:14Z]   B09 dci_gated   win=17/24 q=564/480 win_qps=46.72 cum_qps= 6.50 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:14:14Z]   B09 dci_gated   win=18/24 q=584/480 win_qps=65.91 cum_qps= 6.71 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:14:15Z]   B09 dci_gated   win=19/24 q=604/480 win_qps=41.11 cum_qps= 6.90 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:14:15Z]   B09 dci_gated   win=20/24 q=624/480 win_qps=40.49 cum_qps= 7.09 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:14:16Z]   B09 dci_gated   win=21/24 q=644/480 win_qps=191.74 cum_qps= 7.31 adv=6 fail= 0 ΔT=  0.1s
+[2026-08-09T04:14:16Z]   B09 dci_gated   win=22/24 q=664/480 win_qps=67.06 cum_qps= 7.51 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:14:16Z]   B09 dci_gated   win=23/24 q=684/480 win_qps=54.85 cum_qps= 7.71 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:14:16Z]   B09 dci_gated   win=24/24 q=704/480 win_qps=84.08 cum_qps= 7.91 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:14:16Z]   -- dci_gated   end:  wall-QPS=  7.909  advisor= 6  T_A= 23865.1ms  fp=d0a4100aa61d0ff0
+[2026-08-09T04:14:17Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_105357/block_metrics.csv
+[2026-08-09T04:14:17Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_105357/breakdown_per_window.csv
+[2026-08-09T04:14:17Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_105357/run_meta.json
+[2026-08-09T04:14:17Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_gated/20260809_105357
+── MG gated done
+── MG  DCI_GATE=v3 force=[cheap] → mongo/out/PART2V3_MG_mixed_acheap/  (04:14:17Z)
+[2026-08-09T04:14:17Z]   schedule      : mixed (S5 Part 2)  n_windows=24  onsets={5: 'template', 9: 'volume', 13: 'template', 17: 'volume', 21: 'template'} (1-based windows)
+[2026-08-09T04:14:17Z]   volume sched  : (20, 20, 20, 20, 20, 20, 20, 20, 48, 48, 48, 48, 48, 48, 48, 48, 20, 20, 20, 20, 20, 20, 20, 20)
+[2026-08-09T04:14:17Z]   advisor mode  : esr
+[2026-08-09T04:14:17Z]   baseline      : full
+[2026-08-09T04:14:17Z] mongo_adaptation.py dry_run=False blocks=10
+[2026-08-09T04:14:17Z]   source        : mydb_p3a.combined_clean
+[2026-08-09T04:14:17Z]   strategies    : ['dci_gated']
+[2026-08-09T04:14:17Z]   N_WINDOWS     : 24 (init=window0 + measured 1..24)
+[2026-08-09T04:14:17Z]   QUERIES_PW    : 20
+[2026-08-09T04:14:17Z]   THETA         : 0.75  (similarity; invoke when score < θ)
+[2026-08-09T04:14:17Z]   K_PERIODIC    : 3
+[2026-08-09T04:14:17Z]   W0            : {'R': 0.25, 'V': 0.2, 'T': 0.2, 'A': 0.2, 'P': 0.15}
+[2026-08-09T04:14:17Z]   seed_offset   : 0  (seeds preview: [9000, 9100, 9200] ...)
+[2026-08-09T04:14:17Z]   hsm_v2 avail  : True
+[2026-08-09T04:14:17Z]   phase schedule: ('edge', 'edge', 'edge', 'edge', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'geo', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'review', 'edge', 'edge', 'edge', 'edge')
+[2026-08-09T04:14:18Z]   ✓ source mydb_p3a.combined_clean (5,000,000 documents)
+[2026-08-09T04:14:18Z]   Calibrating DCI gate (64 steady windows)...
+    [cal] DCIGateV3 fitted: rho=0.35 force=cheap audit=None m=64
+[2026-08-09T04:19:16Z]     DCI gate fitted: m=64 tau=1.5 alpha=0.05
+[2026-08-09T04:19:16Z] === Block 00/10 START - seed=9000 - strategies=['dci_gated'] ===
+[2026-08-09T04:19:16Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:19:26Z]   B00 dci_gated   win=01/24 q= 20/480 win_qps=48.00 cum_qps=47.71 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:19:26Z]   B00 dci_gated   win=02/24 q= 40/480 win_qps=53.48 cum_qps=50.29 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:19:27Z]   B00 dci_gated   win=03/24 q= 60/480 win_qps=36.73 cum_qps=44.71 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:19:27Z]   B00 dci_gated   win=04/24 q= 80/480 win_qps=64.10 cum_qps=48.31 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:19:45Z]   B00 dci_gated   win=05/24 q=100/480 win_qps= 2.83 cum_qps= 5.20 adv=1 fail= 0 ΔT=  7.1s
+[2026-08-09T04:19:52Z]   B00 dci_gated   win=06/24 q=120/480 win_qps= 5.17 cum_qps= 4.54 adv=2 fail= 0 ΔT=  3.9s
+[2026-08-09T04:19:54Z]   B00 dci_gated   win=07/24 q=140/480 win_qps= 9.65 cum_qps= 4.91 adv=2 fail= 0 ΔT=  2.1s
+[2026-08-09T04:19:56Z]   B00 dci_gated   win=08/24 q=160/480 win_qps=10.81 cum_qps= 5.27 adv=3 fail= 0 ΔT=  1.9s
+[2026-08-09T04:20:01Z]   B00 dci_gated   win=09/24 q=208/480 win_qps= 8.83 cum_qps= 5.81 adv=4 fail= 0 ΔT=  5.4s
+[2026-08-09T04:20:05Z]   B00 dci_gated   win=10/24 q=256/480 win_qps=12.96 cum_qps= 6.48 adv=4 fail= 0 ΔT=  3.7s
+[2026-08-09T04:20:08Z]   B00 dci_gated   win=11/24 q=304/480 win_qps=17.35 cum_qps= 7.19 adv=4 fail= 0 ΔT=  2.8s
+[2026-08-09T04:20:11Z]   B00 dci_gated   win=12/24 q=352/480 win_qps=15.13 cum_qps= 7.75 adv=4 fail= 0 ΔT=  3.2s
+[2026-08-09T04:20:42Z]   B00 dci_gated   win=13/24 q=400/480 win_qps= 2.30 cum_qps= 5.24 adv=5 fail= 0 ΔT= 20.9s
+[2026-08-09T04:20:43Z]   B00 dci_gated   win=14/24 q=448/480 win_qps=34.55 cum_qps= 5.77 adv=5 fail= 0 ΔT=  1.4s
+[2026-08-09T04:20:44Z]   B00 dci_gated   win=15/24 q=496/480 win_qps=59.79 cum_qps= 6.32 adv=5 fail= 0 ΔT=  0.8s
+[2026-08-09T04:20:45Z]   B00 dci_gated   win=16/24 q=544/480 win_qps=38.71 cum_qps= 6.82 adv=5 fail= 0 ΔT=  1.2s
+[2026-08-09T04:20:46Z]   B00 dci_gated   win=17/24 q=564/480 win_qps=25.59 cum_qps= 7.01 adv=6 fail= 0 ΔT=  0.8s
+[2026-08-09T04:20:46Z]   B00 dci_gated   win=18/24 q=584/480 win_qps=38.97 cum_qps= 7.21 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:20:47Z]   B00 dci_gated   win=19/24 q=604/480 win_qps=64.07 cum_qps= 7.43 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:20:47Z]   B00 dci_gated   win=20/24 q=624/480 win_qps=40.50 cum_qps= 7.63 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:20:48Z]   B00 dci_gated   win=21/24 q=644/480 win_qps=39.49 cum_qps= 7.82 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T04:20:48Z]   B00 dci_gated   win=22/24 q=664/480 win_qps=42.34 cum_qps= 8.02 adv=7 fail= 0 ΔT=  0.5s
+[2026-08-09T04:20:48Z]   B00 dci_gated   win=23/24 q=684/480 win_qps=65.92 cum_qps= 8.23 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T04:20:49Z]   B00 dci_gated   win=24/24 q=704/480 win_qps=67.31 cum_qps= 8.44 adv=7 fail= 0 ΔT=  0.3s
+[2026-08-09T04:20:49Z]   -- dci_gated   end:  wall-QPS=  8.441  advisor= 7  T_A= 23774.2ms  fp=8e83543d95452873
+[2026-08-09T04:20:49Z] === Block 01/10 START - seed=9100 - strategies=['dci_gated'] ===
+[2026-08-09T04:20:49Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:20:57Z]   B01 dci_gated   win=01/24 q= 20/480 win_qps=72.27 cum_qps=71.76 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:20:58Z]   B01 dci_gated   win=02/24 q= 40/480 win_qps=54.37 cum_qps=61.67 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:20:58Z]   B01 dci_gated   win=03/24 q= 60/480 win_qps=209.71 cum_qps=80.42 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T04:20:58Z]   B01 dci_gated   win=04/24 q= 80/480 win_qps=92.67 cum_qps=82.98 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:21:19Z]   B01 dci_gated   win=05/24 q=100/480 win_qps= 2.89 cum_qps= 4.60 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:21:21Z]   B01 dci_gated   win=06/24 q=120/480 win_qps= 7.59 cum_qps= 4.92 adv=1 fail= 0 ΔT=  2.6s
+[2026-08-09T04:21:22Z]   B01 dci_gated   win=07/24 q=140/480 win_qps=26.45 cum_qps= 5.57 adv=1 fail= 0 ΔT=  0.8s
+[2026-08-09T04:21:23Z]   B01 dci_gated   win=08/24 q=160/480 win_qps=14.66 cum_qps= 6.04 adv=1 fail= 0 ΔT=  1.4s
+[2026-08-09T04:21:26Z]   B01 dci_gated   win=09/24 q=208/480 win_qps=18.16 cum_qps= 7.14 adv=2 fail= 0 ΔT=  2.6s
+[2026-08-09T04:21:28Z]   B01 dci_gated   win=10/24 q=256/480 win_qps=21.54 cum_qps= 8.16 adv=2 fail= 0 ΔT=  2.2s
+[2026-08-09T04:21:30Z]   B01 dci_gated   win=11/24 q=304/480 win_qps=24.64 cum_qps= 9.12 adv=2 fail= 0 ΔT=  1.9s
+[2026-08-09T04:21:33Z]   B01 dci_gated   win=12/24 q=352/480 win_qps=16.41 cum_qps= 9.71 adv=2 fail= 0 ΔT=  2.9s
+[2026-08-09T04:22:06Z]   B01 dci_gated   win=13/24 q=400/480 win_qps= 2.12 cum_qps= 5.81 adv=3 fail= 0 ΔT= 22.6s
+[2026-08-09T04:22:07Z]   B01 dci_gated   win=14/24 q=448/480 win_qps=39.56 cum_qps= 6.39 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:22:08Z]   B01 dci_gated   win=15/24 q=496/480 win_qps=39.00 cum_qps= 6.96 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:22:09Z]   B01 dci_gated   win=16/24 q=544/480 win_qps=54.37 cum_qps= 7.54 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:22:09Z]   B01 dci_gated   win=17/24 q=564/480 win_qps=47.04 cum_qps= 7.77 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:22:10Z]   B01 dci_gated   win=18/24 q=584/480 win_qps=33.56 cum_qps= 7.98 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:22:10Z]   B01 dci_gated   win=19/24 q=604/480 win_qps=46.19 cum_qps= 8.20 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:22:11Z]   B01 dci_gated   win=20/24 q=624/480 win_qps=42.29 cum_qps= 8.42 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:22:11Z]   B01 dci_gated   win=21/24 q=644/480 win_qps=40.73 cum_qps= 8.63 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:22:12Z]   B01 dci_gated   win=22/24 q=664/480 win_qps=49.92 cum_qps= 8.85 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:22:12Z]   B01 dci_gated   win=23/24 q=684/480 win_qps=38.03 cum_qps= 9.06 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:22:13Z]   B01 dci_gated   win=24/24 q=704/480 win_qps=34.06 cum_qps= 9.25 adv=6 fail= 0 ΔT=  0.6s
+[2026-08-09T04:22:13Z]   -- dci_gated   end:  wall-QPS=  9.248  advisor= 6  T_A= 23783.0ms  fp=cb43e05d25034573
+[2026-08-09T04:22:13Z] === Block 02/10 START - seed=9200 - strategies=['dci_gated'] ===
+[2026-08-09T04:22:13Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:22:22Z]   B02 dci_gated   win=01/24 q= 20/480 win_qps=38.60 cum_qps=38.45 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:22:22Z]   B02 dci_gated   win=02/24 q= 40/480 win_qps=45.88 cum_qps=41.74 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:22:23Z]   B02 dci_gated   win=03/24 q= 60/480 win_qps=77.27 cum_qps=49.21 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:22:23Z]   B02 dci_gated   win=04/24 q= 80/480 win_qps=52.78 cum_qps=49.99 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:22:44Z]   B02 dci_gated   win=05/24 q=100/480 win_qps= 2.85 cum_qps= 4.44 adv=1 fail= 0 ΔT=  7.0s
+[2026-08-09T04:22:48Z]   B02 dci_gated   win=06/24 q=120/480 win_qps= 5.08 cum_qps= 4.54 adv=1 fail= 0 ΔT=  3.9s
+[2026-08-09T04:22:49Z]   B02 dci_gated   win=07/24 q=140/480 win_qps=15.94 cum_qps= 5.05 adv=2 fail= 0 ΔT=  1.3s
+[2026-08-09T04:22:50Z]   B02 dci_gated   win=08/24 q=160/480 win_qps=19.65 cum_qps= 5.57 adv=2 fail= 0 ΔT=  1.0s
+[2026-08-09T04:22:52Z]   B02 dci_gated   win=09/24 q=208/480 win_qps=21.37 cum_qps= 6.71 adv=3 fail= 0 ΔT=  2.2s
+[2026-08-09T04:22:55Z]   B02 dci_gated   win=10/24 q=256/480 win_qps=20.41 cum_qps= 7.68 adv=3 fail= 0 ΔT=  2.4s
+[2026-08-09T04:22:58Z]   B02 dci_gated   win=11/24 q=304/480 win_qps=15.15 cum_qps= 8.33 adv=3 fail= 0 ΔT=  3.2s
+[2026-08-09T04:23:02Z]   B02 dci_gated   win=12/24 q=352/480 win_qps=12.46 cum_qps= 8.72 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T04:23:35Z]   B02 dci_gated   win=13/24 q=400/480 win_qps= 2.08 cum_qps= 5.44 adv=4 fail= 0 ΔT= 23.1s
+[2026-08-09T04:23:36Z]   B02 dci_gated   win=14/24 q=448/480 win_qps=47.03 cum_qps= 6.01 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T04:23:37Z]   B02 dci_gated   win=15/24 q=496/480 win_qps=55.93 cum_qps= 6.58 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T04:23:38Z]   B02 dci_gated   win=16/24 q=544/480 win_qps=52.82 cum_qps= 7.13 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T04:23:39Z]   B02 dci_gated   win=17/24 q=564/480 win_qps=28.31 cum_qps= 7.32 adv=5 fail= 0 ΔT=  0.7s
+[2026-08-09T04:23:39Z]   B02 dci_gated   win=18/24 q=584/480 win_qps=45.61 cum_qps= 7.54 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:23:39Z]   B02 dci_gated   win=19/24 q=604/480 win_qps=45.90 cum_qps= 7.75 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:23:40Z]   B02 dci_gated   win=20/24 q=624/480 win_qps=40.96 cum_qps= 7.96 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:23:40Z]   B02 dci_gated   win=21/24 q=644/480 win_qps=67.80 cum_qps= 8.18 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:23:41Z]   B02 dci_gated   win=22/24 q=664/480 win_qps=46.13 cum_qps= 8.39 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:23:41Z]   B02 dci_gated   win=23/24 q=684/480 win_qps=104.36 cum_qps= 8.62 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:23:41Z]   B02 dci_gated   win=24/24 q=704/480 win_qps=52.43 cum_qps= 8.83 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:23:41Z]   -- dci_gated   end:  wall-QPS=  8.833  advisor= 6  T_A= 23982.1ms  fp=61e96f9d09d3465e
+[2026-08-09T04:23:41Z] === Block 03/10 START - seed=9300 - strategies=['dci_gated'] ===
+[2026-08-09T04:23:41Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:23:50Z]   B03 dci_gated   win=01/24 q= 20/480 win_qps=47.02 cum_qps=46.78 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:23:51Z]   B03 dci_gated   win=02/24 q= 40/480 win_qps=38.87 cum_qps=42.36 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:23:51Z]   B03 dci_gated   win=03/24 q= 60/480 win_qps=60.80 cum_qps=47.05 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:23:51Z]   B03 dci_gated   win=04/24 q= 80/480 win_qps=135.89 cum_qps=56.17 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T04:24:11Z]   B03 dci_gated   win=05/24 q=100/480 win_qps= 3.52 cum_qps= 4.76 adv=1 fail= 0 ΔT=  5.7s
+[2026-08-09T04:24:14Z]   B03 dci_gated   win=06/24 q=120/480 win_qps= 6.14 cum_qps= 4.94 adv=1 fail= 0 ΔT=  3.3s
+[2026-08-09T04:24:15Z]   B03 dci_gated   win=07/24 q=140/480 win_qps=23.29 cum_qps= 5.57 adv=1 fail= 0 ΔT=  0.9s
+[2026-08-09T04:24:17Z]   B03 dci_gated   win=08/24 q=160/480 win_qps= 9.94 cum_qps= 5.89 adv=1 fail= 0 ΔT=  2.0s
+[2026-08-09T04:24:22Z]   B03 dci_gated   win=09/24 q=208/480 win_qps= 9.89 cum_qps= 6.50 adv=2 fail= 0 ΔT=  4.9s
+[2026-08-09T04:24:24Z]   B03 dci_gated   win=10/24 q=256/480 win_qps=20.72 cum_qps= 7.46 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:24:26Z]   B03 dci_gated   win=11/24 q=304/480 win_qps=20.43 cum_qps= 8.29 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:24:30Z]   B03 dci_gated   win=12/24 q=352/480 win_qps=12.35 cum_qps= 8.68 adv=2 fail= 0 ΔT=  3.9s
+[2026-08-09T04:25:03Z]   B03 dci_gated   win=13/24 q=400/480 win_qps= 2.12 cum_qps= 5.47 adv=3 fail= 0 ΔT= 22.6s
+[2026-08-09T04:25:04Z]   B03 dci_gated   win=14/24 q=448/480 win_qps=33.01 cum_qps= 6.01 adv=3 fail= 0 ΔT=  1.5s
+[2026-08-09T04:25:06Z]   B03 dci_gated   win=15/24 q=496/480 win_qps=36.40 cum_qps= 6.54 adv=3 fail= 0 ΔT=  1.3s
+[2026-08-09T04:25:07Z]   B03 dci_gated   win=16/24 q=544/480 win_qps=48.06 cum_qps= 7.08 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:25:07Z]   B03 dci_gated   win=17/24 q=564/480 win_qps=40.66 cum_qps= 7.29 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:25:07Z]   B03 dci_gated   win=18/24 q=584/480 win_qps=46.75 cum_qps= 7.51 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:25:08Z]   B03 dci_gated   win=19/24 q=604/480 win_qps=93.28 cum_qps= 7.74 adv=4 fail= 0 ΔT=  0.2s
+[2026-08-09T04:25:08Z]   B03 dci_gated   win=20/24 q=624/480 win_qps=37.42 cum_qps= 7.94 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:25:09Z]   B03 dci_gated   win=21/24 q=644/480 win_qps=58.10 cum_qps= 8.16 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:25:09Z]   B03 dci_gated   win=22/24 q=664/480 win_qps=58.16 cum_qps= 8.38 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:25:09Z]   B03 dci_gated   win=23/24 q=684/480 win_qps=37.92 cum_qps= 8.57 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:25:10Z]   B03 dci_gated   win=24/24 q=704/480 win_qps=45.56 cum_qps= 8.78 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:25:10Z]   -- dci_gated   end:  wall-QPS=  8.775  advisor= 5  T_A= 23792.3ms  fp=0f0cb4410459a41a
+[2026-08-09T04:25:10Z] === Block 04/10 START - seed=9400 - strategies=['dci_gated'] ===
+[2026-08-09T04:25:10Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:25:19Z]   B04 dci_gated   win=01/24 q= 20/480 win_qps=34.88 cum_qps=34.75 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:25:19Z]   B04 dci_gated   win=02/24 q= 40/480 win_qps=58.30 cum_qps=43.44 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:25:19Z]   B04 dci_gated   win=03/24 q= 60/480 win_qps=50.23 cum_qps=45.42 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:25:20Z]   B04 dci_gated   win=04/24 q= 80/480 win_qps=45.83 cum_qps=45.47 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:25:41Z]   B04 dci_gated   win=05/24 q=100/480 win_qps= 2.89 cum_qps= 4.44 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:25:44Z]   B04 dci_gated   win=06/24 q=120/480 win_qps= 5.74 cum_qps= 4.61 adv=1 fail= 0 ΔT=  3.5s
+[2026-08-09T04:25:46Z]   B04 dci_gated   win=07/24 q=140/480 win_qps=11.02 cum_qps= 5.03 adv=1 fail= 0 ΔT=  1.8s
+[2026-08-09T04:25:49Z]   B04 dci_gated   win=08/24 q=160/480 win_qps= 6.72 cum_qps= 5.19 adv=1 fail= 0 ΔT=  3.0s
+[2026-08-09T04:25:52Z]   B04 dci_gated   win=09/24 q=208/480 win_qps=13.41 cum_qps= 6.05 adv=2 fail= 0 ΔT=  3.6s
+[2026-08-09T04:25:55Z]   B04 dci_gated   win=10/24 q=256/480 win_qps=19.84 cum_qps= 6.95 adv=2 fail= 0 ΔT=  2.4s
+[2026-08-09T04:26:00Z]   B04 dci_gated   win=11/24 q=304/480 win_qps= 9.16 cum_qps= 7.23 adv=2 fail= 0 ΔT=  5.2s
+[2026-08-09T04:26:03Z]   B04 dci_gated   win=12/24 q=352/480 win_qps=15.26 cum_qps= 7.78 adv=2 fail= 0 ΔT=  3.1s
+[2026-08-09T04:26:36Z]   B04 dci_gated   win=13/24 q=400/480 win_qps= 2.12 cum_qps= 5.14 adv=3 fail= 0 ΔT= 22.6s
+[2026-08-09T04:26:37Z]   B04 dci_gated   win=14/24 q=448/480 win_qps=46.60 cum_qps= 5.69 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:26:38Z]   B04 dci_gated   win=15/24 q=496/480 win_qps=31.94 cum_qps= 6.18 adv=3 fail= 0 ΔT=  1.5s
+[2026-08-09T04:26:40Z]   B04 dci_gated   win=16/24 q=544/480 win_qps=38.04 cum_qps= 6.67 adv=3 fail= 0 ΔT=  1.3s
+[2026-08-09T04:26:40Z]   B04 dci_gated   win=17/24 q=564/480 win_qps=39.33 cum_qps= 6.87 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:26:41Z]   B04 dci_gated   win=18/24 q=584/480 win_qps=28.40 cum_qps= 7.05 adv=4 fail= 0 ΔT=  0.7s
+[2026-08-09T04:26:41Z]   B04 dci_gated   win=19/24 q=604/480 win_qps=59.10 cum_qps= 7.27 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:26:42Z]   B04 dci_gated   win=20/24 q=624/480 win_qps=54.35 cum_qps= 7.47 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:26:42Z]   B04 dci_gated   win=21/24 q=644/480 win_qps=43.55 cum_qps= 7.67 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:26:42Z]   B04 dci_gated   win=22/24 q=664/480 win_qps=94.51 cum_qps= 7.89 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:26:43Z]   B04 dci_gated   win=23/24 q=684/480 win_qps=55.51 cum_qps= 8.09 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:26:43Z]   B04 dci_gated   win=24/24 q=704/480 win_qps=89.24 cum_qps= 8.31 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:26:43Z]   -- dci_gated   end:  wall-QPS=  8.305  advisor= 5  T_A= 23768.2ms  fp=6a6b7f934018b359
+[2026-08-09T04:26:43Z] === Block 05/10 START - seed=9500 - strategies=['dci_gated'] ===
+[2026-08-09T04:26:43Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:26:51Z]   B05 dci_gated   win=01/24 q= 20/480 win_qps=100.93 cum_qps=99.87 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:26:52Z]   B05 dci_gated   win=02/24 q= 40/480 win_qps=33.16 cum_qps=49.66 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:26:52Z]   B05 dci_gated   win=03/24 q= 60/480 win_qps=135.06 cum_qps=62.78 adv=0 fail= 0 ΔT=  0.1s
+[2026-08-09T04:26:52Z]   B05 dci_gated   win=04/24 q= 80/480 win_qps=50.62 cum_qps=59.14 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:27:07Z]   B05 dci_gated   win=05/24 q=100/480 win_qps= 3.93 cum_qps= 6.13 adv=1 fail= 0 ΔT=  5.1s
+[2026-08-09T04:27:14Z]   B05 dci_gated   win=06/24 q=120/480 win_qps= 2.94 cum_qps= 5.19 adv=1 fail= 0 ΔT=  6.8s
+[2026-08-09T04:27:17Z]   B05 dci_gated   win=07/24 q=140/480 win_qps= 7.60 cum_qps= 5.44 adv=1 fail= 0 ΔT=  2.6s
+[2026-08-09T04:27:24Z]   B05 dci_gated   win=08/24 q=160/480 win_qps= 2.89 cum_qps= 4.90 adv=1 fail= 0 ΔT=  6.9s
+[2026-08-09T04:27:38Z]   B05 dci_gated   win=09/24 q=208/480 win_qps= 4.80 cum_qps= 4.45 adv=2 fail= 0 ΔT= 10.0s
+[2026-08-09T04:27:45Z]   B05 dci_gated   win=10/24 q=256/480 win_qps= 6.99 cum_qps= 4.78 adv=2 fail= 0 ΔT=  6.9s
+[2026-08-09T04:27:49Z]   B05 dci_gated   win=11/24 q=304/480 win_qps=11.69 cum_qps= 5.27 adv=2 fail= 0 ΔT=  4.1s
+[2026-08-09T04:27:51Z]   B05 dci_gated   win=12/24 q=352/480 win_qps=20.62 cum_qps= 5.86 adv=2 fail= 0 ΔT=  2.3s
+[2026-08-09T04:28:22Z]   B05 dci_gated   win=13/24 q=400/480 win_qps= 2.34 cum_qps= 4.42 adv=3 fail= 0 ΔT= 20.5s
+[2026-08-09T04:28:23Z]   B05 dci_gated   win=14/24 q=448/480 win_qps=34.26 cum_qps= 4.87 adv=3 fail= 0 ΔT=  1.4s
+[2026-08-09T04:28:24Z]   B05 dci_gated   win=15/24 q=496/480 win_qps=50.99 cum_qps= 5.34 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:28:25Z]   B05 dci_gated   win=16/24 q=544/480 win_qps=50.74 cum_qps= 5.80 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:28:25Z]   B05 dci_gated   win=17/24 q=564/480 win_qps=53.53 cum_qps= 5.99 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:28:26Z]   B05 dci_gated   win=18/24 q=584/480 win_qps=38.49 cum_qps= 6.16 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:28:26Z]   B05 dci_gated   win=19/24 q=604/480 win_qps=45.05 cum_qps= 6.35 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:28:27Z]   B05 dci_gated   win=20/24 q=624/480 win_qps=39.64 cum_qps= 6.52 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:28:27Z]   B05 dci_gated   win=21/24 q=644/480 win_qps=54.59 cum_qps= 6.70 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:28:27Z]   B05 dci_gated   win=22/24 q=664/480 win_qps=52.33 cum_qps= 6.89 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:28:28Z]   B05 dci_gated   win=23/24 q=684/480 win_qps=85.97 cum_qps= 7.08 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:28:28Z]   B05 dci_gated   win=24/24 q=704/480 win_qps=67.10 cum_qps= 7.26 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:28:28Z]   -- dci_gated   end:  wall-QPS=  7.260  advisor= 5  T_A= 23877.7ms  fp=2ace369518f64075
+[2026-08-09T04:28:28Z] === Block 06/10 START - seed=9600 - strategies=['dci_gated'] ===
+[2026-08-09T04:28:28Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:28:37Z]   B06 dci_gated   win=01/24 q= 20/480 win_qps=59.92 cum_qps=59.54 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:28:37Z]   B06 dci_gated   win=02/24 q= 40/480 win_qps=58.52 cum_qps=58.84 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:28:38Z]   B06 dci_gated   win=03/24 q= 60/480 win_qps=64.15 cum_qps=60.35 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:28:38Z]   B06 dci_gated   win=04/24 q= 80/480 win_qps=110.84 cum_qps=67.98 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:28:59Z]   B06 dci_gated   win=05/24 q=100/480 win_qps= 2.79 cum_qps= 4.50 adv=1 fail= 0 ΔT=  7.2s
+[2026-08-09T04:29:02Z]   B06 dci_gated   win=06/24 q=120/480 win_qps= 7.28 cum_qps= 4.81 adv=1 fail= 0 ΔT=  2.7s
+[2026-08-09T04:29:03Z]   B06 dci_gated   win=07/24 q=140/480 win_qps=11.87 cum_qps= 5.25 adv=1 fail= 0 ΔT=  1.7s
+[2026-08-09T04:29:04Z]   B06 dci_gated   win=08/24 q=160/480 win_qps=28.85 cum_qps= 5.85 adv=1 fail= 0 ΔT=  0.7s
+[2026-08-09T04:29:07Z]   B06 dci_gated   win=09/24 q=208/480 win_qps=14.91 cum_qps= 6.80 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T04:29:11Z]   B06 dci_gated   win=10/24 q=256/480 win_qps=12.92 cum_qps= 7.47 adv=2 fail= 0 ΔT=  3.7s
+[2026-08-09T04:29:18Z]   B06 dci_gated   win=11/24 q=304/480 win_qps= 6.97 cum_qps= 7.38 adv=2 fail= 0 ΔT=  6.9s
+[2026-08-09T04:29:21Z]   B06 dci_gated   win=12/24 q=352/480 win_qps=18.03 cum_qps= 8.03 adv=2 fail= 0 ΔT=  2.7s
+[2026-08-09T04:29:53Z]   B06 dci_gated   win=13/24 q=400/480 win_qps= 2.18 cum_qps= 5.27 adv=3 fail= 0 ΔT= 22.1s
+[2026-08-09T04:29:54Z]   B06 dci_gated   win=14/24 q=448/480 win_qps=45.94 cum_qps= 5.82 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:29:55Z]   B06 dci_gated   win=15/24 q=496/480 win_qps=53.07 cum_qps= 6.37 adv=3 fail= 0 ΔT=  0.9s
+[2026-08-09T04:29:56Z]   B06 dci_gated   win=16/24 q=544/480 win_qps=48.32 cum_qps= 6.90 adv=3 fail= 0 ΔT=  1.0s
+[2026-08-09T04:29:56Z]   B06 dci_gated   win=17/24 q=564/480 win_qps=37.34 cum_qps= 7.10 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:29:56Z]   B06 dci_gated   win=18/24 q=584/480 win_qps=59.50 cum_qps= 7.32 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:29:57Z]   B06 dci_gated   win=19/24 q=604/480 win_qps=62.74 cum_qps= 7.54 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:29:57Z]   B06 dci_gated   win=20/24 q=624/480 win_qps=65.20 cum_qps= 7.76 adv=4 fail= 0 ΔT=  0.3s
+[2026-08-09T04:29:57Z]   B06 dci_gated   win=21/24 q=644/480 win_qps=101.53 cum_qps= 7.99 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:29:58Z]   B06 dci_gated   win=22/24 q=664/480 win_qps=73.19 cum_qps= 8.21 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:29:58Z]   B06 dci_gated   win=23/24 q=684/480 win_qps=58.40 cum_qps= 8.43 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:29:58Z]   B06 dci_gated   win=24/24 q=704/480 win_qps=35.59 cum_qps= 8.61 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:29:58Z]   -- dci_gated   end:  wall-QPS=  8.611  advisor= 5  T_A= 23850.9ms  fp=caae606e1d6d8e30
+[2026-08-09T04:29:58Z] === Block 07/10 START - seed=9700 - strategies=['dci_gated'] ===
+[2026-08-09T04:29:58Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:30:07Z]   B07 dci_gated   win=01/24 q= 20/480 win_qps=70.40 cum_qps=69.87 adv=0 fail= 0 ΔT=  0.3s
+[2026-08-09T04:30:08Z]   B07 dci_gated   win=02/24 q= 40/480 win_qps=34.04 cum_qps=45.68 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:30:08Z]   B07 dci_gated   win=03/24 q= 60/480 win_qps=95.54 cum_qps=55.19 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:30:09Z]   B07 dci_gated   win=04/24 q= 80/480 win_qps=30.34 cum_qps=45.76 adv=0 fail= 0 ΔT=  0.7s
+[2026-08-09T04:30:29Z]   B07 dci_gated   win=05/24 q=100/480 win_qps= 3.02 cum_qps= 4.47 adv=1 fail= 0 ΔT=  6.6s
+[2026-08-09T04:30:32Z]   B07 dci_gated   win=06/24 q=120/480 win_qps= 7.20 cum_qps= 4.78 adv=1 fail= 0 ΔT=  2.8s
+[2026-08-09T04:30:35Z]   B07 dci_gated   win=07/24 q=140/480 win_qps= 5.83 cum_qps= 4.90 adv=1 fail= 0 ΔT=  3.4s
+[2026-08-09T04:30:36Z]   B07 dci_gated   win=08/24 q=160/480 win_qps=20.98 cum_qps= 5.42 adv=2 fail= 0 ΔT=  1.0s
+[2026-08-09T04:30:40Z]   B07 dci_gated   win=09/24 q=208/480 win_qps=14.39 cum_qps= 6.33 adv=3 fail= 0 ΔT=  3.3s
+[2026-08-09T04:30:44Z]   B07 dci_gated   win=10/24 q=256/480 win_qps=12.28 cum_qps= 6.96 adv=3 fail= 0 ΔT=  3.9s
+[2026-08-09T04:30:49Z]   B07 dci_gated   win=11/24 q=304/480 win_qps= 9.09 cum_qps= 7.23 adv=3 fail= 0 ΔT=  5.3s
+[2026-08-09T04:30:52Z]   B07 dci_gated   win=12/24 q=352/480 win_qps=13.67 cum_qps= 7.72 adv=3 fail= 0 ΔT=  3.5s
+[2026-08-09T04:31:23Z]   B07 dci_gated   win=13/24 q=400/480 win_qps= 2.30 cum_qps= 5.23 adv=4 fail= 0 ΔT= 20.9s
+[2026-08-09T04:31:24Z]   B07 dci_gated   win=14/24 q=448/480 win_qps=55.32 cum_qps= 5.79 adv=4 fail= 0 ΔT=  0.9s
+[2026-08-09T04:31:25Z]   B07 dci_gated   win=15/24 q=496/480 win_qps=41.03 cum_qps= 6.32 adv=4 fail= 0 ΔT=  1.2s
+[2026-08-09T04:31:26Z]   B07 dci_gated   win=16/24 q=544/480 win_qps=48.10 cum_qps= 6.84 adv=4 fail= 0 ΔT=  1.0s
+[2026-08-09T04:31:27Z]   B07 dci_gated   win=17/24 q=564/480 win_qps=79.28 cum_qps= 7.07 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:31:27Z]   B07 dci_gated   win=18/24 q=584/480 win_qps=59.22 cum_qps= 7.29 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:31:27Z]   B07 dci_gated   win=19/24 q=604/480 win_qps=34.56 cum_qps= 7.48 adv=5 fail= 0 ΔT=  0.6s
+[2026-08-09T04:31:28Z]   B07 dci_gated   win=20/24 q=624/480 win_qps=46.91 cum_qps= 7.69 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:31:28Z]   B07 dci_gated   win=21/24 q=644/480 win_qps=50.68 cum_qps= 7.90 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:31:29Z]   B07 dci_gated   win=22/24 q=664/480 win_qps=98.82 cum_qps= 8.12 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:31:29Z]   B07 dci_gated   win=23/24 q=684/480 win_qps=37.88 cum_qps= 8.31 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:31:30Z]   B07 dci_gated   win=24/24 q=704/480 win_qps=40.59 cum_qps= 8.51 adv=6 fail= 0 ΔT=  0.5s
+[2026-08-09T04:31:30Z]   -- dci_gated   end:  wall-QPS=  8.507  advisor= 6  T_A= 23976.8ms  fp=dd48bb76d62bbad7
+[2026-08-09T04:31:30Z] === Block 08/10 START - seed=9800 - strategies=['dci_gated'] ===
+[2026-08-09T04:31:30Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:31:37Z]   B08 dci_gated   win=01/24 q= 20/480 win_qps=53.97 cum_qps=53.63 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:31:38Z]   B08 dci_gated   win=02/24 q= 40/480 win_qps=39.65 cum_qps=45.48 adv=0 fail= 0 ΔT=  0.5s
+[2026-08-09T04:31:38Z]   B08 dci_gated   win=03/24 q= 60/480 win_qps=84.06 cum_qps=53.59 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:31:39Z]   B08 dci_gated   win=04/24 q= 80/480 win_qps=32.49 cum_qps=46.05 adv=0 fail= 0 ΔT=  0.6s
+[2026-08-09T04:31:59Z]   B08 dci_gated   win=05/24 q=100/480 win_qps= 3.26 cum_qps= 4.58 adv=1 fail= 0 ΔT=  6.1s
+[2026-08-09T04:32:04Z]   B08 dci_gated   win=06/24 q=120/480 win_qps= 3.83 cum_qps= 4.43 adv=1 fail= 0 ΔT=  5.2s
+[2026-08-09T04:32:05Z]   B08 dci_gated   win=07/24 q=140/480 win_qps=16.93 cum_qps= 4.96 adv=1 fail= 0 ΔT=  1.2s
+[2026-08-09T04:32:07Z]   B08 dci_gated   win=08/24 q=160/480 win_qps=12.78 cum_qps= 5.37 adv=1 fail= 0 ΔT=  1.6s
+[2026-08-09T04:32:12Z]   B08 dci_gated   win=09/24 q=208/480 win_qps=10.14 cum_qps= 6.02 adv=2 fail= 0 ΔT=  4.7s
+[2026-08-09T04:32:14Z]   B08 dci_gated   win=10/24 q=256/480 win_qps=19.81 cum_qps= 6.92 adv=2 fail= 0 ΔT=  2.4s
+[2026-08-09T04:32:17Z]   B08 dci_gated   win=11/24 q=304/480 win_qps=15.19 cum_qps= 7.57 adv=2 fail= 0 ΔT=  3.2s
+[2026-08-09T04:32:21Z]   B08 dci_gated   win=12/24 q=352/480 win_qps=13.85 cum_qps= 8.07 adv=2 fail= 0 ΔT=  3.5s
+[2026-08-09T04:32:54Z]   B08 dci_gated   win=13/24 q=400/480 win_qps= 2.07 cum_qps= 5.21 adv=3 fail= 0 ΔT= 23.2s
+[2026-08-09T04:32:55Z]   B08 dci_gated   win=14/24 q=448/480 win_qps=38.53 cum_qps= 5.74 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:32:56Z]   B08 dci_gated   win=15/24 q=496/480 win_qps=44.92 cum_qps= 6.27 adv=3 fail= 0 ΔT=  1.1s
+[2026-08-09T04:32:57Z]   B08 dci_gated   win=16/24 q=544/480 win_qps=59.65 cum_qps= 6.80 adv=3 fail= 0 ΔT=  0.8s
+[2026-08-09T04:32:57Z]   B08 dci_gated   win=17/24 q=564/480 win_qps=56.31 cum_qps= 7.02 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:32:58Z]   B08 dci_gated   win=18/24 q=584/480 win_qps=44.02 cum_qps= 7.23 adv=4 fail= 0 ΔT=  0.5s
+[2026-08-09T04:32:58Z]   B08 dci_gated   win=19/24 q=604/480 win_qps=57.03 cum_qps= 7.44 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:32:59Z]   B08 dci_gated   win=20/24 q=624/480 win_qps=50.52 cum_qps= 7.65 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:32:59Z]   B08 dci_gated   win=21/24 q=644/480 win_qps=53.59 cum_qps= 7.86 adv=5 fail= 0 ΔT=  0.4s
+[2026-08-09T04:32:59Z]   B08 dci_gated   win=22/24 q=664/480 win_qps=44.35 cum_qps= 8.06 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:33:00Z]   B08 dci_gated   win=23/24 q=684/480 win_qps=87.74 cum_qps= 8.28 adv=5 fail= 0 ΔT=  0.2s
+[2026-08-09T04:33:00Z]   B08 dci_gated   win=24/24 q=704/480 win_qps=78.95 cum_qps= 8.50 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:33:00Z]   -- dci_gated   end:  wall-QPS=  8.498  advisor= 5  T_A= 23997.4ms  fp=bd4d7ce81f08b9b4
+[2026-08-09T04:33:00Z] === Block 09/10 START - seed=9900 - strategies=['dci_gated'] ===
+[2026-08-09T04:33:00Z]   -- dci_gated   START - 24 win x 20 q expected
+[2026-08-09T04:33:08Z]   B09 dci_gated   win=01/24 q= 20/480 win_qps=80.85 cum_qps=80.08 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:33:08Z]   B09 dci_gated   win=02/24 q= 40/480 win_qps=48.25 cum_qps=60.02 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:33:08Z]   B09 dci_gated   win=03/24 q= 60/480 win_qps=87.67 cum_qps=66.90 adv=0 fail= 0 ΔT=  0.2s
+[2026-08-09T04:33:09Z]   B09 dci_gated   win=04/24 q= 80/480 win_qps=47.22 cum_qps=60.50 adv=0 fail= 0 ΔT=  0.4s
+[2026-08-09T04:33:30Z]   B09 dci_gated   win=05/24 q=100/480 win_qps= 2.96 cum_qps= 4.55 adv=1 fail= 0 ΔT=  6.8s
+[2026-08-09T04:33:34Z]   B09 dci_gated   win=06/24 q=120/480 win_qps= 4.90 cum_qps= 4.61 adv=1 fail= 0 ΔT=  4.1s
+[2026-08-09T04:33:36Z]   B09 dci_gated   win=07/24 q=140/480 win_qps= 8.21 cum_qps= 4.91 adv=1 fail= 0 ΔT=  2.4s
+[2026-08-09T04:33:38Z]   B09 dci_gated   win=08/24 q=160/480 win_qps= 8.79 cum_qps= 5.20 adv=1 fail= 0 ΔT=  2.3s
+[2026-08-09T04:33:42Z]   B09 dci_gated   win=09/24 q=208/480 win_qps=11.65 cum_qps= 5.96 adv=2 fail= 0 ΔT=  4.1s
+[2026-08-09T04:33:48Z]   B09 dci_gated   win=10/24 q=256/480 win_qps= 8.39 cum_qps= 6.30 adv=2 fail= 0 ΔT=  5.7s
+[2026-08-09T04:33:51Z]   B09 dci_gated   win=11/24 q=304/480 win_qps=16.23 cum_qps= 6.97 adv=2 fail= 0 ΔT=  3.0s
+[2026-08-09T04:33:56Z]   B09 dci_gated   win=12/24 q=352/480 win_qps=10.66 cum_qps= 7.32 adv=2 fail= 0 ΔT=  4.5s
+[2026-08-09T04:34:30Z]   B09 dci_gated   win=13/24 q=400/480 win_qps= 1.98 cum_qps= 4.86 adv=3 fail= 0 ΔT= 24.3s
+[2026-08-09T04:34:31Z]   B09 dci_gated   win=14/24 q=448/480 win_qps=38.63 cum_qps= 5.36 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:34:32Z]   B09 dci_gated   win=15/24 q=496/480 win_qps=35.00 cum_qps= 5.84 adv=3 fail= 0 ΔT=  1.4s
+[2026-08-09T04:34:34Z]   B09 dci_gated   win=16/24 q=544/480 win_qps=41.34 cum_qps= 6.32 adv=3 fail= 0 ΔT=  1.2s
+[2026-08-09T04:34:34Z]   B09 dci_gated   win=17/24 q=564/480 win_qps=46.19 cum_qps= 6.52 adv=4 fail= 0 ΔT=  0.4s
+[2026-08-09T04:34:34Z]   B09 dci_gated   win=18/24 q=584/480 win_qps=65.22 cum_qps= 6.73 adv=5 fail= 0 ΔT=  0.3s
+[2026-08-09T04:34:35Z]   B09 dci_gated   win=19/24 q=604/480 win_qps=40.91 cum_qps= 6.92 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:34:35Z]   B09 dci_gated   win=20/24 q=624/480 win_qps=40.13 cum_qps= 7.10 adv=5 fail= 0 ΔT=  0.5s
+[2026-08-09T04:34:35Z]   B09 dci_gated   win=21/24 q=644/480 win_qps=187.24 cum_qps= 7.32 adv=6 fail= 0 ΔT=  0.1s
+[2026-08-09T04:34:36Z]   B09 dci_gated   win=22/24 q=664/480 win_qps=66.33 cum_qps= 7.52 adv=6 fail= 0 ΔT=  0.3s
+[2026-08-09T04:34:36Z]   B09 dci_gated   win=23/24 q=684/480 win_qps=54.38 cum_qps= 7.72 adv=6 fail= 0 ΔT=  0.4s
+[2026-08-09T04:34:36Z]   B09 dci_gated   win=24/24 q=704/480 win_qps=84.83 cum_qps= 7.92 adv=6 fail= 0 ΔT=  0.2s
+[2026-08-09T04:34:36Z]   -- dci_gated   end:  wall-QPS=  7.923  advisor= 6  T_A= 23809.4ms  fp=d0a4100aa61d0ff0
+[2026-08-09T04:34:36Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_111418/block_metrics.csv
+[2026-08-09T04:34:36Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_111418/breakdown_per_window.csv
+[2026-08-09T04:34:36Z]   wrote /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_111418/run_meta.json
+[2026-08-09T04:34:36Z] DONE. Results: /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/end_to_end/mongo/out/PART2V3_MG_mixed_acheap/20260809_111418
+── MG acheap done
+2026-08-09T04:34:37Z
+═══ Part 2 v3 sweep complete. Next: python3 part2_analyze.py . ═══

@@ -1,0 +1,7 @@
+engine,arm,blocks,onsets_total,recall,recall_lag1,fa_per_block,fires_per_block,frac_full_windows,det_ms_per_window_measured,det_cost_vs_always_full,fire_agree_vs_ref,latency_ratio_steady,latency_ratio_post_onset,latency_post_over_steady,onset_type_recall,audit_windows,sp_out_of_band_windows,queries_failed
+PG,always_full,10,50,1.0,1.0,0.2,5.4,1.0,11.1381,1.0,,1.0,1.0,1.0,T:30/30 V:20/20,0,0,0
+PG,dci_gated_v3,10,50,1.0,1.0,0.1,5.2,0.0,2.0417,0.1833,0.9917,1.0073,0.9974,0.9902,T:30/30 V:20/20,0,240,0
+PG,always_cheap,10,50,1.0,1.0,0.1,5.2,0.0,2.0946,0.1881,0.9917,1.0072,0.998,0.9909,T:30/30 V:20/20,0,240,0
+MG,always_full,10,50,1.0,1.0,0.8,6.4,1.0,2.5031,1.0,,1.0,1.0,1.0,T:30/30 V:20/20,0,0,0
+MG,dci_gated_v3,10,50,1.0,1.0,0.3,5.6,0.0,0.3282,0.1311,0.9583,1.0025,1.0077,1.0052,T:30/30 V:20/20,0,240,0
+MG,always_cheap,10,50,1.0,1.0,0.3,5.6,0.0,0.3286,0.1313,0.9583,1.0024,1.0104,1.008,T:30/30 V:20/20,0,240,0

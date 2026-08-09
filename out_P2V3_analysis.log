@@ -1,0 +1,32 @@
+
+════════ PG — live mixed-drift, gate-v3 three-arm study ════════
+  [ok] PG: workload fingerprints identical across arms (10 blocks)
+  arm            recall  rec(+1)  FA/blk fires/blk  %full det ms/win vs afull fire==ref lat.steady lat.post post/std  fails
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  always_full     1.000    1.000    0.20      5.40 100.0%     11.138   100.0%         —     1.000*   1.000*        —      0
+               └ onset-type recall(+1): T:30/30  V:20/20
+  dci_gated_v3    1.000    1.000    0.10      5.20   0.0%      2.042    18.3%     99.2%      1.007    0.997    0.990      0
+               └ onset-type recall(+1): T:30/30  V:20/20   audits=0 sp_oob=240
+  always_cheap    1.000    1.000    0.10      5.20   0.0%      2.095    18.8%     99.2%      1.007    0.998    0.991      0
+               └ onset-type recall(+1): T:30/30  V:20/20
+  (*) reference arm. ratios vs always-full, paired per (block,window); geometric means.
+      det ms/win = MEASURED conditional detector path (decision A): cheap sims + lazy S_P when escalated.
+  [warn] PART2V3_MG_mixed_afull: 2 runs, using latest 20260809_103349
+  [warn] PART2V3_MG_mixed_gated: 2 runs, using latest 20260809_105357
+  [warn] PART2V3_MG_mixed_acheap: 2 runs, using latest 20260809_111418
+
+════════ MG — live mixed-drift, gate-v3 three-arm study ════════
+  [ok] MG: workload fingerprints identical across arms (10 blocks)
+  arm            recall  rec(+1)  FA/blk fires/blk  %full det ms/win vs afull fire==ref lat.steady lat.post post/std  fails
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  always_full     1.000    1.000    0.80      6.40 100.0%      2.503   100.0%         —     1.000*   1.000*        —      0
+               └ onset-type recall(+1): T:30/30  V:20/20
+  dci_gated_v3    1.000    1.000    0.30      5.60   0.0%      0.328    13.1%     95.8%      1.003    1.008    1.005      0
+               └ onset-type recall(+1): T:30/30  V:20/20   audits=0 sp_oob=240
+  always_cheap    1.000    1.000    0.30      5.60   0.0%      0.329    13.1%     95.8%      1.002    1.010    1.008      0
+               └ onset-type recall(+1): T:30/30  V:20/20
+  (*) reference arm. ratios vs always-full, paired per (block,window); geometric means.
+      det ms/win = MEASURED conditional detector path (decision A): cheap sims + lazy S_P when escalated.
+
+[out ] /Users/arunreungsinkonkarn/Desktop/Research Papers/Paper 3 /Paper 3C/repro_3c/part2v3_summary.csv
+[note] Axis discipline unchanged: no wall_qps / economics here (3D axis). Paper numbers only from the locked-env run.
