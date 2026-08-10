@@ -1,0 +1,114 @@
+{
+ "file": "data/sample_0.01.parquet",
+ "win": 1000,
+ "chosen": [
+  "96",
+  "100",
+  "79"
+ ],
+ "tests": {
+  "T1": {
+   "96": {
+    "n": 586690,
+    "distinct": 2241,
+    "distinct_pct": 0.38,
+    "top1": 2.2,
+    "top10": 12.6,
+    "top50": 42.7,
+    "top100": 71.0
+   },
+   "100": {
+    "n": 206787,
+    "distinct": 25395,
+    "distinct_pct": 12.28,
+    "top1": 11.7,
+    "top10": 50.8,
+    "top50": 77.2,
+    "top100": 80.2
+   },
+   "79": {
+    "n": 123017,
+    "distinct": 28218,
+    "distinct_pct": 22.94,
+    "top1": 34.7,
+    "top10": 40.4,
+    "top50": 47.4,
+    "top100": 50.8
+   },
+   "_population": {
+    "eligible": 107,
+    "viable_top50_ge_40": 57,
+    "coverage_quartiles": [
+     30.2,
+     42.2,
+     74.4
+    ]
+   }
+  },
+  "T2": {
+   "96": {
+    "windows": 586,
+    "pairs": 585,
+    "median": 0.989,
+    "p10": 0.143,
+    "p90": 1.0
+   },
+   "100": {
+    "windows": 206,
+    "pairs": 205,
+    "median": 0.975,
+    "p10": 0.95,
+    "p90": 0.985
+   },
+   "79": {
+    "windows": 123,
+    "pairs": 122,
+    "median": 0.958,
+    "p10": 0.713,
+    "p90": 0.993
+   }
+  },
+  "T3": {
+   "pairs": {
+    "96x100": {
+     "freq_cosine": 0.0,
+     "table_jaccard": 0.002
+    },
+    "96x79": {
+     "freq_cosine": 0.0,
+     "table_jaccard": 0.016
+    },
+    "100x79": {
+     "freq_cosine": 0.0,
+     "table_jaccard": 0.008
+    }
+   }
+  },
+  "T4": {
+   "96": {
+    "min_pos_delta_s": 0.0,
+    "subsec_frac": 1.0,
+    "sample_qps": 0.0759,
+    "est_full_win_span_min": 2.2
+   },
+   "100": {
+    "min_pos_delta_s": 0.0002,
+    "subsec_frac": 1.0,
+    "sample_qps": 0.0263,
+    "est_full_win_span_min": 6.3
+   },
+   "79": {
+    "min_pos_delta_s": 0.0,
+    "subsec_frac": 1.0,
+    "sample_qps": 0.0158,
+    "est_full_win_span_min": 10.5
+   }
+  }
+ },
+ "verdicts": {
+  "T1": "PASS",
+  "T2": "PASS",
+  "T3": "PASS",
+  "T4": "PASS"
+ }
+}

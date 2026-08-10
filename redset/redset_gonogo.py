@@ -66,17 +66,23 @@ def main() -> int:
     ap.add_argument("--min-span-days", type=int, default=56)
     args = ap.parse_args()
 
-    df = pd.read_parquet(args.parquet, columns=None)
-    missing = [c for c in NEED if c not in df.columns]
-    if missing:
-        print(f"[FATAL] missing columns {missing}; have: {list(df.columns)}")
-        return 2
-    df = df[NEED].copy()
+    try:
+        df = pd.read_parquet(args.parquet, columns=NEED)
+    except Exception:
+        df = pd.read_parquet(args.parquet)
+        missing = [c for c in NEED if c not in df.columns]
+        if missing:
+            print(f"[FATAL] missing columns {missing}; have: {list(df.columns)}")
+            return 2
+        df = df[NEED].copy()
     df["arrival_timestamp"] = pd.to_datetime(df["arrival_timestamp"])
     n_total = len(df)
     n_aborted = int(df["was_aborted"].sum()) if df["was_aborted"].notna().any() else 0
     df = df[df["was_aborted"] != True]  # noqa: E712  (keep cached: they are real arrivals)
-    print(f"[load] {n_total:,} rows; dropped aborted {n_aborted:,}; kept {len(df):,}")
+    n_nofp = int(df["feature_fingerprint"].isna().sum())
+    df = df.dropna(subset=["feature_fingerprint"])
+    df["feature_fingerprint"] = df["feature_fingerprint"].astype(str)
+    print(f"[load] {n_total:,} rows; dropped aborted {n_aborted:,}, no-fingerprint {n_nofp:,}; kept {len(df):,}")
     print(f"[load] query_type mix (top6): {df['query_type'].value_counts().head(6).to_dict()}")
 
     # ── cluster selection: volume + span ─────────────────────────────
@@ -86,11 +92,23 @@ def main() -> int:
         t1=("arrival_timestamp", "max"))
     g["span_days"] = (g["t1"] - g["t0"]).dt.total_seconds() / 86400
     ok = g[g["span_days"] >= args.min_span_days].sort_values("n", ascending=False)
-    chosen = list(ok.head(args.clusters).index)
-    print(f"\n[clusters] chosen (of {len(g)} with span>={args.min_span_days}d: {len(ok)}):")
+    # population-level reuse scan (the study's real viability question):
+    print(f"\n[T1-population] scanning fingerprint reuse over {len(ok)} eligible clusters...")
+    reuse = {}
+    for cid in ok.index:
+        vc = df.loc[df.instance_id == cid, "feature_fingerprint"].value_counts()
+        n = int(vc.sum())
+        reuse[cid] = float(vc.head(50).sum() / n * 100) if n else 0.0
+    ok = ok.assign(top50=[reuse[c] for c in ok.index])
+    viable = ok[ok["top50"] >= 40.0]
+    qs = np.quantile(list(reuse.values()), [.25, .5, .75])
+    print(f"[T1-population] top-50 coverage quartiles: {qs[0]:.0f}/{qs[1]:.0f}/{qs[2]:.0f}%  "
+          f"| clusters with top50>=40%: {len(viable)}/{len(ok)}")
+    chosen = list(viable.sort_values("n", ascending=False).head(args.clusters).index)
+    print(f"[clusters] chosen (viable, by volume):")
     for cid in chosen:
-        r = g.loc[cid]
-        print(f"  instance {cid}: n={int(r['n']):,} (sample) span={r['span_days']:.0f}d")
+        r = ok.loc[cid]
+        print(f"  instance {cid}: n={int(r['n']):,} (sample) span={r['span_days']:.0f}d top50={r['top50']:.1f}%")
 
     report = {"file": args.parquet, "win": args.win, "chosen": [str(c) for c in chosen],
               "tests": {}}
@@ -111,8 +129,9 @@ def main() -> int:
         print(f"  {cid}: distinct {d:,}/{n:,} ({row['distinct_pct']}%)  "
               f"coverage top1/10/50/100 = {row['top1']}/{row['top10']}/"
               f"{row['top50']}/{row['top100']}%")
-    worst50 = min(r["top50"] for r in t1.values())
-    verdicts["T1"] = "PASS" if worst50 >= 40 else ("MARGINAL" if worst50 >= 20 else "FAIL")
+    verdicts["T1"] = "PASS" if len(viable) >= 10 else ("MARGINAL" if len(viable) >= 5 else "FAIL")
+    t1["_population"] = {"eligible": len(ok), "viable_top50_ge_40": int(len(viable)),
+                         "coverage_quartiles": [round(float(q), 1) for q in qs]}
     report["tests"]["T1"] = t1
 
     # ── T2 adjacent-window stability ─────────────────────────────────

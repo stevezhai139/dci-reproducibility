@@ -1,0 +1,39 @@
+[load] 4,331,078 rows; dropped aborted 21,782, no-fingerprint 509,310; kept 3,799,986
+[load] query_type mix (top6): {'select': 867726, 'delete': 838263, 'insert': 672144, 'analyze': 427033, 'copy': 387961, 'ctas': 246808}
+
+[T1-population] scanning fingerprint reuse over 107 eligible clusters...
+[T1-population] top-50 coverage quartiles: 30/42/74%  | clusters with top50>=40%: 57/107
+[clusters] chosen (viable, by volume):
+  instance 96: n=586,690 (sample) span=89d top50=42.7%
+  instance 100: n=206,787 (sample) span=91d top50=77.2%
+  instance 79: n=123,017 (sample) span=90d top50=47.4%
+
+══ T1 fingerprint reuse (need Zipf-like, not flat) ══
+  96: distinct 2,241/586,690 (0.38%)  coverage top1/10/50/100 = 2.2/12.6/42.7/71.0%
+  100: distinct 25,395/206,787 (12.28%)  coverage top1/10/50/100 = 11.7/50.8/77.2/80.2%
+  79: distinct 28,218/123,017 (22.94%)  coverage top1/10/50/100 = 34.7/40.4/47.4/50.8%
+
+══ T2 adjacent-window stability (W=1000 queries, fingerprint freq cosine) ══
+  96: 586 windows, adjacent cosine median=0.989 p10=0.143 p90=1.0
+  100: 206 windows, adjacent cosine median=0.975 p10=0.95 p90=0.985
+  79: 123 windows, adjacent cosine median=0.958 p10=0.713 p90=0.993
+
+══ T3 cross-tenant contrast (across should be << within) ══
+  96 x 100: cross freq-cosine=0.0 (within medians 0.989/0.975), table-Jaccard=0.002
+  96 x 79: cross freq-cosine=0.0 (within medians 0.989/0.958), table-Jaccard=0.016
+  100 x 79: cross freq-cosine=0.0 (within medians 0.975/0.958), table-Jaccard=0.008
+
+══ T4 arrival_timestamp granularity (S_P viability) ══
+  96: min +delta=0.0s subsec_frac=1.0 est. full-data W=1000 span ≈ 2.2 min
+  100: min +delta=0.0002s subsec_frac=1.0 est. full-data W=1000 span ≈ 6.3 min
+  79: min +delta=0.0s subsec_frac=1.0 est. full-data W=1000 span ≈ 10.5 min
+
+══════ VERDICTS ══════
+  T1: PASS
+  T2: PASS
+  T3: PASS
+  T4: PASS
+
+  GO/NO-GO suggestion: GO
+  (T1 is the hard gate per the spec; judge MARGINALs with eyes on the numbers)
+[out] redset_gonogo_report.json
