@@ -7,3 +7,6 @@ config.local.sh
 comment.cut
 *.bak
 .*.sql.*
+
+# Redset raw data (CC BY-NC 4.0 — download separately, do not redistribute)
+redset/data/
