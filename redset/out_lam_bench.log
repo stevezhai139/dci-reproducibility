@@ -1,0 +1,188 @@
+  ...200/1125 [1s]
+  ...400/1125 [3s]
+  ...600/1125 [4s]
+  ...800/1125 [5s]
+  ...1000/1125 [6s]
+
+stratum           policy                n  recall  FA/traj
+cross/aligned/l0.05adwin               100   0.000    0.000
+cross/aligned/l0.05always_multiD       100   0.390    4.160
+cross/aligned/l0.05best_axis_oracle    100   0.460    2.340
+cross/aligned/l0.05dci_v3              100   0.390    4.160
+cross/aligned/l0.05dci_v3_a8           100   0.390    4.190
+cross/aligned/l0.05every_k2            100   0.220    2.010
+cross/aligned/l0.05mcusum              100   0.190    1.560
+cross/aligned/l0.05sketch1             100   0.100    2.650
+cross/aligned/l0.05union4_bonf         100   0.390    4.160
+cross/aligned/l0.1adwin               100   0.000    0.000
+cross/aligned/l0.1always_multiD       100   0.450    4.690
+cross/aligned/l0.1best_axis_oracle    100   0.530    2.870
+cross/aligned/l0.1dci_v3              100   0.460    4.670
+cross/aligned/l0.1dci_v3_a8           100   0.460    4.720
+cross/aligned/l0.1every_k2            100   0.240    2.280
+cross/aligned/l0.1mcusum              100   0.300    1.770
+cross/aligned/l0.1sketch1             100   0.130    2.920
+cross/aligned/l0.1union4_bonf         100   0.460    4.670
+cross/aligned/l0.2adwin               100   0.000    0.000
+cross/aligned/l0.2always_multiD       100   0.540    5.590
+cross/aligned/l0.2best_axis_oracle    100   0.600    3.360
+cross/aligned/l0.2dci_v3              100   0.560    5.400
+cross/aligned/l0.2dci_v3_a8           100   0.560    5.430
+cross/aligned/l0.2every_k2            100   0.240    2.770
+cross/aligned/l0.2mcusum              100   0.410    2.570
+cross/aligned/l0.2sketch1             100   0.170    3.320
+cross/aligned/l0.2union4_bonf         100   0.560    5.390
+cross/aligned/l0.4adwin               100   0.000    0.000
+cross/aligned/l0.4always_multiD       100   0.660    6.220
+cross/aligned/l0.4best_axis_oracle    100   0.720    3.540
+cross/aligned/l0.4dci_v3              100   0.690    6.000
+cross/aligned/l0.4dci_v3_a8           100   0.680    6.060
+cross/aligned/l0.4every_k2            100   0.360    3.030
+cross/aligned/l0.4mcusum              100   0.470    3.360
+cross/aligned/l0.4sketch1             100   0.320    3.920
+cross/aligned/l0.4union4_bonf         100   0.690    5.980
+cross/aligned/l1  adwin               100   0.000    0.000
+cross/aligned/l1  always_multiD       100   0.920    9.830
+cross/aligned/l1  best_axis_oracle    100   0.950    3.930
+cross/aligned/l1  dci_v3              100   0.950    9.700
+cross/aligned/l1  dci_v3_a8           100   0.950    9.680
+cross/aligned/l1  every_k2            100   0.500    4.890
+cross/aligned/l1  mcusum              100   0.490    6.400
+cross/aligned/l1  sketch1             100   0.630    7.740
+cross/aligned/l1  union4_bonf         100   0.950    9.460
+cross/offaxis/l0.05adwin                68   0.000    0.000
+cross/offaxis/l0.05always_multiD        68   0.074    3.956
+cross/offaxis/l0.05best_axis_oracle     68   0.059    0.426
+cross/offaxis/l0.05dci_v3               68   0.074    3.235
+cross/offaxis/l0.05dci_v3_a8            68   0.074    3.397
+cross/offaxis/l0.05every_k2             68   0.074    1.809
+cross/offaxis/l0.05mcusum               68   0.044    0.147
+cross/offaxis/l0.05sketch1              68   0.059    2.059
+cross/offaxis/l0.05union4_bonf          68   0.059    3.118
+cross/offaxis/l0.1adwin                68   0.000    0.000
+cross/offaxis/l0.1always_multiD        68   0.074    3.559
+cross/offaxis/l0.1best_axis_oracle     68   0.059    0.368
+cross/offaxis/l0.1dci_v3               68   0.074    3.118
+cross/offaxis/l0.1dci_v3_a8            68   0.074    3.176
+cross/offaxis/l0.1every_k2             68   0.044    1.853
+cross/offaxis/l0.1mcusum               68   0.044    0.176
+cross/offaxis/l0.1sketch1              68   0.059    2.118
+cross/offaxis/l0.1union4_bonf          68   0.059    2.971
+cross/offaxis/l0.2adwin                68   0.000    0.000
+cross/offaxis/l0.2always_multiD        68   0.059    3.779
+cross/offaxis/l0.2best_axis_oracle     68   0.059    0.529
+cross/offaxis/l0.2dci_v3               68   0.059    2.691
+cross/offaxis/l0.2dci_v3_a8            68   0.059    2.794
+cross/offaxis/l0.2every_k2             68   0.044    1.794
+cross/offaxis/l0.2mcusum               68   0.029    0.191
+cross/offaxis/l0.2sketch1              68   0.059    2.191
+cross/offaxis/l0.2union4_bonf          68   0.059    2.574
+cross/offaxis/l0.4adwin                68   0.000    0.000
+cross/offaxis/l0.4always_multiD        68   0.426    3.809
+cross/offaxis/l0.4best_axis_oracle     68   0.118    0.779
+cross/offaxis/l0.4dci_v3               68   0.074    2.426
+cross/offaxis/l0.4dci_v3_a8            68   0.147    2.574
+cross/offaxis/l0.4every_k2             68   0.191    2.074
+cross/offaxis/l0.4mcusum               68   0.029    0.235
+cross/offaxis/l0.4sketch1              68   0.059    2.250
+cross/offaxis/l0.4union4_bonf          68   0.074    2.059
+cross/offaxis/l1  adwin                68   0.000    0.000
+cross/offaxis/l1  always_multiD        68   1.000    6.735
+cross/offaxis/l1  best_axis_oracle     68   1.000    1.324
+cross/offaxis/l1  dci_v3               68   1.000    6.544
+cross/offaxis/l1  dci_v3_a8            68   1.000    6.588
+cross/offaxis/l1  every_k2             68   0.368    3.500
+cross/offaxis/l1  mcusum               68   0.074    2.779
+cross/offaxis/l1  sketch1              68   0.868    5.118
+cross/offaxis/l1  union4_bonf          68   1.000    4.706
+within/aligned/l0.05adwin                50   0.000    0.000
+within/aligned/l0.05always_multiD        50   0.680    7.640
+within/aligned/l0.05best_axis_oracle     50   0.740    2.460
+within/aligned/l0.05dci_v3               50   0.680    7.520
+within/aligned/l0.05dci_v3_a8            50   0.660    7.500
+within/aligned/l0.05every_k2             50   0.220    4.000
+within/aligned/l0.05mcusum               50   0.460    3.580
+within/aligned/l0.05sketch1              50   0.320    5.580
+within/aligned/l0.05union4_bonf          50   0.680    7.580
+within/aligned/l0.1adwin                50   0.000    0.000
+within/aligned/l0.1always_multiD        50   0.760    8.040
+within/aligned/l0.1best_axis_oracle     50   0.820    2.760
+within/aligned/l0.1dci_v3               50   0.740    7.980
+within/aligned/l0.1dci_v3_a8            50   0.740    8.060
+within/aligned/l0.1every_k2             50   0.380    4.000
+within/aligned/l0.1mcusum               50   0.540    4.220
+within/aligned/l0.1sketch1              50   0.320    5.960
+within/aligned/l0.1union4_bonf          50   0.740    7.900
+within/aligned/l0.2adwin                50   0.000    0.000
+within/aligned/l0.2always_multiD        50   0.900    8.040
+within/aligned/l0.2best_axis_oracle     50   0.860    3.000
+within/aligned/l0.2dci_v3               50   0.860    8.040
+within/aligned/l0.2dci_v3_a8            50   0.860    8.100
+within/aligned/l0.2every_k2             50   0.680    3.800
+within/aligned/l0.2mcusum               50   0.580    4.560
+within/aligned/l0.2sketch1              50   0.500    5.420
+within/aligned/l0.2union4_bonf          50   0.860    7.940
+within/aligned/l0.4adwin                50   0.000    0.000
+within/aligned/l0.4always_multiD        50   0.900    8.180
+within/aligned/l0.4best_axis_oracle     50   0.900    2.920
+within/aligned/l0.4dci_v3               50   0.880    8.300
+within/aligned/l0.4dci_v3_a8            50   0.880    8.300
+within/aligned/l0.4every_k2             50   0.400    4.060
+within/aligned/l0.4mcusum               50   0.660    4.960
+within/aligned/l0.4sketch1              50   0.660    6.160
+within/aligned/l0.4union4_bonf          50   0.880    8.240
+within/aligned/l1 adwin                50   0.000    0.000
+within/aligned/l1 always_multiD        50   0.920    6.960
+within/aligned/l1 best_axis_oracle     50   0.960    1.400
+within/aligned/l1 dci_v3               50   0.920    6.860
+within/aligned/l1 dci_v3_a8            50   0.920    6.860
+within/aligned/l1 every_k2             50   0.400    3.480
+within/aligned/l1 mcusum               50   0.840    4.480
+within/aligned/l1 sketch1              50   0.880    6.360
+within/aligned/l1 union4_bonf          50   0.920    6.860
+within/offaxis/l0.05adwin                 7   0.000    0.000
+within/offaxis/l0.05always_multiD         7   1.000   18.000
+within/offaxis/l0.05best_axis_oracle      7   1.000   10.000
+within/offaxis/l0.05dci_v3                7   1.000   16.000
+within/offaxis/l0.05dci_v3_a8             7   1.000   16.143
+within/offaxis/l0.05every_k2              7   0.429    9.143
+within/offaxis/l0.05mcusum                7   1.000    2.000
+within/offaxis/l0.05sketch1               7   1.000   14.000
+within/offaxis/l0.05union4_bonf           7   1.000   14.000
+within/offaxis/l0.1adwin                 7   0.000    0.000
+within/offaxis/l0.1always_multiD         7   1.000   18.000
+within/offaxis/l0.1best_axis_oracle      7   1.000    8.571
+within/offaxis/l0.1dci_v3                7   1.000   16.000
+within/offaxis/l0.1dci_v3_a8             7   1.000   16.286
+within/offaxis/l0.1every_k2              7   0.429    9.143
+within/offaxis/l0.1mcusum                7   1.000    2.714
+within/offaxis/l0.1sketch1               7   1.000   14.000
+within/offaxis/l0.1union4_bonf           7   1.000   14.000
+within/offaxis/l0.2adwin                 7   0.000    0.000
+within/offaxis/l0.2always_multiD         7   1.000   18.000
+within/offaxis/l0.2best_axis_oracle      7   1.000   11.000
+within/offaxis/l0.2dci_v3                7   1.000   16.000
+within/offaxis/l0.2dci_v3_a8             7   1.000   16.143
+within/offaxis/l0.2every_k2              7   0.429    9.143
+within/offaxis/l0.2mcusum                7   1.000    3.000
+within/offaxis/l0.2sketch1               7   1.000   15.000
+within/offaxis/l0.2union4_bonf           7   1.000   14.000
+within/offaxis/l0.4adwin                 7   0.000    0.000
+within/offaxis/l0.4always_multiD         7   1.000   18.000
+within/offaxis/l0.4best_axis_oracle      7   1.000   11.000
+within/offaxis/l0.4dci_v3                7   1.000   16.000
+within/offaxis/l0.4dci_v3_a8             7   1.000   16.143
+within/offaxis/l0.4every_k2              7   0.429    9.143
+within/offaxis/l0.4mcusum                7   0.000    4.000
+within/offaxis/l0.4sketch1               7   1.000   15.000
+within/offaxis/l0.4union4_bonf           7   1.000   14.000
+within/offaxis/l1 adwin                 7   0.000    0.000
+within/offaxis/l1 always_multiD         7   1.000   18.000
+within/offaxis/l1 best_axis_oracle      7   1.000    5.000
+within/offaxis/l1 dci_v3                7   1.000   16.000
+within/offaxis/l1 dci_v3_a8             7   1.000   16.429
+within/offaxis/l1 every_k2              7   0.571    8.857
+within/offaxis/l1 mcusum                7   1.000    7.857
+within/offaxis/l1 sketch1               7   0.000   15.000
+within/offaxis/l1 union4_bonf           7   1.000   14.000
+[out] lam_out/bench_results.csv + bench_summary.json  [7s]

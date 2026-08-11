@@ -190,11 +190,15 @@ def main() -> int:
     L.add_argument("--aligned-sample", type=int, default=100)
     L.add_argument("--seg", type=int, default=12)
     L.add_argument("--cal", type=int, default=64)
+    F = sub.add_parser("lamfit")
+    F.add_argument("--pairs", default="lam_out")
     a = ap.parse_args()
     if a.cmd == "bench":
         return bench(a)
     if a.cmd == "lam":
         return lam(a)
+    if a.cmd == "lamfit":
+        return lamfit(a)
 
     t0 = time.time()
     ids = [c.strip() for c in a.clusters.split(",")]
@@ -356,6 +360,70 @@ def bench(a) -> int:
                                "fa_per_traj": round(fa / n_, 4)}
     json.dump(summ, open(pdir / "bench_summary.json", "w"), indent=1)
     print(f"[out] {pdir}/bench_results.csv + bench_summary.json  [{time.time()-t0:.0f}s]")
+    return 0
+
+
+# Bonferroni cheap-axis and full-test thresholds at m=64, alpha=0.05.
+# See REDSET_LAMBDA_PREDICTION.md for the derivation these feed:
+#   lam50_union / lam50_full  ~=  sqrt(T1/T5) / sqrt(R~)  =  0.726 / sqrt(R~)
+T1_CHEAP, T5_FULL = 6.77, 12.85
+
+
+def lamfit(a) -> int:
+    """Official lambda* extraction: per (parent stratum, policy) recall curves
+    from lam_out/bench_results.csv, lam50 by first-crossing linear
+    interpolation, observed union/full ratio vs predicted 0.726/sqrt(R~)
+    with R~ = median R_at_onset of the stratum's lam=1 (saturated) rows."""
+    import csv as _csv, json
+    import pandas as pd
+    cand = pd.read_csv(Path(a.pairs) / "candidates.csv")
+    res = pd.read_csv(Path(a.pairs) / "bench_results.csv")
+    parts = res["stratum"].str.rsplit("/l", n=1)
+    res["parent"] = parts.str[0]
+    res["lam"] = parts.str[1].astype(float)
+    cp = cand["stratum"].str.rsplit("/l", n=1)
+    cand["parent"] = cp.str[0]
+    rt = (cand[cand["lam"] == 1.0].groupby("parent")["R_at_onset"]
+          .median().to_dict())
+
+    def lam50(grp):
+        g = grp.groupby("lam")["hit"].mean().sort_index()
+        ls, rs = g.index.to_numpy(float), g.to_numpy(float)
+        if rs[0] >= 0.5:
+            return -ls[0], rs  # saturated left: lam50 < grid floor
+        for i in range(1, len(rs)):
+            if rs[i] >= 0.5 > rs[i - 1]:
+                x = ls[i-1] + (ls[i]-ls[i-1]) * (0.5-rs[i-1]) / (rs[i]-rs[i-1])
+                return x, rs
+        return float("inf"), rs  # never crosses
+
+    out = {}
+    for parent, gp in res.groupby("parent"):
+        row = {"R_med": round(float(rt.get(parent, float('nan'))), 4)}
+        for pol in ("always_multiD", "union4_bonf", "best_axis_oracle",
+                    "dci_v3", "dci_v3_a8"):
+            x, curve = lam50(gp[gp["policy"] == pol])
+            row[pol] = round(x, 4) if np.isfinite(x) else None
+            row[pol + "_curve"] = [round(float(v), 3) for v in curve]
+        lf, lu = row["always_multiD"], row["union4_bonf"]
+        if lf and lu and lf > 0 and lu > 0:
+            row["ratio_obs"] = round(lu / lf, 3)
+        else:
+            row["ratio_obs"] = None
+        Rm = row["R_med"]
+        row["ratio_pred"] = round(float(np.sqrt(T1_CHEAP / T5_FULL) / np.sqrt(Rm)), 3) if Rm and Rm > 0 else None
+        out[parent] = row
+
+    hdr = f"{'parent stratum':<16}{'R~med':>7}{'l50 full':>10}{'l50 union':>10}{'l50 orac':>9}{'l50 dci':>9}{'l50 a8':>8}{'obs':>7}{'pred':>7}"
+    print(hdr); print("-" * len(hdr))
+    for k, r in out.items():
+        f6 = lambda v: ("  <%.2f" % -v if (v is not None and v < 0) else ("  never" if v is None else "%7.3f" % v))
+        print(f"{k:<16}{r['R_med']:>7.3f}{f6(r['always_multiD']):>10}{f6(r['union4_bonf']):>10}"
+              f"{f6(r['best_axis_oracle']):>9}{f6(r['dci_v3']):>9}{f6(r['dci_v3_a8']):>8}"
+              f"{r['ratio_obs'] if r['ratio_obs'] else '--':>7}{r['ratio_pred'] if r['ratio_pred'] else '--':>7}")
+    with open(Path(a.pairs) / "lamfit.json", "w") as fh:
+        json.dump(out, fh, indent=1)
+    print(f"[out] {a.pairs}/lamfit.json")
     return 0
 
 

@@ -1,0 +1,13 @@
+[lam] 225 parent candidates x 5 lambdas
+  ...100 trajectories [5s]
+  ...200 trajectories [8s]
+  ...300 trajectories [11s]
+  ...400 trajectories [14s]
+  ...500 trajectories [17s]
+  ...600 trajectories [21s]
+  ...700 trajectories [24s]
+  ...800 trajectories [27s]
+  ...900 trajectories [30s]
+  ...1000 trajectories [33s]
+  ...1100 trajectories [35s]
+[out] lam_out/candidates.csv + traj_cache.npz (1125 trajectories) [35s]
