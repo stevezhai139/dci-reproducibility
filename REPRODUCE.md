@@ -132,3 +132,34 @@ S_P lazily inside the timed path on escalation); S_P is additionally computed
 out-of-band (flagged sp_out_of_band) purely for log completeness.
 Official outputs: end_to_end/postgres/out_PART2V3_PG_mixed_{afull,gated,acheap}/,
 end_to_end/mongo/out/PART2V3_MG_mixed_*/ (runs 20260809_*).
+
+## Redset: the geometry in the wild (§6.5, tab:redset; 2026-08-11)
+
+Data: Redset (amazon-science/redset), provisioned split, CC BY-NC 4.0 — fetched
+directly from the public S3 release by the scripts below; NEVER redistributed
+(redset/data/ is gitignored). Paper's mixture fraction μ = `lam` in scripts.
+
+Pipeline (from `redset/`, in order; each step idempotent):
+1. `bash redset_fetch_pool.sh` — fetch parquet + build per-instance stores
+   (sorted fixed-count 1,000-query windows; adjacent-pair five-axis features).
+2. `python3 redset_gonogo.py` / `redset_select_clusters.py` — screens
+   (span ≥56 d, top-50 coverage ≥40%, no-fingerprint ≤10%) → 12-instance pool.
+3. `python3 redset_splice.py pairs` — 1,670 spliced trajectories
+   (1,452 cross / 117 within / 101 control) + onset geometry → `pairs_out/`.
+   Official: off-axis (R<0.35) = 4.7%, plateau 4.3–5.4% over ρ∈[0.25,0.40].
+4. `python3 redset_splice.py bench --pairs pairs_out --repro ..` — stratified
+   policy bench (esc. concentration 11.6–18/23 off-axis vs ≤0.7 aligned;
+   control FA floor 2.1/23).
+5. `python3 redset_splice.py lam` then `bench --pairs lam_out` — μ-mixture
+   sweep (225 parents × μ∈{.05,.1,.2,.4,1} = 1,125 traj). Official headline:
+   μ=0.4 off-axis full 0.426 / oracle 0.118 / union 0.074.
+6. `python3 redset_splice.py lamfit --pairs lam_out` — μ50 + crossover check
+   vs prediction 0.726/√R (T1,T5 at m=64, α=0.05): obs 1.42 (pred 1.81)
+   off-axis, 0.90 (0.82) aligned → `lam_out/lamfit.json` = tab:redset.
+
+Declared decisions (d1–d6): instance drops at screen; hash fingerprint as
+template proxy (overestimates repetition); top-2000 vocab cluster-level vs
+exact pair-local vocab for trajectories; S_V constant under fixed-count
+windows; table-only S_A; kernel sp_v2 on arrival-QPS. Official logs:
+redset/out_{select,lam,lam_bench,lamfit}.log; deterministic rng
+[RNG_SEED, cand_id, μ·1000, window].
