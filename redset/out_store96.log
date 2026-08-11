@@ -1,0 +1,3 @@
+[store] data/cluster_96.parquet: rows 58,700,516 -> kept 58,677,437 (dropped aborted 647, no-fingerprint 22,432)  [16s]
+[store] windows: 58677 x 1000 (tail 437 dropped); fp vocab 70,020; table vocab 24,679
+[store] wrote data/store_96.npz [83s total]

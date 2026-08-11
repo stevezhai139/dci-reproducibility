@@ -9,9 +9,12 @@ Two commands:
       (fingerprint ids, relative arrivals, table ids, t0).
 
   features     <store.npz> --out features_<id>.parquet [--steady 64]
-      Compute the five-axis feature vector of every window against the
-      reference window W0 (window 0), plus steady-prefix statistics and
-      range/stability validation. This is the paper's FOURTH kernel-free
+      Compute the five-axis feature vector of every ADJACENT window pair,
+      f(t) = sim(W_{t-1}, W_t) -- the paper's Def.-1 / kernel_adjacent
+      convention (a fixed-W0 reference was evaluated and rejected: periodic
+      batch structure makes any single reference unrepresentative; adjacent
+      similarity is what the position detectors were built for). Plus
+      steady-prefix statistics and range/stability validation. This is the paper's FOURTH kernel-free
       representation (Sec 6.9 precedent).
 
 DECLARED PROTOCOL DECISIONS (must appear in the paper if the study lands):
@@ -126,25 +129,28 @@ def features(store: str, out: str, steady: int) -> int:
     cover = sum(cnt[f] for f in vocab_ids) / sum(cnt.values()) * 100
     print(f"[feat] {store}: {nw} windows; vocab top-{VOCAB} covers {cover:.1f}% (residual bucket holds the rest)")
 
-    ref_fp = z["fp_ids"][0]
-    ref_freq = freq_on(ref_fp, vocab_ids, None)
-    ref_tbl = window_tables(z, 0)
-    ref_qps = arrivals_to_qps_series(z["arr_rel"][0].astype(float))
-    ref_set = set(ref_fp.tolist())
+    prev_fp = z["fp_ids"][0]
+    prev_freq = freq_on(prev_fp, vocab_ids, None)
+    prev_tbl = window_tables(z, 0)
+    _ra = z["arr_rel"][0].astype(float)
+    prev_qps = arrivals_to_qps_series(_ra, max(float(_ra[-1]), 1.0))
+    prev_set = set(prev_fp.tolist())
 
     rows = []
-    for wdx in range(nw):
+    for wdx in range(1, nw):
         fp = z["fp_ids"][wdx]
         fq = freq_on(fp, vocab_ids, None)
-        s_r = float(sr_v2(ref_freq, fq))
-        s_t = float(st_v2(ref_freq, fq))
+        s_r = float(sr_v2(prev_freq, fq))
+        s_t = float(st_v2(prev_freq, fq))
         s_v = 1.0  # d4: constant by construction (fixed-count windows)
         tb = window_tables(z, wdx)
-        u = ref_tbl | tb
-        s_a = float(len(ref_tbl & tb) / len(u)) if u else 1.0
-        qps = arrivals_to_qps_series(z["arr_rel"][wdx].astype(float))
-        s_p = float(sp_v2(ref_qps, qps, ref_set, set(fp.tolist())))
+        u = prev_tbl | tb
+        s_a = float(len(prev_tbl & tb) / len(u)) if u else 1.0
+        _rw = z["arr_rel"][wdx].astype(float)
+        qps = arrivals_to_qps_series(_rw, max(float(_rw[-1]), 1.0))
+        s_p = float(sp_v2(prev_qps, qps, prev_set, set(fp.tolist())))
         rows.append((wdx, int(z["t_start"][wdx]), s_r, s_v, s_t, s_a, s_p))
+        prev_freq, prev_tbl, prev_qps, prev_set = fq, tb, qps, set(fp.tolist())
         if wdx % 500 == 0 and wdx:
             print(f"  ...{wdx}/{nw} [{time.time()-t0:.0f}s]", flush=True)
     df = pd.DataFrame(rows, columns=["window", "t_start_ns", "S_R", "S_V", "S_T", "S_A", "S_P"])
