@@ -1,0 +1,56 @@
+  ...200/1670 [1s]
+  ...400/1670 [2s]
+  ...600/1670 [4s]
+  ...800/1670 [5s]
+  ...1000/1670 [6s]
+  ...1200/1670 [7s]
+  ...1400/1670 [8s]
+  ...1600/1670 [9s]
+
+stratum           policy                n  recall  FA/traj
+control           adwin               101       —    0.000
+control           always_multiD       101       —    2.050
+control           best_axis_oracle    101       —    0.000
+control           dci_v3              101       —    2.178
+control           dci_v3_a8           101       —    2.149
+control           every_k2            101       —    1.030
+control           mcusum              101       —    0.644
+control           sketch1             101       —    1.881
+control           union4_bonf         101       —    2.119
+cross/aligned     adwin              1384   0.000    0.000
+cross/aligned     always_multiD      1384   0.931    9.486
+cross/aligned     best_axis_oracle   1384   0.965    4.238
+cross/aligned     dci_v3             1384   0.957    9.173
+cross/aligned     dci_v3_a8          1384   0.952    9.204
+cross/aligned     every_k2           1384   0.456    4.743
+cross/aligned     mcusum             1384   0.520    6.020
+cross/aligned     sketch1            1384   0.613    7.355
+cross/aligned     union4_bonf        1384   0.957    9.038
+cross/offaxis     adwin                68   0.000    0.000
+cross/offaxis     always_multiD        68   1.000    6.735
+cross/offaxis     best_axis_oracle     68   1.000    1.324
+cross/offaxis     dci_v3               68   1.000    6.544
+cross/offaxis     dci_v3_a8            68   1.000    6.559
+cross/offaxis     every_k2             68   0.441    3.397
+cross/offaxis     mcusum               68   0.074    2.779
+cross/offaxis     sketch1              68   0.868    5.118
+cross/offaxis     union4_bonf          68   1.000    4.706
+within/aligned    adwin               110   0.000    0.000
+within/aligned    always_multiD       110   0.900    6.491
+within/aligned    best_axis_oracle    110   0.964    1.764
+within/aligned    dci_v3              110   0.900    6.473
+within/aligned    dci_v3_a8           110   0.900    6.482
+within/aligned    every_k2            110   0.482    3.236
+within/aligned    mcusum              110   0.800    4.000
+within/aligned    sketch1             110   0.800    5.291
+within/aligned    union4_bonf         110   0.900    6.436
+within/offaxis    adwin                 7   0.000    0.000
+within/offaxis    always_multiD         7   1.000   18.000
+within/offaxis    best_axis_oracle      7   1.000    5.000
+within/offaxis    dci_v3                7   1.000   16.000
+within/offaxis    dci_v3_a8             7   1.000   16.143
+within/offaxis    every_k2              7   0.429    9.143
+within/offaxis    mcusum                7   1.000    7.857
+within/offaxis    sketch1               7   0.000   15.000
+within/offaxis    union4_bonf           7   1.000   14.000
+[out] pairs_out/bench_results.csv + bench_summary.json  [10s]

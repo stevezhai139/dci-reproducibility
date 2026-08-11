@@ -1,0 +1,227 @@
+{
+ "control/adwin": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 0.0
+ },
+ "control/always_multiD": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 2.0495
+ },
+ "control/best_axis_oracle": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 0.0
+ },
+ "control/dci_v3": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 2.1782
+ },
+ "control/dci_v3_a8": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 2.1485
+ },
+ "control/every_k2": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 1.0297
+ },
+ "control/mcusum": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 0.6436
+ },
+ "control/sketch1": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 1.8812
+ },
+ "control/union4_bonf": {
+  "n": 101,
+  "recall": null,
+  "fa_per_traj": 2.1188
+ },
+ "cross/aligned/adwin": {
+  "n": 1384,
+  "recall": 0.0,
+  "fa_per_traj": 0.0
+ },
+ "cross/aligned/always_multiD": {
+  "n": 1384,
+  "recall": 0.9314,
+  "fa_per_traj": 9.4863
+ },
+ "cross/aligned/best_axis_oracle": {
+  "n": 1384,
+  "recall": 0.9646,
+  "fa_per_traj": 4.2384
+ },
+ "cross/aligned/dci_v3": {
+  "n": 1384,
+  "recall": 0.9574,
+  "fa_per_traj": 9.1734
+ },
+ "cross/aligned/dci_v3_a8": {
+  "n": 1384,
+  "recall": 0.9523,
+  "fa_per_traj": 9.2038
+ },
+ "cross/aligned/every_k2": {
+  "n": 1384,
+  "recall": 0.4559,
+  "fa_per_traj": 4.7435
+ },
+ "cross/aligned/mcusum": {
+  "n": 1384,
+  "recall": 0.5195,
+  "fa_per_traj": 6.0202
+ },
+ "cross/aligned/sketch1": {
+  "n": 1384,
+  "recall": 0.6127,
+  "fa_per_traj": 7.3555
+ },
+ "cross/aligned/union4_bonf": {
+  "n": 1384,
+  "recall": 0.9574,
+  "fa_per_traj": 9.0376
+ },
+ "cross/offaxis/adwin": {
+  "n": 68,
+  "recall": 0.0,
+  "fa_per_traj": 0.0
+ },
+ "cross/offaxis/always_multiD": {
+  "n": 68,
+  "recall": 1.0,
+  "fa_per_traj": 6.7353
+ },
+ "cross/offaxis/best_axis_oracle": {
+  "n": 68,
+  "recall": 1.0,
+  "fa_per_traj": 1.3235
+ },
+ "cross/offaxis/dci_v3": {
+  "n": 68,
+  "recall": 1.0,
+  "fa_per_traj": 6.5441
+ },
+ "cross/offaxis/dci_v3_a8": {
+  "n": 68,
+  "recall": 1.0,
+  "fa_per_traj": 6.5588
+ },
+ "cross/offaxis/every_k2": {
+  "n": 68,
+  "recall": 0.4412,
+  "fa_per_traj": 3.3971
+ },
+ "cross/offaxis/mcusum": {
+  "n": 68,
+  "recall": 0.0735,
+  "fa_per_traj": 2.7794
+ },
+ "cross/offaxis/sketch1": {
+  "n": 68,
+  "recall": 0.8676,
+  "fa_per_traj": 5.1176
+ },
+ "cross/offaxis/union4_bonf": {
+  "n": 68,
+  "recall": 1.0,
+  "fa_per_traj": 4.7059
+ },
+ "within/aligned/adwin": {
+  "n": 110,
+  "recall": 0.0,
+  "fa_per_traj": 0.0
+ },
+ "within/aligned/always_multiD": {
+  "n": 110,
+  "recall": 0.9,
+  "fa_per_traj": 6.4909
+ },
+ "within/aligned/best_axis_oracle": {
+  "n": 110,
+  "recall": 0.9636,
+  "fa_per_traj": 1.7636
+ },
+ "within/aligned/dci_v3": {
+  "n": 110,
+  "recall": 0.9,
+  "fa_per_traj": 6.4727
+ },
+ "within/aligned/dci_v3_a8": {
+  "n": 110,
+  "recall": 0.9,
+  "fa_per_traj": 6.4818
+ },
+ "within/aligned/every_k2": {
+  "n": 110,
+  "recall": 0.4818,
+  "fa_per_traj": 3.2364
+ },
+ "within/aligned/mcusum": {
+  "n": 110,
+  "recall": 0.8,
+  "fa_per_traj": 4.0
+ },
+ "within/aligned/sketch1": {
+  "n": 110,
+  "recall": 0.8,
+  "fa_per_traj": 5.2909
+ },
+ "within/aligned/union4_bonf": {
+  "n": 110,
+  "recall": 0.9,
+  "fa_per_traj": 6.4364
+ },
+ "within/offaxis/adwin": {
+  "n": 7,
+  "recall": 0.0,
+  "fa_per_traj": 0.0
+ },
+ "within/offaxis/always_multiD": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 18.0
+ },
+ "within/offaxis/best_axis_oracle": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 5.0
+ },
+ "within/offaxis/dci_v3": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 16.0
+ },
+ "within/offaxis/dci_v3_a8": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 16.1429
+ },
+ "within/offaxis/every_k2": {
+  "n": 7,
+  "recall": 0.4286,
+  "fa_per_traj": 9.1429
+ },
+ "within/offaxis/mcusum": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 7.8571
+ },
+ "within/offaxis/sketch1": {
+  "n": 7,
+  "recall": 0.0,
+  "fa_per_traj": 15.0
+ },
+ "within/offaxis/union4_bonf": {
+  "n": 7,
+  "recall": 1.0,
+  "fa_per_traj": 14.0
+ }
+}

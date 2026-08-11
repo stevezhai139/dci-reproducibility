@@ -78,6 +78,61 @@ def pair_features(sa: Store, wa: int, sb: Store, wb: int, cross: bool):
     return (s_r, 1.0, s_t, s_a, s_p)
 
 
+class View:
+    """Raw window material (possibly a mixture) for pair_features_v."""
+    def __init__(self, fp_list, tables, arr_rel):
+        self.fp_list, self.tables_, self.arr = fp_list, tables, np.asarray(arr_rel, float)
+
+    def qps(self):
+        r = np.sort(self.arr)
+        return arrivals_to_qps_series(r, max(float(r[-1]), 1.0))
+
+
+def view_of(st: Store, w: int, ns=None):
+    fp = st.fp[w].tolist()
+    tb = st.tables(w)
+    if ns is not None:
+        fp = [(ns, x) for x in fp]; tb = {(ns, x) for x in tb}
+    return View(fp, tb, st.arr[w])
+
+
+def mixed_view(sa: Store, wa: int, sb: Store, wb: int, lam: float, rng, cross: bool):
+    """(1-lam)*A + lam*B mixture window: per-query sampling of fingerprints,
+    per-query table lists, merged relative arrivals. Deterministic via rng."""
+    W = sa.win
+    nb = int(round(lam * W)); na = W - nb
+    ia = np.sort(rng.choice(W, size=na, replace=False))
+    ib = np.sort(rng.choice(W, size=nb, replace=False))
+    nsa, nsb = (0, 1) if cross else (None, None)
+    fa = sa.fp[wa][ia].tolist(); fb = sb.fp[wb][ib].tolist()
+    if cross:
+        fa = [(0, x) for x in fa]; fb = [(1, x) for x in fb]
+    # per-query table union over sampled rows
+    def tabs(st, w, rows, ns):
+        out = set()
+        base = w * st.win
+        for r_ in rows:
+            a, b = int(st.tbl_off[base + r_]), int(st.tbl_off[base + r_ + 1])
+            for t in st.tbl_flat[a:b].tolist():
+                out.add((ns, t) if ns is not None else t)
+        return out
+    tb = tabs(sa, wa, ia, nsa) | tabs(sb, wb, ib, nsb)
+    arr = np.concatenate([sa.arr[wa][ia], sb.arr[wb][ib]])
+    return View(fa + fb, tb, arr)
+
+
+def pair_features_v(va: "View", vb: "View"):
+    ca, cb = Counter(va.fp_list), Counter(vb.fp_list)
+    vocab = list(ca.keys() | cb.keys())
+    x = np.array([ca.get(f, 0) for f in vocab], float); x /= x.sum()
+    y = np.array([cb.get(f, 0) for f in vocab], float); y /= y.sum()
+    s_r = float(sr_v2(x, y)); s_t = float(st_v2(x, y))
+    u = va.tables_ | vb.tables_
+    s_a = float(len(va.tables_ & vb.tables_) / len(u)) if u else 1.0
+    s_p = float(sp_v2(va.qps(), vb.qps(), set(va.fp_list), set(vb.fp_list)))
+    return (s_r, 1.0, s_t, s_a, s_p)
+
+
 def a_side(store: Store, a0: int, cal: int, seg: int, memo: dict, key):
     """calibration features + segment-A internal features (cached per (cluster,a0))."""
     if key in memo:
@@ -124,7 +179,22 @@ def main() -> int:
     p.add_argument("--max-cross", type=int, default=1500)
     p.add_argument("--max-within", type=int, default=600)
     p.add_argument("--max-control", type=int, default=400)
+    b = sub.add_parser("bench")
+    b.add_argument("--pairs", default="pairs_out")
+    b.add_argument("--repro", default="..")
+    L = sub.add_parser("lam")
+    L.add_argument("--data", default="data")
+    L.add_argument("--pairs", default="pairs_out")
+    L.add_argument("--out", default="lam_out")
+    L.add_argument("--lambdas", default="0.05,0.1,0.2,0.4,1.0")
+    L.add_argument("--aligned-sample", type=int, default=100)
+    L.add_argument("--seg", type=int, default=12)
+    L.add_argument("--cal", type=int, default=64)
     a = ap.parse_args()
+    if a.cmd == "bench":
+        return bench(a)
+    if a.cmd == "lam":
+        return lam(a)
 
     t0 = time.time()
     ids = [c.strip() for c in a.clusters.split(",")]
@@ -195,6 +265,169 @@ def main() -> int:
                   f"{_np.quantile(Rv,.25):.2f}/{_np.quantile(Rv,.5):.2f}/{_np.quantile(Rv,.75):.2f}"
                   f"  OFF-AXIS (R<0.35): {off:.1f}%")
     print(f"[out] {outd}/candidates.csv + traj_cache.npz  [{time.time()-t0:.0f}s total]")
+    return 0
+
+
+def bench(a) -> int:
+    """Phase 2: S6 policy suite over the cached splice trajectories, stratified
+    by arm x router geometry (aligned R>=0.35 vs off-axis R<0.35 at onset);
+    the control arm supplies the real-data false-alarm floor (spec T-C)."""
+    import csv as _csv
+    import importlib.util, json, time
+    t0 = time.time()
+    root = Path(a.repro).resolve()
+
+    def load(path, name):
+        spec = importlib.util.spec_from_file_location(name, path)
+        m = importlib.util.module_from_spec(spec); sys.modules[name] = m
+        spec.loader.exec_module(m); return m
+
+    s6 = load(root / "s6_baseline_bench.py", "s6_bench_x")
+    gate_mod = load(root / "end_to_end" / "dci_gate.py", "dci_gate_x")
+    v2_mod = load(root / "dci_gate_v2.py", "dci_gate_v2_x")
+    v3_mod = load(root / "dci_gate_v3.py", "dci_gate_v3_x")
+    ov = json.load(open(root / "geometry_E0" / "out" / "20260705T135856Z" / "cost_benefit_run.json"))
+    pax = {k: v * 1e3 for k, v in ov["overhead"]["per_dimension_overhead_s"].items()}
+
+    pdir = Path(a.pairs)
+    zf = np.load(pdir / "traj_cache.npz")
+    CAL, FV, onset = zf["cal"], zf["fv"], int(zf["onset_idx"])
+    rows = list(_csv.DictReader(open(pdir / "candidates.csv")))
+    assert len(rows) == CAL.shape[0]
+
+    POL = ["always_multiD", "union4_bonf", "dci_v3", "dci_v3_a8",
+           "best_axis_oracle", "every_k2", "adwin", "mcusum", "sketch1"]
+
+    def stratum(r):
+        if r.get("stratum"):
+            return r["stratum"]
+        if r["arm"] == "control":
+            return "control"
+        R = float(r["R_at_onset"]) if r["R_at_onset"] not in ("", "nan") else 1.0
+        return f'{r["arm"]}/{"offaxis" if R < 0.35 else "aligned"}'
+
+    agg = {}
+    out_rows = []
+    for i, r in enumerate(rows):
+        cal, fv = CAL[i].astype(float), FV[i].astype(float)
+        ctx = s6.Ctx(cal, gate_mod, v2_mod, v3_mod)
+        n = fv.shape[0]
+        truth = np.zeros(n, int)
+        if r["arm"] != "control":
+            truth[onset] = 1
+        st = stratum(r)
+        for pol in POL:
+            out = s6.replay(pol, ctx, fv, pax, i)
+            if isinstance(out[0], tuple) and out[4] == "ORACLE_STUB":
+                # oracle: best per-axis fires on THIS trajectory (recall, then -FA)
+                best = None
+                for j in range(5):
+                    stat = ((fv[:, j] - ctx.mu0[j]) / ctx.sigma0[j]) ** 2
+                    f_ = (stat > ctx.thr[1]).astype(int)
+                    key = (f_[onset] if truth.any() else 0, -int(f_[truth == 0].sum()))
+                    if best is None or key > best[0]:
+                        best = (key, f_)
+                fires = best[1]
+            else:
+                fires = out[0]
+            hit = int(fires[onset]) if truth.any() else 0
+            fa = int(fires[truth == 0].sum())
+            k = (st, pol)
+            d = agg.setdefault(k, [0, 0, 0, 0])   # n, hits, onsets, fa
+            d[0] += 1; d[1] += hit; d[2] += int(truth.any()); d[3] += fa
+            out_rows.append((r["id"], st, pol, hit, fa))
+        if i % 200 == 0 and i:
+            print(f"  ...{i}/{len(rows)} [{time.time()-t0:.0f}s]", flush=True)
+
+    with open(pdir / "bench_results.csv", "w", newline="") as fh:
+        w = _csv.writer(fh); w.writerow(["cand_id", "stratum", "policy", "hit", "fa"])
+        w.writerows(out_rows)
+
+    hdr = "%-18s%-17s%6s%8s%9s" % ("stratum", "policy", "n", "recall", "FA/traj")
+    print("\n" + hdr)
+    summ = {}
+    for (st, pol) in sorted(agg):
+        n_, h, o, fa = agg[(st, pol)]
+        rec = h / o if o else float("nan")
+        print(f"{st:18s}{pol:17s}{n_:6d}"
+              + (f"{rec:8.3f}" if o else f"{'—':>8s}")
+              + f"{fa / n_:9.3f}")
+        summ[f"{st}/{pol}"] = {"n": n_, "recall": (round(rec, 4) if o else None),
+                               "fa_per_traj": round(fa / n_, 4)}
+    json.dump(summ, open(pdir / "bench_summary.json", "w"), indent=1)
+    print(f"[out] {pdir}/bench_results.csv + bench_summary.json  [{time.time()-t0:.0f}s]")
+    return 0
+
+
+def lam(a) -> int:
+    """Magnitude-controlled splices: post-onset windows are (1-lam)*A + lam*B
+    mixtures of REAL streams (partial-migration semantics). Stratified
+    subsample of the phase-1 population; parent stratum carried explicitly so
+    the bench aggregates by (parent geometry x lambda). Writes lam_out/ with
+    the same filenames bench expects."""
+    import csv as _csv, time
+    t0 = time.time()
+    lams = [float(x) for x in a.lambdas.split(",")]
+    rows = list(_csv.DictReader(open(Path(a.pairs) / "candidates.csv")))
+    rng0 = np.random.default_rng(RNG_SEED + 1)
+
+    def parent(r):
+        R = float(r["R_at_onset"]) if r["R_at_onset"] not in ("", "nan") else 1.0
+        return f'{r["arm"]}/{"offaxis" if R < 0.35 else "aligned"}'
+
+    sel = []
+    for st_name in ("cross/offaxis", "within/offaxis"):
+        sel += [r for r in rows if r["arm"] != "control" and parent(r) == st_name]
+    aligned = [r for r in rows if r["arm"] == "cross" and parent(r) == "cross/aligned"]
+    idx = rng0.choice(len(aligned), size=min(a.aligned_sample, len(aligned)), replace=False)
+    sel += [aligned[i] for i in idx]
+    wal = [r for r in rows if r["arm"] == "within" and parent(r) == "within/aligned"]
+    idx = rng0.choice(len(wal), size=min(a.aligned_sample // 2, len(wal)), replace=False)
+    sel += [wal[i] for i in idx]
+    print(f"[lam] {len(sel)} parent candidates x {len(lams)} lambdas")
+
+    ids = sorted({r["cluster_a"] for r in sel} | {r["cluster_b"] for r in sel})
+    stores = {c: Store(Path(a.data) / f"store_{c}.npz") for c in ids}
+    memo = {}
+    out_rows, cache_cal, cache_fv = [], [], []
+    onset_idx = a.seg - 1
+    k = 0
+    for r in sel:
+        cx, cy = r["cluster_a"], r["cluster_b"]
+        s1, s2 = int(r["start_a"]), int(r["start_b"])
+        cross = (cx != cy)
+        sa, sb = stores[cx], stores[cy]
+        calF, segA = a_side(sa, s1, a.cal, a.seg, memo, (cx, s1))
+        lastA = view_of(sa, s1 + a.seg - 1, 0 if cross else None)
+        for lm in lams:
+            feats = list(segA)
+            prev = lastA
+            for i in range(a.seg):
+                rng = np.random.default_rng([RNG_SEED, int(r["id"]), int(lm * 1000), i])
+                cur = mixed_view(sa, s1 + a.seg + i, sb, s2 + i, lm, rng, cross)
+                feats.append(pair_features_v(prev, cur))
+                prev = cur
+            fv = np.array(feats)
+            R_at, dci_at, minR, esc = geometry(calF, fv, onset_idx)
+            out_rows.append({"id": k, "arm": r["arm"], "cluster_a": cx, "start_a": s1,
+                             "cluster_b": cy, "start_b": s2, "lam": lm,
+                             "stratum": f"{parent(r)}/l{lm:g}",
+                             "R_at_onset": round(R_at, 4), "DCI_at_onset": round(dci_at, 4),
+                             "minR_onset_p2": round(minR, 4), "esc_windows": esc})
+            cache_cal.append(calF.astype(np.float32)); cache_fv.append(fv.astype(np.float32))
+            k += 1
+        if len(out_rows) % 100 < len(lams):
+            print(f"  ...{len(out_rows)} trajectories [{time.time()-t0:.0f}s]", flush=True)
+
+    outd = Path(a.out); outd.mkdir(exist_ok=True)
+    with open(outd / "candidates.csv", "w", newline="") as fh:
+        w = _csv.DictWriter(fh, fieldnames=list(out_rows[0]))
+        w.writeheader(); w.writerows(out_rows)
+    np.savez_compressed(outd / "traj_cache.npz",
+                        cal=np.array(cache_cal), fv=np.array(cache_fv),
+                        onset_idx=onset_idx)
+    print(f"[out] {outd}/candidates.csv + traj_cache.npz ({k} trajectories) "
+          f"[{time.time()-t0:.0f}s]")
     return 0
 
 
