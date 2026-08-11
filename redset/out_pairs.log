@@ -1,0 +1,32 @@
+[pairs] cluster 96: 58677 windows
+[pairs] cluster 100: 20667 windows
+[pairs] cluster 31: 8732 windows
+[pairs] cluster 77: 7409 windows
+[pairs] cluster 178: 5319 windows
+[pairs] cluster 33: 4292 windows
+[pairs] cluster 3: 3637 windows
+[pairs] cluster 11: 3401 windows
+[pairs] cluster 56: 2862 windows
+[pairs] cluster 16: 2761 windows
+[pairs] cluster 53: 2220 windows
+[pairs] cluster 14: 1966 windows
+[pairs] candidates: Counter({'cross': 1452, 'within': 117, 'control': 101})  [2s]
+  ...100/1670 [6s]
+  ...200/1670 [10s]
+  ...300/1670 [13s]
+  ...400/1670 [16s]
+  ...500/1670 [18s]
+  ...600/1670 [20s]
+  ...700/1670 [22s]
+  ...800/1670 [25s]
+  ...900/1670 [27s]
+  ...1000/1670 [29s]
+  ...1100/1670 [31s]
+  ...1200/1670 [33s]
+  ...1300/1670 [36s]
+  ...1400/1670 [38s]
+  ...1500/1670 [39s]
+  ...1600/1670 [41s]
+[POPULATION] cross  : n=1452  R quartiles 0.67/0.80/0.99  OFF-AXIS (R<0.35): 4.7%
+[POPULATION] within : n=117  R quartiles 0.57/0.79/0.93  OFF-AXIS (R<0.35): 6.0%
+[out] pairs_out/candidates.csv + traj_cache.npz  [42s total]

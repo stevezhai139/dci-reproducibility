@@ -163,3 +163,26 @@ exact pair-local vocab for trajectories; S_V constant under fixed-count
 windows; table-only S_A; kernel sp_v2 on arrival-QPS. Official logs:
 redset/out_{select,lam,lam_bench,lamfit}.log; deterministic rng
 [RNG_SEED, cand_id, μ·1000, window].
+
+## Live contrast canary (§6.10 "Where the arms part"; 2026-08-12)
+
+Design X0r: 6% canary of plan-equivalent rewrites (tpch_contrast_queries.py;
+same tables/cols/plans — S_A/S_P/S_V neutral by construction, S_R carries a
+sub-Bonferroni −1.6σ). Chosen by contrast_preflight.py: five candidate
+families eliminated (single-population mix knobs span ridge+single-axis
+only; S_A is a step function of template absence; adjacent-pair features
+difference away step changes; union det on persistent shifts = Gaussian
+tail arithmetic — predicted vs measured 3-point match).
+
+1. `python3 contrast_preflight.py . --seeds 25 --prompt 3` — offline design
+   verification (NULL FA-floor probe + X0r/X1r candidates).
+2. `CONTRAST_BLOCKS=1 ./RUN_CONTRAST.sh` — smoke; then
+   `CONTRAST_FORCE=1 ./RUN_CONTRAST.sh` — official 3 arms × 10 blocks
+   (~42 min/arm), workload tpch_contrast_l06 (l05/l07 via CONTRAST_WL).
+3. `python3 contrast_analyze.py .` — frontier stats (net-of-floor det@k,
+   delay, esc, R_end, measured det_ms). Official: delay 1/2/4
+   full/gated/union; det6 .90/.90/.60; esc_post .692; R_end .079;
+   det_ms gated 2.25 steady → 7.12 post vs always-full 7.92.
+4. `python3 contrast_roc.py .` — matched-FA replay from logged features
+   (S_V masked: zero variance under fixed-count windows) + escalation
+   attribution. Official: FA .01/win → det3 routed .4 = full .4 > union .2.

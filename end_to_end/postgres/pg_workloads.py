@@ -221,3 +221,41 @@ WORKLOAD_CONFIGS["tpch_mixed"] = {
     "lambda_map": {"MixBase": 40.0, "MixShift1": 40.0, "MixSurge1": 40.0,
                    "MixShift2": 40.0, "MixCalm": 40.0, "MixShift3": 40.0},
 }
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  Paper 3C — live CONTRAST schedule (added 2026-08-12): "tpch_contrast_*"
+# ══════════════════════════════════════════════════════════════════════
+# Two-population canary (contrast_preflight.py, design X0r): 12 steady
+# windows of MixBase, then 12 windows where a fraction lam of queries is
+# drawn from PLAN-EQUIVALENT REWRITES of the same five templates
+# (tpch_contrast_queries.py). Offline preflight geometry (official
+# 2026-08-12): per-axis deviations sub-Bonferroni (union sees only its
+# noise tail), alignment R_end 0.17-0.21 << rho, presence-significant ->
+# the router escalates ~0.40-0.49 of post windows. No glide phase: at
+# lam<=0.07 the boundary deviation equals the persistent one (no
+# transient), so drift_truth marks exactly window 13.
+# S_V frozen (qpw=20 both phases); lambda arrival held at 40 q/s.
+def _contrast_cfg(lam: float) -> dict:
+    a = [3.0, 2.0, 2.0, 2.0, 1.0]
+    qs_a = ["Q1", "Q6", "Q14", "Q3", "Q12"]
+    qs_b = [q + "v2" for q in qs_a]
+    w_hold = [round((1.0 - lam) * w, 4) for w in a] + \
+             [round(lam * w, 4) for w in a]
+    return {
+        **WORKLOAD_CONFIGS["tpch"],
+        "queries_module": "tpch_contrast_queries",
+        "sf_db_map": {1.0: "tpch_sf1"},
+        "win_per_ph": 12,
+        "phases": [
+            {"name": "CtrSteady", "qs": qs_a, "w": a, "qpw": 20},
+            {"name": f"CtrHold{int(lam*100):02d}", "qs": qs_a + qs_b,
+             "w": w_hold, "qpw": 20},
+        ],
+        "lambda_map": {"CtrSteady": 40.0,
+                       f"CtrHold{int(lam*100):02d}": 40.0},
+    }
+
+WORKLOAD_CONFIGS["tpch_contrast_l05"] = _contrast_cfg(0.05)
+WORKLOAD_CONFIGS["tpch_contrast_l06"] = _contrast_cfg(0.06)
+WORKLOAD_CONFIGS["tpch_contrast_l07"] = _contrast_cfg(0.07)

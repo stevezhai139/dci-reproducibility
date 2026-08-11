@@ -92,7 +92,7 @@ sys.path.insert(0, os.path.join(_HERE, '..', '..'))     # dci_gate_v3.py (repo r
 # remaining args (--sf, --blocks, --no-poisson) still flow through to
 # main()'s parser later.  Default = 'tpch' (the original Paper 3A workload).
 _pre_parser = argparse.ArgumentParser(add_help=False)
-_pre_parser.add_argument('--workload', choices=['tpch', 'job', 'tpch_mixed'], default='tpch')
+_pre_parser.add_argument('--workload', default='tpch')  # validated against WORKLOAD_CONFIGS below
 _pre_args, _ = _pre_parser.parse_known_args()
 WORKLOAD = _pre_args.workload
 
@@ -903,7 +903,7 @@ def write_run_meta(out_path: Path, sf: float, dbname: str,
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--workload', choices=['tpch', 'job', 'tpch_mixed'], default='tpch',
+    parser.add_argument('--workload', choices=sorted(WORKLOAD_CONFIGS), default='tpch',
                         help='Workload selector (tpch | job) — also pre-parsed '
                              'at module load to configure QUERIES/PHASES/ADVISOR')
     parser.add_argument('--sf', nargs='+', type=float,

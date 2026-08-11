@@ -1,0 +1,16 @@
+[roc] lam=l06 arm=gated rows=480
+[cal] pooled steady m=220; live axes = ['S_R', 'S_T', 'S_A', 'S_P']
+ fa_per_win detector  det3  dly_med  attr_esc
+       0.01    union   0.2      4.0     1.000
+       0.01     full   0.4      4.0     1.000
+       0.01   routed   0.4      2.0     1.000
+       0.02    union   0.5      1.0     0.667
+       0.02     full   0.5      2.5     0.800
+       0.02   routed   0.7      1.5     0.700
+       0.05    union   0.6      1.5     0.600
+       0.05     full   0.7      1.0     0.300
+       0.05   routed   0.7      1.5     0.600
+[out] contrast_roc.csv
+
+[read] attr_esc for 'routed' = fraction of first-detections on an
+       escalated window (geometry-driven, not tail-driven).
